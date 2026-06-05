@@ -304,6 +304,24 @@ class UmkmController extends Controller
                 'nama_produk_master' => $namaProdukUmum,
                 'status_produk_master' => 'menunggu',
             ]);
+
+            // Kirim notifikasi email ke user yang punya akses 'konfirmasi_umkm'
+            $adminUsers = \App\Models\Pengguna::with('role.akses')
+                ->whereNotNull('email_pengguna')
+                ->where('status_pengguna', 'aktif')
+                ->get()
+                ->filter(function($u) {
+                    return $u->hasAkses('konfirmasi_umkm');
+                });
+
+            foreach ($adminUsers as $admin) {
+                try {
+                    \Illuminate\Support\Facades\Mail::to($admin->email_pengguna)
+                        ->send(new \App\Mail\ProdukMasterBaruMail($produkMaster, auth()->user()));
+                } catch (\Exception $e) {
+                    // Abaikan jika konfigurasi email gagal
+                }
+            }
         }
 
         $data = [
