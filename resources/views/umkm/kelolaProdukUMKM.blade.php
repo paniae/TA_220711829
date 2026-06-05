@@ -126,7 +126,7 @@
     @else
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
             @foreach($produk as $item)
-            <div class="group bg-white rounded-[2rem] border border-gray-200 hover:border-[#FA8145] shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-1 flex flex-col h-full">
+            <div onclick="openProdukModal('{{ addslashes($item->nama_produk) }}', '{{ $item->foto_produk_umkm ? asset('storage/'.$item->foto_produk_umkm) : '' }}', '{{ number_format($item->harga, 0, ',', '.') }}', '{{ addslashes($item->deskripsi) }}', '{{ $item->status }}', '{{ addslashes($umkm->nama_umkm) }}', '{{ strtolower($umkm->bidang_umkm) }}')" class="group bg-white rounded-[2rem] border border-gray-200 hover:border-[#FA8145] shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-1 flex flex-col h-full cursor-pointer active:scale-95">
                 
                 @php
                     $defaultImage = match(strtolower($umkm->bidang_umkm)) {
@@ -166,7 +166,7 @@
                     </p>
 
                     @if(auth()->check() && (auth()->user()->hasAkses('kelola_umkm') || auth()->id() == $umkm->id_pengguna))
-                    <div class="mt-auto grid grid-cols-2 gap-2">
+                    <div class="mt-auto grid grid-cols-2 gap-2" onclick="event.stopPropagation()">
                         <button type="button" onclick="handleEditProduk(this)" 
                             data-id="{{ $item->id_produk_umkm }}"
                             data-nama="{{ $item->nama_produk }}"
@@ -285,6 +285,41 @@
     </div>
 </div>
 
+<div id="modalDetailProduk" class="fixed inset-0 bg-[#69200F]/40 hidden z-[999] flex items-center justify-center p-4 backdrop-blur-sm">
+    <div class="bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl border border-[#FA8145] flex flex-col overflow-hidden max-h-[90vh]">
+        <div class="p-6 border-b flex justify-between items-center bg-gray-50/50">
+            <h2 class="text-lg font-semibold text-[#69200F] uppercase tracking-tight">Detail Produk</h2>
+            <button type="button" onclick="closeProdukModal()" class="text-gray-400 hover:text-[#A33215] transition-colors p-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        
+        <div class="p-6 overflow-y-auto">
+            <div class="flex flex-col items-center mb-6">
+                <div class="w-48 h-48 rounded-2xl overflow-hidden border border-orange-100 shadow-sm mb-4">
+                    <img id="detailFoto" src="" class="w-full h-full object-cover">
+                </div>
+                <h3 id="detailNama" class="text-xl font-bold text-[#69200F] uppercase tracking-wider text-center"></h3>
+                <p id="detailUMKM" class="text-xs font-semibold text-gray-500 uppercase tracking-widest mt-1"></p>
+                <div class="mt-3">
+                    <span id="detailStatus" class="text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm"></span>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <div class="bg-orange-50/30 p-4 rounded-xl border border-orange-100/50">
+                    <p class="text-[10px] font-bold text-[#C54716] uppercase tracking-widest mb-1">Harga</p>
+                    <p id="detailHarga" class="text-lg font-black text-[#A33215]"></p>
+                </div>
+                <div class="bg-gray-50/50 p-4 rounded-xl border border-gray-100">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Deskripsi</p>
+                    <p id="detailDeskripsi" class="text-sm text-gray-600 leading-relaxed"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="modalDeleteProduk" class="fixed inset-0 bg-[#69200F]/40 hidden z-[999] flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white p-10 rounded-[2.5rem] text-center w-full max-w-sm shadow-2xl border border-[#FA8145]">
         <h3 class="text-xl font-bold text-[#69200F] uppercase tracking-tight mb-3">Hapus Produk?</h3>
@@ -344,6 +379,42 @@ function openDeleteModal(id) {
 
 function closeDeleteModal() {
     document.getElementById('modalDeleteProduk').classList.add('hidden');
+}
+
+function openProdukModal(nama, fotoUrl, harga, deskripsi, status, toko, bidang) {
+    document.getElementById('detailNama').innerText = nama;
+    document.getElementById('detailHarga').innerText = 'Rp ' + harga;
+    document.getElementById('detailUMKM').innerText = 'UMKM: ' + toko;
+    document.getElementById('detailDeskripsi').innerText = deskripsi ? deskripsi : 'Tidak ada deskripsi.';
+    
+    const statusEl = document.getElementById('detailStatus');
+    if (status === 'tersedia') {
+        statusEl.innerText = 'Tersedia';
+        statusEl.className = 'text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm bg-orange-50 text-[#C54716] border border-orange-200';
+    } else {
+        statusEl.innerText = 'Tidak Tersedia';
+        statusEl.className = 'text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm bg-gray-100 text-gray-500 border border-gray-200';
+    }
+
+    const fotoEl = document.getElementById('detailFoto');
+    if (fotoUrl) {
+        fotoEl.src = fotoUrl;
+    } else {
+        const defaultImages = {
+            'kuliner': 'images/kuliner.jpg',
+            'fashion': 'images/fashion.jpg',
+            'agribisnis': 'images/agribisnis.jpg',
+            'jasa & produk kreatif': 'images/jasa.jpg',
+            'teknologi dan digital': 'images/teknologi.jpg'
+        };
+        fotoEl.src = '{{ asset("") }}' + (defaultImages[bidang] || 'images/default.jpg');
+    }
+
+    document.getElementById('modalDetailProduk').classList.remove('hidden');
+}
+
+function closeProdukModal() {
+    document.getElementById('modalDetailProduk').classList.add('hidden');
 }
 </script>
 @endpush
