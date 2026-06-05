@@ -16,18 +16,12 @@ class ProdukUmkm extends Model
         'harga',
         'status_produk',
         'foto_produk',
-        'deskripsi_produk',
-        'id_kategori_produk'
+        'deskripsi_produk'
     ];
 
     public function umkm()
     {
         return $this->belongsTo(Umkm::class, 'id_umkm');
-    }
-
-    public function kategori()
-    {
-        return $this->belongsTo(KategoriProduk::class, 'id_kategori_produk');
     }
 
     public function produkMaster()

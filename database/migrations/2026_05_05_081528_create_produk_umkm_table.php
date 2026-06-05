@@ -19,10 +19,8 @@ return new class extends Migration
             $table->string('status_produk')->nullable();
             $table->string('foto_produk')->nullable();
             $table->text('deskripsi_produk')->nullable();
-            $table->string('id_kategori_produk')->nullable();
 
             $table->foreign('id_umkm')->references('id_umkm')->on('umkm')->cascadeOnDelete();
-            $table->foreign('id_kategori_produk')->references('id_kategori_produk')->on('kategori_produk')->cascadeOnDelete();
             $table->unsignedBigInteger('id_produk_master')->nullable();
             $table->foreign('id_produk_master')->references('id_produk_master')->on('produk_master')->onDelete('set null');
 

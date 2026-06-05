@@ -1,0 +1,460 @@
+classDiagram
+    direction TB
+    
+    namespace Views_Boundary_Layer {
+        class Views_Auth {
+            <<boundary>>
+            +tampilFormLogin()
+            +tampilFormRegister()
+        }
+        class Views_Pengguna {
+            <<boundary>>
+            +tampilProfil()
+            +tampilKelolaPengguna()
+        }
+        class Views_Role {
+            <<boundary>>
+            +tampilKelolaRole()
+            +tampilKelolaAkses()
+        }
+        class Views_Penduduk {
+            <<boundary>>
+            +tampilDaftarPenduduk()
+        }
+        class Views_Pengaduan {
+            <<boundary>>
+            +tampilDaftarPengaduan()
+        }
+        class Views_Kegiatan {
+            <<boundary>>
+            +tampilDaftarKegiatan()
+            +tampilProker()
+            +tampilDokumentasi()
+        }
+        class Views_LaporanKehilangan {
+            <<boundary>>
+            +tampilForumKehilangan()
+        }
+        class Views_Laporan {
+            <<boundary>>
+            +tampilRekapitulasi()
+            +tampilLaporanPenduduk()
+        }
+        class Views_Umkm {
+            <<boundary>>
+            +tampilKelolaUMKM()
+            +tampilKonfirmasi()
+            +tampilProdukUMKM()
+        }
+        class Views_Guest {
+            <<boundary>>
+            +tampilKatalogUMKM()
+        }
+        class Views_InformasiUmum {
+            <<boundary>>
+            +tampilProfilPadukuhan()
+            +tampilKontak()
+        }
+        class Views_Beranda {
+            <<boundary>>
+            +tampilBeranda()
+        }
+    }
+
+    namespace Controllers_Control_Layer {
+        class AuthController {
+            <<control>>
+            +showLogin()
+            +login()
+            +logout()
+            +showRegister()
+            +register()
+            +resetPassword()
+        }
+        class PenggunaController {
+            <<control>>
+            +profil()
+            +updateProfil()
+            +hapusFotoProfil()
+            +updatePassword()
+            +kelola()
+            +store()
+            +update()
+            +destroy()
+            +terima()
+            +tolak()
+        }
+        class RoleAksesController {
+            <<control>>
+            +index()
+            +store()
+            +update()
+            +destroy()
+            +assignRole()
+            +revokeRole()
+        }
+        class PendudukController {
+            <<control>>
+            +index()
+            +store()
+            +update()
+            +destroy()
+        }
+        class PengaduanController {
+            <<control>>
+            +index()
+            +create()
+            +store()
+            +update()
+            +destroy()
+            +terima()
+            +tolak()
+            +selesai()
+        }
+        class KegiatanController {
+            <<control>>
+            +kelola()
+            +lihat()
+            +store()
+            +show()
+            +update()
+            +destroy()
+            +mulai()
+            +selesai()
+            +lihatProker()
+            +lihatDokumentasi()
+            +storeDokumentasi()
+            +downloadAllDokumentasi()
+            +updateDokumentasi()
+            +destroyDokumentasi()
+        }
+        class LaporanKehilanganController {
+            <<control>>
+            +index()
+            +store()
+            +show()
+            +tambahKomentar()
+            +kelolaKomentar()
+            +storeKomentar()
+            +updateKomentar()
+            +destroyKomentar()
+            +update()
+            +destroy()
+            +tutup()
+            +getKomentarList()
+            +getLaporanListPoll()
+        }
+        class LaporanController {
+            <<control>>
+            +index()
+            +laporanPenduduk()
+            +exportPdf()
+        }
+        class UmkmController {
+            <<control>>
+            +index()
+            +indexGuest()
+            +store()
+            +storeAdmin()
+            +storeProdukMasterAdmin()
+            +edit()
+            +update()
+            +destroy()
+            +produk()
+            +storeProduk()
+            +updateProduk()
+            +destroyProduk()
+            +listKonfirmasi()
+            +konfirmasi()
+            +konfirmasiProdukMaster()
+            +tolakProdukMaster()
+            +updateProdukMasterAdmin()
+            +destroyProdukMasterAdmin()
+            +show()
+        }
+        class ProfilPadukuhanController {
+            <<control>>
+            +index()
+            +update()
+        }
+        class KontakPadukuhanController {
+            <<control>>
+            +index()
+            +update()
+        }
+        class berandaController {
+            <<control>>
+            +index()
+        }
+    }
+
+    namespace Models_Entity_Layer {
+        class PENGGUNA {
+            <<entity>>
+            -bigint id_pengguna
+            -varchar nama
+            -varchar password
+            -varchar nik
+            -varchar foto_profil
+            -varchar status_pengguna
+            -varchar alamat_pengguna
+            -varchar nomor_telepon_pengguna
+            -varchar email_pengguna
+            -varchar jenis_kelamin_pengguna
+            -date tanggal_lahir_pengguna
+            -bigint id_role
+            -timestamp created_at
+            -timestamp updated_at
+        }
+        class ROLE {
+            <<entity>>
+            -bigint id_role
+            -varchar nama_role
+            -timestamp created_at
+            -timestamp updated_at
+        }
+        class AKSES {
+            <<entity>>
+            -bigint id_akses
+            -varchar nama_akses
+            -varchar deskripsi_akses
+            -timestamp created_at
+            -timestamp updated_at
+        }
+        class ROLE_AKSES {
+            <<entity>>
+            -bigint id
+            -bigint id_role
+            -bigint id_akses
+            -timestamp created_at
+            -timestamp updated_at
+        }
+        class PENDUDUK {
+            <<entity>>
+            -varchar nomor_induk_kependudukan
+            -varchar nama_lengkap
+            -varchar nomor_kk
+            -varchar jenis_kelamin
+            -varchar tempat_lahir
+            -date tanggal_lahir
+            -varchar agama
+            -varchar pendidikan
+            -varchar jenis_pekerjaan
+            -varchar alamat
+            -varchar rt
+            -varchar rw
+            -varchar kecamatan
+            -varchar desa_kelurahan
+            -varchar kabupaten_kota
+            -varchar provinsi
+            -varchar status_perkawinan
+            -varchar status_penduduk
+            -varchar foto_penduduk
+            -bigint id_pengguna
+            -timestamp created_at
+            -timestamp updated_at
+        }
+        class PENGADUAN {
+            <<entity>>
+            -bigint id_pengaduan
+            -bigint id_pengguna
+            -text isi_pengaduan
+            -varchar status_pengaduan
+            -datetime tgl_waktu_pengaduan
+            -timestamp created_at
+            -timestamp updated_at
+        }
+        class FOTO_PENGADUAN {
+            <<entity>>
+            -bigint id_foto_pengaduan
+            -bigint id_pengaduan
+            -varchar foto_pengaduan
+            -timestamp created_at
+            -timestamp updated_at
+        }
+        class KEGIATAN_PADUKUHAN {
+            <<entity>>
+            -bigint id_kegiatan
+            -bigint id_pengguna
+            -varchar nama_kegiatan
+            -datetime tgl_waktu_pelaksanaan
+            -datetime waktu_selesai
+            -varchar jenis_kegiatan
+            -varchar status_kegiatan
+            -varchar kategori
+            -int dana_dikeluarkan
+            -varchar lokasi
+            -text deskripsi_kegiatan
+            -varchar poster_kegiatan
+            -timestamp created_at
+            -timestamp updated_at
+        }
+        class DOKUMENTASI_KEGIATAN {
+            <<entity>>
+            -bigint id_dokumentasi
+            -bigint id_kegiatan
+            -date tanggal_dokumentasi
+            -varchar file_kegiatan
+            -text deskripsi_dokumentasi
+            -timestamp created_at
+            -timestamp updated_at
+        }
+        class LAPORAN_KEHILANGAN {
+            <<entity>>
+            -bigint id_laporan
+            -bigint id_pengguna
+            -datetime tanggal_hilang
+            -varchar barang_hilang
+            -varchar lokasi_hilang
+            -varchar foto_barang
+            -datetime tanggal_laporan
+            -text deskripsi_laporan
+            -varchar status_kehilangan
+            -timestamp created_at
+            -timestamp updated_at
+        }
+        class KOMENTAR_FORUM {
+            <<entity>>
+            -bigint id_komen
+            -bigint id_laporan
+            -text komentar
+            -datetime tgl_waktu_komen
+            -varchar foto_komen
+            -bigint id_pengguna
+            -timestamp created_at
+            -timestamp updated_at
+        }
+        class UMKM {
+            <<entity>>
+            -bigint id_umkm
+            -bigint id_pengguna
+            -varchar nama_umkm
+            -varchar alamat_umkm
+            -varchar bidang_umkm
+            -varchar foto_umkm
+            -varchar status_umkm
+            -text deskripsi_umkm
+            -varchar nomor_telepon_umkm
+            -tinyint is_nomor_telepon_ditampilkan
+            -varchar email_umkm
+            -timestamp created_at
+            -timestamp updated_at
+        }
+        class PRODUK_UMKM {
+            <<entity>>
+            -bigint id_produk
+            -bigint id_umkm
+            -varchar nama_produk
+            -int harga
+            -varchar status_produk
+            -varchar foto_produk
+            -text deskripsi_produk
+            -bigint id_produk_master
+            -timestamp created_at
+            -timestamp updated_at
+        }
+        class PRODUK_MASTER {
+            <<entity>>
+            -bigint id_produk_master
+            -varchar nama_produk_master
+            -varchar status_produk_master
+            -timestamp created_at
+            -timestamp updated_at
+        }
+        class PROFIL_PADUKUHAN {
+            <<entity>>
+            -bigint id_profil
+            -varchar visi
+            -text misi
+            -varchar alamat_balai
+            -varchar nama_padukuhan
+            -varchar nama_kalurahan
+            -varchar nama_kecamatan
+            -varchar nama_kabupaten
+            -text sejarah
+            -varchar foto_balai
+            -varchar foto_kebersamaan
+            -varchar link_maps_balai
+            -varchar logo_padukuhan
+            -varchar jam_operasional
+            -timestamp created_at
+            -timestamp updated_at
+        }
+        class KONTAK_PADUKUHAN {
+            <<entity>>
+            -bigint id_kontak
+            -varchar nomor_telepon
+            -varchar email
+            -varchar instagram
+            -varchar status_kontak
+            -timestamp created_at
+            -timestamp updated_at
+        }
+    }
+
+    %% ----------------------------------------------------
+    %% CORE: Relationships between Models (Entities)
+    %% Defining this first helps Mermaid layout the Entity cluster with PENGGUNA in the center
+    %% ----------------------------------------------------
+    ROLE "1" <-- "0..*" PENGGUNA : id_role
+    ROLE "1" <-- "0..*" ROLE_AKSES : id_role
+    AKSES "1" <-- "0..*" ROLE_AKSES : id_akses
+
+    PENGGUNA "1" <-- "0..1" PENDUDUK : id_pengguna
+    PENGGUNA "1" <-- "0..*" PENGADUAN : id_pengguna
+    PENGGUNA "1" <-- "0..*" KEGIATAN_PADUKUHAN : id_pengguna
+    PENGGUNA "1" <-- "0..*" LAPORAN_KEHILANGAN : id_pengguna
+    PENGGUNA "1" <-- "0..*" KOMENTAR_FORUM : id_pengguna
+    PENGGUNA "1" <-- "0..1" UMKM : id_pengguna
+
+    PENGADUAN "1" <-- "0..*" FOTO_PENGADUAN : id_pengaduan
+    KEGIATAN_PADUKUHAN "1" <-- "0..*" DOKUMENTASI_KEGIATAN : id_kegiatan
+    LAPORAN_KEHILANGAN "1" <-- "0..*" KOMENTAR_FORUM : id_laporan
+
+    UMKM "1" <-- "0..*" PRODUK_UMKM : id_umkm
+    PRODUK_MASTER "1" <-- "0..*" PRODUK_UMKM : id_produk_master
+
+    %% ----------------------------------------------------
+    %% MIDDLE: Relationships between Controllers and Models
+    %% ----------------------------------------------------
+    AuthController --> PENGGUNA
+    PenggunaController --> PENGGUNA
+    RoleAksesController --> ROLE
+    RoleAksesController --> AKSES
+    RoleAksesController --> ROLE_AKSES
+    PendudukController --> PENDUDUK
+    PengaduanController --> PENGADUAN
+    PengaduanController --> FOTO_PENGADUAN
+    KegiatanController --> KEGIATAN_PADUKUHAN
+    KegiatanController --> DOKUMENTASI_KEGIATAN
+    LaporanKehilanganController --> LAPORAN_KEHILANGAN
+    LaporanKehilanganController --> KOMENTAR_FORUM
+    LaporanController --> PENDUDUK
+    LaporanController --> KEGIATAN_PADUKUHAN
+    LaporanController --> PENGADUAN
+    LaporanController --> UMKM
+    UmkmController --> UMKM
+    UmkmController --> PRODUK_UMKM
+    UmkmController --> PRODUK_MASTER
+    ProfilPadukuhanController --> PROFIL_PADUKUHAN
+    KontakPadukuhanController --> KONTAK_PADUKUHAN
+    berandaController --> PROFIL_PADUKUHAN
+    berandaController --> KEGIATAN_PADUKUHAN
+    berandaController --> UMKM
+
+    %% ----------------------------------------------------
+    %% TOP: Relationships between Views and Controllers
+    %% ----------------------------------------------------
+    Views_Auth <.. AuthController
+    Views_Pengguna <.. PenggunaController
+    Views_Role <.. RoleAksesController
+    Views_Penduduk <.. PendudukController
+    Views_Pengaduan <.. PengaduanController
+    Views_Kegiatan <.. KegiatanController
+    Views_LaporanKehilangan <.. LaporanKehilanganController
+    Views_Laporan <.. LaporanController
+    Views_Umkm <.. UmkmController
+    Views_Guest <.. UmkmController
+    Views_InformasiUmum <.. ProfilPadukuhanController
+    Views_InformasiUmum <.. KontakPadukuhanController
+    Views_Beranda <.. berandaController
