@@ -10,7 +10,7 @@ class AksesSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('akses')->insert([
+        $aksesData = [
             // Kegiatan
             ['nama_akses' => 'kelola_kegiatan', 'deskripsi_akses' => 'Menambah, mengubah, menghapus data dan mengunggah dokumentasi kegiatan/proker'],
             ['nama_akses' => 'lihat_kegiatan', 'deskripsi_akses' => 'Melihat dan mengunduh detail data serta dokumentasi kegiatan/proker'],
@@ -41,6 +41,13 @@ class AksesSeeder extends Seeder
             ['nama_akses' => 'kelola_role', 'deskripsi_akses' => 'Menambah, mengubah, melihat, dan menghapus jenis peran (role) pengguna'],
             ['nama_akses' => 'kelola_role_akses', 'deskripsi_akses' => 'Memberikan dan mencabut izin hak akses spesifik untuk masing-masing peran (role)'],
 
-        ]);
+        ];
+
+        foreach ($aksesData as $data) {
+            DB::table('akses')->updateOrInsert(
+                ['nama_akses' => $data['nama_akses']],
+                ['deskripsi_akses' => $data['deskripsi_akses']]
+            );
+        }
     }
 }
