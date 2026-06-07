@@ -201,7 +201,7 @@
                             data-email="{{ $user->email_pengguna ?? '-' }}"
                             data-jk="{{ $user->jenis_kelamin_pengguna }}"
                             data-tgl="{{ \Carbon\Carbon::parse($user->tanggal_lahir_pengguna)->translatedFormat('d F Y') }}"
-                            data-tgl_raw="{{ $user->tanggal_lahir_pengguna }}"
+                            data-tgl_raw="{{ \Carbon\Carbon::parse($user->tanggal_lahir_pengguna)->format('Y-m-d') }}"
                             data-alamat="{{ $user->alamat_pengguna }}"
                             data-id="{{ $user->id_pengguna }}"
                             data-role_id="{{ $user->id_role }}"

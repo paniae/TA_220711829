@@ -168,13 +168,13 @@
                     @if(auth()->check() && (auth()->user()->hasAkses('kelola_umkm') || auth()->id() == $umkm->id_pengguna))
                     <div class="mt-auto grid grid-cols-2 gap-2" onclick="event.stopPropagation()">
                         <button type="button" onclick="handleEditProduk(this)" 
-                            data-id="{{ $item->id_produk_umkm }}"
+                            data-id="{{ $item->id_produk }}"
                             data-nama="{{ $item->nama_produk }}"
                             data-harga="{{ $item->harga }}"
                             data-deskripsi="{{ $item->deskripsi }}"
                             data-status="{{ $item->status }}"
                             class="bg-white text-[#C54716] border border-[#C54716] py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-orange-50 transition-all text-center">Ubah</button>
-                        <button onclick="openDeleteModal({{ $item->id_produk_umkm }})"
+                        <button onclick="openDeleteModal({{ $item->id_produk }})"
                             class="bg-white text-[#A33215] border border-[#A33215] py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-orange-50 transition-all text-center">Hapus</button>
                     </div>
                     @endif
@@ -365,7 +365,7 @@ function handleEditProduk(btn) {
     document.getElementById('edit_deskripsi').value = btn.getAttribute('data-deskripsi');
     document.getElementById('edit_status').value = btn.getAttribute('data-status');
 
-    document.getElementById('formEditProduk').action = '/produk/' + btn.getAttribute('data-id');
+    document.getElementById('formEditProduk').action = '{{ url("produk") }}/' + btn.getAttribute('data-id');
 }
 
 function closeEditModal() {
@@ -374,7 +374,7 @@ function closeEditModal() {
 
 function openDeleteModal(id) {
     document.getElementById('modalDeleteProduk').classList.remove('hidden');
-    document.getElementById('formDeleteProduk').action = '/produk/' + id;
+    document.getElementById('formDeleteProduk').action = '{{ url("produk") }}/' + id;
 }
 
 function closeDeleteModal() {
