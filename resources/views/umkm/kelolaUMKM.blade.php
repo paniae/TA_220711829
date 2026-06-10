@@ -256,6 +256,9 @@
             <p class="text-xs text-gray-500 mt-1">
                 Lengkapi data usaha Anda
             </p>
+            <p class="text-[10px] text-[#E75C16] mt-2 uppercase tracking-widest font-bold">
+                <span class="text-[#A33215]">*</span> Wajib Diisi Lengkap
+            </p>
         </div>
 
         <form action="{{ route('umkm.store') }}" method="POST" enctype="multipart/form-data"
@@ -362,6 +365,9 @@
             </h2>
             <p class="text-xs text-gray-500 mt-1">
                 Perbarui data usaha Anda
+            </p>
+            <p class="text-[10px] text-[#E75C16] mt-2 uppercase tracking-widest font-bold">
+                <span class="text-[#A33215]">*</span> Wajib Diisi Lengkap
             </p>
         </div>
 

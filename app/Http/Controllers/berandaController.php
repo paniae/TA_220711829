@@ -62,10 +62,7 @@ class berandaController extends Controller
                             ->take(4)
                             ->get();
 
-            $kehilangan = LaporanKehilangan::where(function($q) {
-                                $q->where('status_kehilangan', '!=', 'selesai')
-                                  ->where('status_kehilangan', '!=', 'Selesai');
-                            })
+            $kehilangan = LaporanKehilangan::where('status_kehilangan', 'hilang')
                             ->latest()
                             ->take(5)
                             ->get();
@@ -124,10 +121,7 @@ class berandaController extends Controller
                         ->take(4)
                         ->get();
 
-        $kehilangan = LaporanKehilangan::where(function($q) {
-                            $q->where('status_kehilangan', '!=', 'selesai')
-                              ->where('status_kehilangan', '!=', 'Selesai');
-                        })
+        $kehilangan = LaporanKehilangan::where('status_kehilangan', 'hilang')
                         ->latest()
                         ->take(5)
                         ->get();

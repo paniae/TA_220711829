@@ -134,7 +134,7 @@
                         '{{ addslashes($d->nama_lengkap) }}',
                         '{{ $d->jenis_kelamin }}',
                         '{{ addslashes($d->tempat_lahir) }}',
-                        '{{ $d->tanggal_lahir }}',
+                        '{{ \Carbon\Carbon::parse($d->tanggal_lahir)->format('Y-m-d') }}',
                         '{{ addslashes($d->agama) }}',
                         '{{ addslashes($d->pendidikan) }}',
                         '{{ addslashes($d->jenis_pekerjaan) }}',
@@ -158,7 +158,7 @@
                         '{{ addslashes($d->nama_lengkap) }}',
                         '{{ $d->jenis_kelamin }}',
                         '{{ addslashes($d->tempat_lahir) }}',
-                        '{{ $d->tanggal_lahir }}',
+                        '{{ \Carbon\Carbon::parse($d->tanggal_lahir)->format('Y-m-d') }}',
                         '{{ addslashes($d->agama) }}',
                         '{{ addslashes($d->pendidikan) }}',
                         '{{ addslashes($d->jenis_pekerjaan) }}',
@@ -250,8 +250,8 @@
                         <label class="text-base font-medium">Jenis Kelamin <span class="text-[#A33215]">*</span></label>
                         <select name="jenis_kelamin" required class="border p-2 rounded-lg w-full">
                             <option value="">-- Pilih --</option>
-                            <option value="L" {{ old('jenis_kelamin') == 'L' ? 'selected' : '' }}>Laki-laki</option>
-                            <option value="P" {{ old('jenis_kelamin') == 'P' ? 'selected' : '' }}>Perempuan</option>
+                            <option value="Laki-laki" {{ old('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                            <option value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                         </select>
                     </div>
 
@@ -482,7 +482,12 @@
         </button>
 
         <div class="p-6 border-b flex justify-between items-center bg-gray-50/50">
-            <h2 class="text-xl font-bold text-[#69200F] uppercase tracking-tight">Ubah Data Penduduk</h2>
+            <h2 class="text-xl font-bold text-[#69200F] uppercase tracking-tight">
+                Ubah Data Penduduk
+                <p class="text-[10px] text-[#E75C16] mt-1 uppercase tracking-widest font-bold">
+                    <span class="text-[#A33215]">*</span> Wajib Diisi Lengkap
+                </p>
+            </h2>
         </div>
 
         <div class="p-6 overflow-y-auto">
@@ -513,8 +518,8 @@
                     <div>
                         <label class="text-base font-medium">Jenis Kelamin <span class="text-[#A33215]">*</span></label>
                         <select name="jenis_kelamin" id="edit_jk" required class="border p-2.5 rounded-xl w-full focus:border-[#C54716] outline-none transition-all">
-                            <option value="L">Laki-laki</option>
-                            <option value="P">Perempuan</option>
+                            <option value="Laki-laki">Laki-laki</option>
+                            <option value="Perempuan">Perempuan</option>
                         </select>
                     </div>
 
@@ -728,7 +733,12 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById('edit_nik').value = nik;
         document.getElementById('edit_kk').value = kk;
         document.getElementById('edit_nama').value = nama;
-        document.getElementById('edit_jk').value = jk;
+        
+        let jkVal = jk;
+        if(jk === 'L') jkVal = 'Laki-laki';
+        if(jk === 'P') jkVal = 'Perempuan';
+        document.getElementById('edit_jk').value = jkVal;
+        
         document.getElementById('edit_tempat').value = tempat;
         document.getElementById('edit_tgl').value = tgl;
         document.getElementById('edit_agama').value = agama;
@@ -760,7 +770,11 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById('detail_nik').value = nik || '';
         document.getElementById('detail_kk').value = kk || '';
         document.getElementById('detail_nama').value = nama || '';
-        document.getElementById('detail_jk').value = jk === 'L' ? 'Laki-laki' : 'Perempuan';
+        
+        let detailJkVal = jk;
+        if(jk === 'L') detailJkVal = 'Laki-laki';
+        if(jk === 'P') detailJkVal = 'Perempuan';
+        document.getElementById('detail_jk').value = detailJkVal;
         document.getElementById('detail_tempat').value = tempat || '';
         document.getElementById('detail_tgl').value = tgl || '';
         document.getElementById('detail_agama').value = agama || '';

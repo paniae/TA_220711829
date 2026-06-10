@@ -267,6 +267,9 @@
             <p class="text-xs leading-relaxed text-gray-500 mt-1 italic">
                 Akun yang ditambahkan di sini otomatis berstatus aktif.
             </p>
+            <p class="text-[10px] text-[#E75C16] mt-2 uppercase tracking-widest font-bold">
+                <span class="text-[#A33215]">*</span> Wajib Diisi Lengkap
+            </p>
         </div>
 
         <form action="{{ route('pengguna.store') }}" method="POST"
@@ -485,6 +488,9 @@
         <div class="p-6 border-b bg-orange-50/20">
             <h2 class="text-xl font-bold text-[#A33215]">Ubah Data Pengguna</h2>
             <p class="text-sm text-[#E75C16] font-bold uppercase tracking-widest mt-1">Sesuaikan Informasi Akun</p>
+            <p class="text-[10px] text-[#E75C16] mt-2 uppercase tracking-widest font-bold">
+                <span class="text-[#A33215]">*</span> Wajib Diisi Lengkap
+            </p>
         </div>
         <form id="formEdit" method="POST" class="flex flex-col flex-1 overflow-hidden">
             @csrf

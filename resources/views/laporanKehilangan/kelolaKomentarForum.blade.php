@@ -152,7 +152,7 @@
     </div>
 </div>
 
-<div id="modalEdit" class="fixed inset-0 bg-[#69200F]/40 hidden z-[999] flex items-center justify-center p-4 backdrop-blur-sm">
+<div id="modalEdit" class="fixed inset-0 bg-[#69200F]/40 hidden z-[999] items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl border border-[#FA8145] flex flex-col overflow-hidden">
         <div class="px-6 py-4 border-b flex justify-between items-center bg-gray-50/50">
             <h2 class="text-xl font-bold text-[#69200F] uppercase tracking-tight">
@@ -179,7 +179,7 @@
     </div>
 </div>
 
-<div id="modalDelete" class="fixed inset-0 bg-[#69200F]/40 hidden z-[999] flex items-center justify-center p-4 backdrop-blur-sm">
+<div id="modalDelete" class="fixed inset-0 bg-[#69200F]/40 hidden z-[999] items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white p-10 rounded-[2.5rem] text-center w-full max-w-sm shadow-2xl border border-[#FA8145] relative">
         <button onclick="closeModal('modalDelete')" class="absolute top-4 right-4 text-gray-400 hover:text-[#A33215] text-2xl transition-colors font-bold">✕</button>
         <h3 class="text-xl font-bold text-[#69200F] mb-3 uppercase tracking-tight">Hapus Pesan?</h3>
@@ -218,17 +218,23 @@ function openEditModal(id, text) {
     const form = document.getElementById('formEdit');
     form.action = `/kehilangan/komentar/${id}`;
     document.getElementById('edit_komentar').value = text;
-    document.getElementById('modalEdit').classList.remove('hidden');
+    const modal = document.getElementById('modalEdit');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
 }
 
 function openDeleteModal(id) {
     const form = document.getElementById('formDelete');
     form.action = `/kehilangan/komentar/${id}`;
-    document.getElementById('modalDelete').classList.remove('hidden');
+    const modal = document.getElementById('modalDelete');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
 }
 
 function closeModal(id) {
-    document.getElementById(id).classList.add('hidden');
+    const modal = document.getElementById(id);
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
 }
 
 document.getElementById('editModFile')?.addEventListener('change', function(e) {
@@ -271,14 +277,14 @@ document.addEventListener('DOMContentLoaded', function() {
     setInterval(pollComments, 5000);
 });
 </script>
-<div id="imageModal" class="fixed inset-0 bg-black/70 hidden z-[999] flex items-center justify-center p-4">
+<div id="imageModal" class="fixed inset-0 bg-black/70 hidden z-[999] items-center justify-center p-4">
     <div class="relative max-w-lg w-full">
         <button onclick="closeImageModal()" class="absolute -top-2 -right-2 bg-white rounded-full w-8 h-8 flex items-center justify-center text-gray-600 hover:text-black">✕</button>
         <img id="imageModalImg" src="#" class="w-full h-auto rounded-xl shadow-lg">
     </div>
 </div>
 
-<div id="modalTutupForum" class="fixed inset-0 bg-[#69200F]/40 hidden z-[999] flex items-center justify-center p-4 backdrop-blur-sm animate-fade-in">
+<div id="modalTutupForum" class="fixed inset-0 bg-[#69200F]/40 hidden z-[999] items-center justify-center p-4 backdrop-blur-sm animate-fade-in">
     <div class="bg-white p-10 rounded-[2.5rem] text-center w-full max-w-sm shadow-2xl border border-[#FA8145] relative">
         <h3 class="text-xl font-bold text-[#69200F] mb-3 uppercase tracking-tight">Tutup Forum Kehilangan?</h3>
         <p class="text-sm text-gray-500 mb-8 font-medium">Apakah barang yang hilang sudah ditemukan? Tindakan ini akan menutup forum diskusi secara permanen.</p>
@@ -296,13 +302,19 @@ document.addEventListener('DOMContentLoaded', function() {
 function openImageModal(src) {
     const img = document.getElementById('imageModalImg');
     img.src = src;
-    document.getElementById('imageModal').classList.remove('hidden');
+    const modal = document.getElementById('imageModal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
 }
 function closeImageModal() {
-    document.getElementById('imageModal').classList.add('hidden');
+    const modal = document.getElementById('imageModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
 }
 function openTutupForumModal() {
-    document.getElementById('modalTutupForum').classList.remove('hidden');
+    const modal = document.getElementById('modalTutupForum');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
 }
 </script>
 @endpush

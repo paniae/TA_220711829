@@ -362,8 +362,13 @@
 
 <div id="tolakMasterModal" class="fixed inset-0 bg-[#69200F]/40 hidden z-[999] flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white w-full max-w-md rounded-[2.5rem] shadow-2xl border border-[#FA8145] flex flex-col overflow-hidden relative">
-        <div class="p-6 md:p-8 border-b border-gray-50 bg-gray-50/50 flex justify-between items-center">
-            <h3 class="text-lg font-bold text-[#69200F] uppercase tracking-tight">Koreksi Produk Master</h3>
+        <div class="p-6 md:p-8 border-b border-gray-50 bg-gray-50/50">
+            <div class="flex justify-between items-center">
+                <h3 class="text-lg font-bold text-[#69200F] uppercase tracking-tight">Koreksi Produk Master</h3>
+            </div>
+            <p class="text-[10px] text-[#E75C16] mt-2 uppercase tracking-widest font-bold">
+                <span class="text-[#A33215]">*</span> Wajib Diisi Lengkap
+            </p>
         </div>
         <form id="tm_form" method="POST">
             @csrf
@@ -391,6 +396,9 @@
             <div>
                 <h3 class="text-lg font-bold text-[#69200F] uppercase tracking-tight">Tambah UMKM Baru</h3>
                 <p class="text-xs text-gray-500 mt-1">UMKM ini akan langsung berstatus <strong class="text-[#E75C16]">Aktif</strong></p>
+                <p class="text-[10px] text-[#E75C16] mt-2 uppercase tracking-widest font-bold">
+                    <span class="text-[#A33215]">*</span> Wajib Diisi Lengkap
+                </p>
             </div>
             <button type="button" onclick="closeModalTambahUmkm()" class="text-gray-400 hover:text-[#A33215] transition-colors p-2">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -454,6 +462,9 @@
             <div>
                 <h3 class="text-lg font-bold text-[#69200F] uppercase tracking-tight">Tambah Master</h3>
                 <p class="text-xs text-gray-500 mt-1">Produk langsung <strong class="text-[#E75C16]">Aktif</strong></p>
+                <p class="text-[10px] text-[#E75C16] mt-2 uppercase tracking-widest font-bold">
+                    <span class="text-[#A33215]">*</span> Wajib Diisi Lengkap
+                </p>
             </div>
             <button type="button" onclick="closeModalTambahProdukMaster()" class="text-gray-400 hover:text-[#A33215] transition-colors p-2">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -481,6 +492,9 @@
             <div>
                 <h3 class="text-lg font-bold text-[#69200F] uppercase tracking-tight">Ubah Master</h3>
                 <p class="text-xs text-gray-500 mt-1">Ubah nama produk master yang sudah aktif</p>
+                <p class="text-[10px] text-[#E75C16] mt-2 uppercase tracking-widest font-bold">
+                    <span class="text-[#A33215]">*</span> Wajib Diisi Lengkap
+                </p>
             </div>
             <button type="button" onclick="closeUbahMasterModal()" class="text-gray-400 hover:text-[#A33215] transition-colors p-2">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>

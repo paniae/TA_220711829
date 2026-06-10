@@ -19,7 +19,7 @@ class LaporanKehilanganSeeder extends Seeder
                 'foto_barang' => null,
                 'tanggal_laporan' => Carbon::now()->format('Y-m-d'),
                 'deskripsi_laporan' => 'Terdapat KTP dan SIM di dalamnya',
-                'status_kehilangan' => 'Hilang',
+                'status_kehilangan' => 'hilang',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]

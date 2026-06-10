@@ -56,9 +56,9 @@
             $canManage = auth()->check() && (auth()->user()->hasAkses('kelola_laporan_kehilangan') || auth()->user()->isDukuh());
         @endphp
 
-        @if($isOwner || $canManage)
+        @if($isOwner)
             <div class="flex gap-2">
-                @if($isOwner && $item->status_kehilangan == 'hilang')
+                @if($item->status_kehilangan == 'hilang')
                     <button type="button" onclick="event.stopPropagation(); openEditLaporanModal('{{ $item->id_laporan }}', '{{ addslashes($item->barang_hilang) }}', '{{ \Carbon\Carbon::parse($item->tanggal_hilang)->format('Y-m-d') }}', '{{ addslashes($item->lokasi_hilang) }}', '{{ addslashes($item->deskripsi_laporan ?? '') }}', '{{ $item->status_kehilangan }}')"
                         class="bg-orange-50 text-[#C54716] px-5 py-2.5 rounded-xl text-xs font-bold hover:bg-[#C54716] hover:text-white transition-all shadow-sm uppercase tracking-wider border border-orange-100">
                         Ubah

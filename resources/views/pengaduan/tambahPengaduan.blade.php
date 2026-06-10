@@ -16,6 +16,9 @@
     <h2 class="text-xs font-bold text-[#A33215] mb-4 uppercase tracking-widest flex items-center gap-2">
         <span class="w-2 h-2 rounded-full bg-[#C54716]"></span> Buat Pengaduan Baru
     </h2>
+    <p class="text-[10px] text-[#E75C16] mb-4 uppercase tracking-widest font-bold">
+        <span class="text-[#A33215]">*</span> Wajib Diisi Lengkap
+    </p>
 
     @if(session('success'))
         <div id="alertSuccess" class="mb-4 bg-orange-50 border border-orange-200 text-[#C54716] px-4 py-3 rounded-lg text-sm transition-opacity duration-500">
@@ -158,7 +161,10 @@
 <div id="modalUbahPengaduan" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden z-50 items-center justify-center" onclick="closeModal('modalUbahPengaduan')">
     <div class="bg-white rounded-[2rem] p-8 max-w-2xl w-full mx-4 shadow-2xl relative" onclick="event.stopPropagation()">
         <button type="button" onclick="closeModal('modalUbahPengaduan')" class="absolute top-6 right-6 text-gray-400 hover:text-[#C54716] text-2xl font-black transition-colors">✕</button>
-        <h3 class="text-xl font-bold text-[#A33215] mb-6 uppercase tracking-widest">Ubah Pengaduan</h3>
+        <h3 class="text-xl font-bold text-[#A33215] uppercase tracking-widest">Ubah Pengaduan</h3>
+        <p class="text-[10px] text-[#E75C16] mt-2 mb-6 uppercase tracking-widest font-bold">
+            <span class="text-[#A33215]">*</span> Wajib Diisi Lengkap
+        </p>
         <form id="formUbahPengaduan" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')

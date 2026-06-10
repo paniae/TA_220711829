@@ -193,7 +193,7 @@ class LaporanKehilanganController extends Controller
         $laporan = LaporanKehilangan::findOrFail($id);
         $user = Auth::user();
 
-        $canDelete = ($laporan->id_pengguna == $user->id_pengguna) || $user->hasAkses('kelola_laporan_kehilangan') || $user->isDukuh();
+        $canDelete = ($laporan->id_pengguna == $user->id_pengguna);
 
         if (!$canDelete) {
             return back()->with('error', 'Anda tidak memiliki akses untuk menghapus laporan ini!');

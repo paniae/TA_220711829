@@ -213,7 +213,10 @@
         <div class="px-6 py-4 border-b-[3px] border-gray-200 flex justify-between items-center bg-white">
             <div>
                 <h2 id="modalTitle" class="text-xl font-bold text-gray-900 uppercase tracking-tight">Tambah Role</h2>
-                <p class="text-xs sm:text-sm font-medium text-gray-400 uppercase tracking-wider">Konfigurasi Peran Baru</p>
+                <p class="text-xs sm:text-sm font-medium text-gray-400 uppercase tracking-wider mb-2">Konfigurasi Peran Baru</p>
+                <p class="text-[10px] text-[#E75C16] uppercase tracking-widest font-bold">
+                    <span class="text-[#A33215]">*</span> Wajib Diisi Lengkap
+                </p>
             </div>
             <button onclick="closeModal('modalRole')" class="bg-white w-10 h-10 rounded-full shadow-sm flex items-center justify-center text-gray-400 hover:text-black hover:rotate-90 transition-all text-base font-bold">✕</button>
         </div>
@@ -245,7 +248,10 @@
         <div class="px-6 py-4 border-b-[3px] border-gray-200 flex justify-between items-center bg-white">
             <div>
                 <h2 class="text-xl font-bold text-gray-900 uppercase tracking-tight">Hubungkan Role</h2>
-                <p id="assignModalSub" class="text-xs sm:text-sm font-medium text-gray-400 uppercase tracking-wider"></p>
+                <p id="assignModalSub" class="text-xs sm:text-sm font-medium text-gray-400 uppercase tracking-wider mb-2"></p>
+                <p class="text-[10px] text-[#E75C16] uppercase tracking-widest font-bold">
+                    <span class="text-[#A33215]">*</span> Wajib Diisi Lengkap
+                </p>
             </div>
             <button onclick="closeModal('modalAssignRole')" class="bg-white w-10 h-10 rounded-full shadow-sm flex items-center justify-center text-gray-400 hover:text-black transition-all text-base font-bold">✕</button>
         </div>

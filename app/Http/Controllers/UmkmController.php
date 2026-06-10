@@ -344,7 +344,11 @@ class UmkmController extends Controller
 
     public function updateProduk(Request $request, $id)
     {
-        $produk = ProdukUmkm::findOrFail($id);
+        $produk = ProdukUmkm::with('umkm')->findOrFail($id);
+
+        if ($produk->umkm->id_pengguna != auth()->id()) {
+            return back()->with('error', 'Akses ditolak! Anda hanya dapat mengubah produk milik Anda sendiri.');
+        }
 
         $request->validate([
             'nama_produk' => 'required|string|max:255',
@@ -375,7 +379,11 @@ class UmkmController extends Controller
 
     public function destroyProduk($id)
     {
-        $produk = ProdukUmkm::findOrFail($id);
+        $produk = ProdukUmkm::with('umkm')->findOrFail($id);
+
+        if ($produk->umkm->id_pengguna != auth()->id()) {
+            return back()->with('error', 'Akses ditolak! Anda hanya dapat menghapus produk milik Anda sendiri.');
+        }
 
         if ($produk->foto_produk) {
             Storage::disk('public')->delete($produk->foto_produk);

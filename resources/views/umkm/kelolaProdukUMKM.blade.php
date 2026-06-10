@@ -111,7 +111,7 @@
         <h2 class="text-xl font-bold text-[#69200F] uppercase tracking-tight">
             Katalog Produk
         </h2>
-        @if(auth()->check() && (auth()->user()->hasAkses('kelola_umkm') || auth()->id() == $umkm->id_pengguna))
+        @if(auth()->check() && auth()->id() == $umkm->id_pengguna)
         <button onclick="openModal('modalProduk')"
             class="bg-[#C54716] text-white px-5 py-2 rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-orange-100 hover:bg-[#A33215] transition-all active:scale-95">
             + Tambah Produk
@@ -165,7 +165,7 @@
                         Rp {{ number_format($item->harga, 0, ',', '.') }}
                     </p>
 
-                    @if(auth()->check() && (auth()->user()->hasAkses('kelola_umkm') || auth()->id() == $umkm->id_pengguna))
+                    @if(auth()->check() && auth()->id() == $umkm->id_pengguna)
                     <div class="mt-auto grid grid-cols-2 gap-2" onclick="event.stopPropagation()">
                         <button type="button" onclick="handleEditProduk(this)" 
                             data-id="{{ $item->id_produk }}"
@@ -187,8 +187,13 @@
 
 <div id="modalProduk" class="fixed inset-0 bg-[#69200F]/40 hidden z-[999] flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl border border-[#FA8145] flex flex-col overflow-hidden max-h-[90vh]">
-        <div class="p-8 border-b flex justify-between items-center bg-gray-50/50">
-            <h2 class="text-xl font-semibold text-[#69200F] uppercase tracking-tight">Tambah Produk</h2>
+        <div class="p-8 border-b bg-gray-50/50">
+            <h2 class="text-xl font-semibold text-[#69200F] uppercase tracking-tight">
+                Tambah Produk
+                <p class="text-[10px] text-[#E75C16] mt-2 uppercase tracking-widest font-bold">
+                    <span class="text-[#A33215]">*</span> Wajib Diisi Lengkap
+                </p>
+            </h2>
         </div>
         <form action="{{ route('produk.store') }}" method="POST" enctype="multipart/form-data" class="flex flex-col flex-1 overflow-hidden">
             @csrf
@@ -242,8 +247,13 @@
 
 <div id="modalEditProduk" class="fixed inset-0 bg-[#69200F]/40 hidden z-[999] flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl border border-[#FA8145] flex flex-col overflow-hidden max-h-[90vh]">
-        <div class="p-8 border-b flex justify-between items-center bg-gray-50/50">
-            <h2 class="text-xl font-semibold text-[#69200F] uppercase tracking-tight">Ubah Produk</h2>
+        <div class="p-8 border-b bg-gray-50/50">
+            <h2 class="text-xl font-semibold text-[#69200F] uppercase tracking-tight">
+                Ubah Produk
+                <p class="text-[10px] text-[#E75C16] mt-2 uppercase tracking-widest font-bold">
+                    <span class="text-[#A33215]">*</span> Wajib Diisi Lengkap
+                </p>
+            </h2>
         </div>
         <form id="formEditProduk" method="POST" enctype="multipart/form-data" class="flex flex-col flex-1 overflow-hidden">
             @csrf @method('PUT')

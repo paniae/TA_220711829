@@ -89,9 +89,12 @@
 @auth
 <div id="modalLaporan" class="fixed inset-0 bg-[#69200F]/40 hidden z-[999] flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl border border-[#FA8145] flex flex-col overflow-hidden max-h-[90vh]">
-        <div class="p-6 border-b flex justify-between items-center bg-gray-50/50">
-            <h2 class="text-xl font-bold text-[#69200F] uppercase tracking-tight">Buat Laporan Kehilangan</h2>
-            <button onclick="closeModal('modalLaporan')" class="text-gray-400 hover:text-[#A33215] text-2xl transition-colors font-bold">✕</button>
+        <div class="p-6 border-b bg-gray-50/50 relative">
+            <h2 class="text-xl font-bold text-[#69200F] uppercase tracking-tight w-11/12">Buat Laporan Kehilangan</h2>
+            <p class="text-[10px] text-[#E75C16] mt-2 uppercase tracking-widest font-bold">
+                <span class="text-[#A33215]">*</span> Wajib Diisi Lengkap
+            </p>
+            <button onclick="closeModal('modalLaporan')" class="absolute top-6 right-6 text-gray-400 hover:text-[#A33215] text-2xl transition-colors font-bold leading-none">✕</button>
         </div>
         <form action="{{ route('kehilangan.store') }}" method="POST" enctype="multipart/form-data" class="flex flex-col flex-1 overflow-hidden">
             @csrf
@@ -127,9 +130,12 @@
 
 <div id="modalEditLaporan" class="fixed inset-0 bg-[#69200F]/40 hidden z-[999] flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl border border-[#FA8145] flex flex-col overflow-hidden max-h-[90vh]">
-        <div class="p-6 border-b flex justify-between items-center bg-gray-50/50">
-            <h2 class="text-xl font-bold text-[#69200F] uppercase tracking-tight">Ubah Laporan Kehilangan</h2>
-            <button onclick="closeModal('modalEditLaporan')" class="text-gray-400 hover:text-[#A33215] text-2xl transition-colors font-bold">✕</button>
+        <div class="p-6 border-b bg-gray-50/50 relative">
+            <h2 class="text-xl font-bold text-[#69200F] uppercase tracking-tight w-11/12">Ubah Laporan Kehilangan</h2>
+            <p class="text-[10px] text-[#E75C16] mt-2 uppercase tracking-widest font-bold">
+                <span class="text-[#A33215]">*</span> Wajib Diisi Lengkap
+            </p>
+            <button onclick="closeModal('modalEditLaporan')" class="absolute top-6 right-6 text-gray-400 hover:text-[#A33215] text-2xl transition-colors font-bold leading-none">✕</button>
         </div>
         <form id="formEditLaporan" method="POST" enctype="multipart/form-data" class="flex flex-col flex-1 overflow-hidden">
             @csrf

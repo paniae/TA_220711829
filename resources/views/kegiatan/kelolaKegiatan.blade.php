@@ -185,6 +185,7 @@
                     data-deskripsi="{{ $item->deskripsi_kegiatan ?? '' }}"
                     data-lokasi="{{ $item->lokasi }}"
                     data-dana="{{ $item->dana_dikeluarkan ?? 0 }}"
+                    data-poster="{{ $item->poster_kegiatan ?? '' }}"
                     class="bg-[#C54716] text-white px-4 py-2.5 rounded-xl text-xs font-bold hover:bg-[#A33215] transition-all uppercase tracking-wider flex-1 text-center shadow-sm">
                     Ubah
                 </button>
@@ -221,9 +222,12 @@
 
 <div id="modalKegiatan" class="fixed inset-0 bg-[#69200F]/40 hidden z-[999] flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl border border-[#FA8145] flex flex-col overflow-hidden max-h-[90vh]">
-        <div class="p-6 border-b flex justify-between items-center bg-gray-50/50">
-            <h2 class="text-lg font-bold text-[#69200F] uppercase tracking-tight">Tambah {{ $tab == 'kegiatan' ? 'Kegiatan' : 'Program Kerja' }}</h2>
-            <button onclick="closeModal('modalKegiatan')" class="text-gray-400 hover:text-[#A33215] text-2xl transition-colors font-bold">✕</button>
+        <div class="p-6 border-b bg-gray-50/50 relative">
+            <h2 class="text-lg font-bold text-[#69200F] uppercase tracking-tight w-11/12">Tambah {{ $tab == 'kegiatan' ? 'Kegiatan' : 'Program Kerja' }}</h2>
+            <p class="text-[10px] text-[#E75C16] mt-2 uppercase tracking-widest font-bold">
+                <span class="text-[#A33215]">*</span> Wajib Diisi Lengkap
+            </p>
+            <button onclick="closeModal('modalKegiatan')" class="absolute top-6 right-6 text-gray-400 hover:text-[#A33215] text-2xl transition-colors font-bold leading-none">✕</button>
         </div>
         <form action="{{ route('kegiatan.store') }}" method="POST" class="flex flex-col flex-1 overflow-hidden" enctype="multipart/form-data">
             @csrf
@@ -276,9 +280,12 @@
 
 <div id="modalEditKegiatan" class="fixed inset-0 bg-[#69200F]/40 hidden z-[999] flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl border border-[#FA8145] flex flex-col overflow-hidden max-h-[90vh]">
-        <div class="p-6 border-b flex justify-between items-center bg-gray-50/50">
-            <h2 class="text-lg font-bold text-[#69200F] uppercase tracking-tight">Ubah Kegiatan</h2>
-            <button onclick="closeModal('modalEditKegiatan')" class="text-gray-400 hover:text-[#A33215] text-2xl transition-colors font-bold">✕</button>
+        <div class="p-6 border-b bg-gray-50/50 relative">
+            <h2 class="text-lg font-bold text-[#69200F] uppercase tracking-tight w-11/12">Ubah Kegiatan</h2>
+            <p class="text-[10px] text-[#E75C16] mt-2 uppercase tracking-widest font-bold">
+                <span class="text-[#A33215]">*</span> Wajib Diisi Lengkap
+            </p>
+            <button onclick="closeModal('modalEditKegiatan')" class="absolute top-6 right-6 text-gray-400 hover:text-[#A33215] text-2xl transition-colors font-bold leading-none">✕</button>
         </div>
         <form id="formEditKegiatan" method="POST" class="flex flex-col flex-1 overflow-hidden" enctype="multipart/form-data">
             @csrf @method('PUT')
@@ -315,6 +322,10 @@
                 </div>
                 <div>
                     <label class="text-sm font-semibold text-gray-700 mb-2 block">Ganti Poster (Opsional)</label>
+                    <div id="edit_poster_preview" class="mb-3 hidden">
+                        <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Poster Saat Ini</p>
+                        <img id="current_poster_img" src="" class="w-32 h-32 object-cover rounded-xl border border-gray-200">
+                    </div>
                     <input type="file" id="edit_poster_kegiatan" name="poster_kegiatan" accept="image/*" class="w-full border-2 border-dashed border-gray-200 p-4 rounded-2xl file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-gray-100 file:text-gray-600 hover:file:bg-gray-200 cursor-pointer">
                     <p class="text-xs text-gray-500 mt-2 italic">Abaikan jika tidak ingin mengubah poster saat ini.</p>
                 </div>
@@ -386,13 +397,25 @@ setTimeout(() => {
 
 function handleEdit(el) {
     const id = el.dataset.id;
-    document.getElementById('edit_nama').value = el.dataset.nama;
-    document.getElementById('edit_tanggal').value = el.dataset.tanggal;
-    document.getElementById('edit_jam').value = el.dataset.jam;
-    // Gunakan toLowerCase() agar cocok dengan value di <option>
-    document.getElementById('edit_kategori').value = el.dataset.kategori.toLowerCase();
-    document.getElementById('edit_deskripsi').value = el.dataset.deskripsi;
-    document.getElementById('edit_lokasi').value = el.dataset.lokasi;
+    document.getElementById('edit_nama').value = el.dataset.nama || '';
+    document.getElementById('edit_tanggal').value = el.dataset.tanggal || '';
+    document.getElementById('edit_jam').value = el.dataset.jam || '';
+
+    document.getElementById('edit_kategori').value = (el.dataset.kategori || '').toLowerCase();
+    document.getElementById('edit_deskripsi').value = el.dataset.deskripsi || '';
+    document.getElementById('edit_lokasi').value = el.dataset.lokasi || '';
+    
+    // Poster Preview
+    const posterPreview = document.getElementById('edit_poster_preview');
+    const currentPosterImg = document.getElementById('current_poster_img');
+    if (el.dataset.poster) {
+        posterPreview.classList.remove('hidden');
+        currentPosterImg.src = "{{ asset('storage') }}/" + el.dataset.poster;
+    } else {
+        posterPreview.classList.add('hidden');
+        currentPosterImg.src = '';
+    }
+
     document.getElementById('formEditKegiatan').action = `/kegiatan/${id}`;
     openModal('modalEditKegiatan');
 }

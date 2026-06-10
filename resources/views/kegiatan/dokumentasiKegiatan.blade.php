@@ -202,9 +202,12 @@
 
 <div id="modalEditDokumentasi" class="fixed inset-0 bg-[#69200F]/40 hidden z-[999] flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl border border-[#FA8145] flex flex-col overflow-hidden max-h-[90vh]">
-        <div class="p-8 border-b flex justify-between items-center bg-gray-50/50">
-            <h2 class="text-xl font-semibold text-[#69200F] uppercase tracking-tight">Ubah Dokumentasi</h2>
-            <button onclick="closeModal('modalEditDokumentasi')" class="text-gray-400 hover:text-[#A33215] text-2xl transition-colors">✕</button>
+        <div class="p-8 border-b bg-gray-50/50 relative">
+            <h2 class="text-xl font-semibold text-[#69200F] uppercase tracking-tight w-11/12">Ubah Dokumentasi</h2>
+            <p class="text-[10px] text-[#E75C16] mt-2 uppercase tracking-widest font-bold">
+                <span class="text-[#A33215]">*</span> Wajib Diisi Lengkap
+            </p>
+            <button onclick="closeModal('modalEditDokumentasi')" class="absolute top-8 right-8 text-gray-400 hover:text-[#A33215] text-2xl transition-colors leading-none">✕</button>
         </div>
         <form id="formEditDokumentasi" method="POST" enctype="multipart/form-data" class="flex flex-col flex-1 overflow-hidden">
             @csrf @method('PUT')
@@ -237,9 +240,12 @@
 
 <div id="modalDokumentasi" class="fixed inset-0 bg-[#69200F]/40 hidden z-[999] flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl border border-[#FA8145] flex flex-col overflow-hidden max-h-[90vh]">
-        <div class="p-8 border-b flex justify-between items-center bg-gray-50/50">
-            <h2 class="text-xl font-semibold text-[#69200F] uppercase tracking-tight">Tambah Dokumentasi</h2>
-            <button onclick="closeModal('modalDokumentasi')" class="text-gray-400 hover:text-[#A33215] text-2xl transition-colors">✕</button>
+        <div class="p-8 border-b bg-gray-50/50 relative">
+            <h2 class="text-xl font-semibold text-[#69200F] uppercase tracking-tight w-11/12">Tambah Dokumentasi</h2>
+            <p class="text-[10px] text-[#E75C16] mt-2 uppercase tracking-widest font-bold">
+                <span class="text-[#A33215]">*</span> Wajib Diisi Lengkap
+            </p>
+            <button onclick="closeModal('modalDokumentasi')" class="absolute top-8 right-8 text-gray-400 hover:text-[#A33215] text-2xl transition-colors leading-none">✕</button>
         </div>
         <form action="{{ route('kegiatan.dokumentasi.store', $kegiatan->id_kegiatan) }}" method="POST" enctype="multipart/form-data" class="flex flex-col flex-1 overflow-hidden">
             @csrf

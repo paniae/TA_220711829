@@ -223,6 +223,9 @@
         <button onclick="closeModal('modalEditProfil')" class="absolute top-4 right-4 text-gray-400 hover:text-black text-xl">✕</button>
         <div class="p-6 border-b">
             <h2 class="text-xl font-bold text-[#A33215] uppercase tracking-tight">Ubah Profil Padukuhan</h2>
+            <p class="text-[10px] text-[#E75C16] mt-2 uppercase tracking-widest font-bold">
+                <span class="text-[#A33215]">*</span> Wajib Diisi Lengkap
+            </p>
         </div>
         <form action="{{ route('informasiUmum.profil.update') }}" method="POST" enctype="multipart/form-data" class="flex-1 overflow-y-auto">
             @csrf
@@ -313,6 +316,9 @@
         <button onclick="closeModal('modalEditKontak')" class="absolute top-4 right-4 text-gray-400 hover:text-black text-xl">✕</button>
         <div class="p-6 border-b">
             <h2 class="text-xl font-bold text-[#A33215] uppercase tracking-tight">Ubah Kontak</h2>
+            <p class="text-[10px] text-[#E75C16] mt-2 uppercase tracking-widest font-bold">
+                <span class="text-[#A33215]">*</span> Wajib Diisi Lengkap
+            </p>
         </div>
         <form action="{{ route('informasiUmum.kontak.update') }}" method="POST" class="p-6 space-y-4">
             @csrf
@@ -363,7 +369,6 @@
 
 @push('scripts')
 <script>
-// Auto-hide success alert
 setTimeout(() => {
     const alert = document.getElementById('alertSuccess');
     if (alert) {
