@@ -72,7 +72,7 @@
                     <div class="w-1.5 h-6 bg-[#C54716] rounded-full"></div>
                     <h2 class="font-bold text-gray-800 text-sm sm:text-base uppercase tracking-widest">Daftar Role Aktif</h2>
                 </div>
-                <button onclick="openModal('modalRole')" 
+                <button onclick="openTambahRoleModal()" 
                     class="bg-[#C54716] text-white px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider hover:bg-[#A33215] transition-all hover:scale-105 active:scale-95 shadow-lg shadow-orange-100">
                     + Tambah Role
                 </button>
@@ -434,12 +434,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function openModal(id) {
     document.getElementById(id).classList.remove('hidden');
-    if(id === 'modalRole') {
-        document.getElementById('modalTitle').innerText = 'Tambah Role';
-        document.getElementById('role_name').value = '';
-        document.getElementById('methodField').innerHTML = '';
-        document.getElementById('modalRole').querySelector('form').action = '{{ route('role.store') }}';
-    }
+}
+
+function openTambahRoleModal() {
+    document.getElementById('modalTitle').innerText = 'Tambah Role';
+    document.getElementById('role_name').value = '';
+    document.getElementById('methodField').innerHTML = '';
+    document.getElementById('modalRole').querySelector('form').action = '{{ route("role.store") }}';
+    openModal('modalRole');
 }
 
 function openAssignModal(idAkses, namaAkses) {

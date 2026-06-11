@@ -184,13 +184,9 @@
             
             <div class="mt-4 pt-4 border-t border-orange-100/50 flex justify-between items-center">
                 @if($item->status == 'menunggu' && auth()->check() && auth()->user()->hasAkses('konfirmasi_umkm'))
-                    <form action="{{ route('umkm.konfirmasi.confirm', $item->id_umkm) }}" method="POST" onclick="event.stopPropagation();">
-                        @csrf
-                        @method('PUT')
-                        <button type="submit" onclick="return confirm('Apakah Anda yakin ingin mengonfirmasi UMKM ini?')" class="bg-[#C54716] text-white px-3 py-1.5 rounded-lg font-bold text-[10px] uppercase tracking-wider shadow-sm hover:bg-[#A33215] transition-all">
-                            Konfirmasi
-                        </button>
-                    </form>
+                    <button type="button" onclick="event.stopPropagation(); openConfirmModal('Konfirmasi UMKM', 'Anda akan mengonfirmasi UMKM <strong class=\'text-[#FA8145]\'>{{ addslashes($item->nama_umkm) }}</strong>. UMKM ini akan menjadi aktif.', '{{ route('umkm.konfirmasi.confirm', $item->id_umkm) }}')" class="bg-[#C54716] text-white px-3 py-1.5 rounded-lg font-bold text-[10px] uppercase tracking-wider shadow-sm hover:bg-[#A33215] transition-all">
+                        Konfirmasi
+                    </button>
                 @else
                     <div></div>
                 @endif
@@ -307,10 +303,7 @@
                                         <button onclick="openTolakMasterModal('{{ route('umkm.tolakProdukMaster', $pm->id_produk_master) }}', '{{ $pm->nama_produk_master }}')" class="w-full sm:w-auto px-4 py-2 text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-xl bg-white border border-[#A33215] text-[#A33215] hover:bg-orange-50 transition-all">Tolak / Koreksi</button>
                                     @else
                                         <button onclick="openUbahMasterModal('{{ route('umkm.updateProdukMasterAdmin', $pm->id_produk_master) }}', '{{ $pm->nama_produk_master }}')" class="w-full sm:w-auto px-4 py-2 text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-xl bg-white border border-[#C54716] text-[#C54716] hover:bg-orange-50 transition-all">Ubah</button>
-                                        <form action="{{ route('umkm.destroyProdukMasterAdmin', $pm->id_produk_master) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus produk master ini?');" class="w-full sm:w-auto flex">
-                                            @csrf @method('DELETE')
-                                            <button type="submit" class="w-full sm:w-auto px-4 py-2 text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-xl bg-white border border-[#A33215] text-[#A33215] hover:bg-orange-50 transition-all">Hapus</button>
-                                        </form>
+                                        <button type="button" onclick="openHapusMasterModal('{{ route('umkm.destroyProdukMasterAdmin', $pm->id_produk_master) }}', '{{ addslashes($pm->nama_produk_master) }}')" class="w-full sm:w-auto px-4 py-2 text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-xl bg-white border border-[#A33215] text-[#A33215] hover:bg-orange-50 transition-all">Hapus</button>
                                     @endif
                                 </td>
                             </tr>
@@ -323,21 +316,18 @@
     </div>
 </div>
 
-<div id="confirmModal"
-    class="fixed inset-0 bg-black/40 hidden z-50 flex items-center justify-center backdrop-blur-sm">
-    <div class="bg-white w-full max-w-sm mx-4 rounded-3xl shadow-lg border border-[#FA8145] overflow-hidden flex flex-col relative">
-        <div class="p-6 text-center">
-            <h3 id="confirmTitle" class="text-xl font-bold text-[#69200F] mb-2 uppercase tracking-tight">Konfirmasi</h3>
-            <p id="confirmText" class="text-gray-500 text-sm">Apakah Anda yakin?</p>
+<div id="confirmModal" class="fixed inset-0 bg-[#69200F]/40 hidden z-[999] flex items-center justify-center p-4 backdrop-blur-sm">
+    <div class="bg-white w-full max-w-sm rounded-[2.5rem] shadow-2xl border border-[#FA8145] flex flex-col overflow-hidden relative text-center">
+        <div class="p-8 pb-6">
+            <h3 id="confirmTitle" class="text-xl font-bold text-[#69200F] uppercase tracking-tight mb-2">Konfirmasi</h3>
+            <p id="confirmText" class="text-sm text-gray-500">Apakah Anda yakin?</p>
         </div>
-        <div class="flex border-t border-orange-100/50">
-            <button onclick="closeConfirmModal()" type="button"
-                class="flex-1 py-3 text-sm font-bold text-gray-500 hover:bg-gray-50 transition-colors border-r border-orange-100/50 uppercase tracking-wider">Batal</button>
+        <div class="flex border-t border-gray-100 bg-gray-50/50">
+            <button type="button" onclick="closeConfirmModal()" class="flex-1 py-4 text-sm font-bold text-gray-500 hover:bg-gray-100 transition-colors uppercase tracking-wider border-r border-gray-100">Batal</button>
             <form id="confirmForm" method="POST" class="flex-1 flex">
                 @csrf
                 @method('PUT')
-                <button type="submit"
-                    class="w-full py-3 text-sm font-bold text-[#C54716] hover:bg-orange-50 transition-colors uppercase tracking-wider">Ya, Lanjutkan</button>
+                <button type="submit" class="w-full py-4 text-sm font-bold text-[#E75C16] hover:bg-orange-50 transition-colors uppercase tracking-wider">Ya, Lanjutkan</button>
             </form>
         </div>
     </div>
@@ -517,6 +507,19 @@
     </div>
 </div>
 
+<div id="hapusMasterModal" class="fixed inset-0 bg-[#69200F]/40 hidden z-[999] flex items-center justify-center p-4 backdrop-blur-sm">
+    <div class="bg-white p-10 rounded-[2.5rem] text-center w-full max-w-sm shadow-2xl border border-[#FA8145] relative">
+        <button onclick="closeHapusMasterModal()" class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-black rounded-full hover:bg-gray-100">✕</button>
+        <h3 class="text-xl font-bold text-[#69200F] uppercase tracking-tight mb-3 mt-4">Hapus Produk Master?</h3>
+        <p class="text-sm text-gray-500 mb-8 font-medium">Apakah Anda yakin ingin menghapus produk master <strong id="hm_product_name" class="text-[#A33215]"></strong> secara permanen?</p>
+        <form id="hm_form" method="POST" class="flex flex-col gap-3">
+            @csrf @method('DELETE')
+            <button type="submit" class="w-full py-4 bg-[#A33215] text-white rounded-2xl font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-[#69200F] shadow-xl shadow-orange-100 transition-all">Ya, Hapus</button>
+            <button type="button" onclick="closeHapusMasterModal()" class="w-full py-4 text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider hover:text-gray-600 transition-all">Batal</button>
+        </form>
+    </div>
+</div>
+
 @else
 <div class="bg-white p-6 rounded-2xl shadow border border-orange-200 text-center mt-6">
     <div class="text-4xl mb-4">⚠️</div>
@@ -542,7 +545,7 @@ setTimeout(() => {
 // modal confirm UMKM
 function openConfirmModal(title, text, actionUrl) {
     document.getElementById('confirmTitle').innerText = title;
-    document.getElementById('confirmText').innerText = text;
+    document.getElementById('confirmText').innerHTML = text;
 
     document.getElementById('confirmForm').action = actionUrl;
 
@@ -625,6 +628,21 @@ function openUbahMasterModal(actionUrl, productName) {
 
 function closeUbahMasterModal() {
     const modal = document.getElementById('ubahMasterModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+}
+
+// Modal Hapus Produk Master
+function openHapusMasterModal(actionUrl, productName) {
+    document.getElementById('hm_form').action = actionUrl;
+    document.getElementById('hm_product_name').innerText = productName;
+    const modal = document.getElementById('hapusMasterModal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+}
+
+function closeHapusMasterModal() {
+    const modal = document.getElementById('hapusMasterModal');
     modal.classList.add('hidden');
     modal.classList.remove('flex');
 }

@@ -534,7 +534,6 @@ class UmkmController extends Controller
     public function destroyProdukMasterAdmin($id)
     {
         $pm = \App\Models\ProdukMaster::findOrFail($id);
-        // Hapus produk master. (Optional: check if it's used in produk_umkm first, but assuming cascade or null).
         $pm->delete();
 
         return back()->with('success', 'Produk Master berhasil dihapus');

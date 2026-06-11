@@ -84,7 +84,17 @@
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-5 text-center md:text-left">
                 <div class="min-w-0 bg-gray-50/50 p-3 rounded-xl border border-gray-100">
                     <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Telepon</p>
-                    <p class="text-xs sm:text-sm font-bold text-[#A33215] truncate">{{ $umkm->nomor_telepon_umkm ?? '-' }}</p>
+                    @if($umkm->is_nomor_telepon_ditampilkan == 1 && $umkm->nomor_telepon_umkm)
+                        @php
+                            $waNumber = preg_replace('/^0/', '62', preg_replace('/[^0-9]/', '', $umkm->nomor_telepon_umkm));
+                        @endphp
+                        <a href="https://wa.me/{{ $waNumber }}" target="_blank" class="text-xs sm:text-sm font-bold text-[#C54716] hover:text-[#A33215] underline truncate flex items-center justify-center md:justify-start gap-1">
+                            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.128.552 4.195 1.6 6.002L.001 24l6.115-1.602a11.967 11.967 0 0 0 5.915 1.564c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm3.896 17.15c-.173.486-.995.913-1.408.972-.413.059-.949.118-2.618-.574-2.008-.828-3.313-2.883-3.413-3.018-.1-.135-.815-1.085-.815-2.072 0-.987.514-1.472.698-1.666.184-.194.4-.243.533-.243.133 0 .267 0 .385.006.124.006.29.047.45.437.16.39.545 1.33.593 1.427.048.097.08.21.015.341-.065.13-.098.21-.205.337-.107.127-.225.267-.32.368-.107.107-.217.225-.095.437.122.212.544.903 1.168 1.46.804.718 1.488.941 1.701 1.048.213.107.337.09.462-.054.125-.144.533-.618.675-.831.142-.213.284-.177.48-.103.196.074 1.236.582 1.447.688.211.106.35.158.4.246.051.088.051.512-.122.998z"/></svg>
+                            {{ $umkm->nomor_telepon_umkm }}
+                        </a>
+                    @else
+                        <p class="text-xs sm:text-sm font-bold text-[#A33215] truncate">-</p>
+                    @endif
                 </div>
                 <div class="min-w-0 bg-gray-50/50 p-3 rounded-xl border border-gray-100">
                     <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Email</p>
