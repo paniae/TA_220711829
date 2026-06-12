@@ -60,12 +60,12 @@
             <div class="flex gap-2">
                 @if($item->status_kehilangan == 'hilang')
                     <button type="button" onclick="event.stopPropagation(); openEditLaporanModal('{{ $item->id_laporan }}', '{{ addslashes($item->barang_hilang) }}', '{{ \Carbon\Carbon::parse($item->tanggal_hilang)->format('Y-m-d') }}', '{{ addslashes($item->lokasi_hilang) }}', '{{ addslashes($item->deskripsi_laporan ?? '') }}', '{{ $item->status_kehilangan }}')"
-                        class="bg-orange-50 text-[#C54716] px-5 py-2.5 rounded-xl text-xs font-bold hover:bg-[#C54716] hover:text-white transition-all shadow-sm uppercase tracking-wider border border-orange-100">
+                        class="bg-white text-[#C54716] border border-[#C54716] px-5 py-2.5 rounded-xl text-[10px] font-black hover:bg-orange-50 hover:-translate-y-0.5 transition-all shadow-sm uppercase tracking-widest">
                         Ubah
                     </button>
                 @endif
                 <button type="button" onclick="event.stopPropagation(); openDeleteLaporanModal('{{ $item->id_laporan }}')"
-                    class="bg-orange-50 text-[#69200F] px-5 py-2.5 rounded-xl text-xs font-bold hover:bg-[#69200F] hover:text-white transition-all shadow-sm uppercase tracking-wider border border-orange-200">
+                    class="bg-[#7F1911] text-white px-5 py-2.5 rounded-xl text-[10px] font-black hover:bg-[#5A120C] hover:-translate-y-0.5 transition-all shadow-sm uppercase tracking-widest">
                     Hapus
                 </button>
             </div>

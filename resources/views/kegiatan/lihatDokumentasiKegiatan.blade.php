@@ -150,7 +150,7 @@
             <a href="{{ route('kegiatan.dokumentasi.downloadAll', $kegiatan->id_kegiatan) }}" 
                onclick="closeModal('modalDownloadAll')"
                class="w-full py-4 bg-[#A33215] text-white rounded-2xl font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-[#69200F] shadow-xl shadow-orange-100 transition-all text-center">Ya, Unduh</a>
-            <button type="button" onclick="closeModal('modalDownloadAll')" class="w-full py-4 text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider hover:text-gray-600 transition-all">Batal</button>
+            <button type="button" onclick="closeModal('modalDownloadAll')" class="w-full py-4 text-xs sm:text-sm font-bold text-[#7F1911] uppercase tracking-wider hover:text-[#7F1911] transition-all">Batal</button>
         </div>
     </div>
 </div>

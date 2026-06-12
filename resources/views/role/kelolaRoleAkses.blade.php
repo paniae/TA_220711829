@@ -73,7 +73,7 @@
                     <h2 class="font-bold text-gray-800 text-sm sm:text-base uppercase tracking-widest">Daftar Role Aktif</h2>
                 </div>
                 <button onclick="openTambahRoleModal()" 
-                    class="bg-[#C54716] text-white px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider hover:bg-[#A33215] transition-all hover:scale-105 active:scale-95 shadow-lg shadow-orange-100">
+                    class="bg-[#C54716] text-white px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider hover:bg-[#A33215] transition-all hover:scale-105 active:scale-95 shadow-lg shadow-orange-100 whitespace-nowrap text-center">
                     + Tambah Role
                 </button>
             </div>
@@ -99,11 +99,11 @@
                             <td class="py-5 px-4 md:px-8">
                                 <div class="flex justify-center gap-3">
                                     <button onclick="editRole('{{ $item->id_role }}', '{{ $item->nama_role }}')" 
-                                        class="bg-[#C54716] text-white px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider hover:bg-[#E75C16] transition-all shadow-sm shadow-orange-100">
+                                        class="bg-white text-[#C54716] border border-[#C54716] px-3 md:px-4 py-1.5 rounded-lg text-[10px] md:text-sm font-bold hover:bg-orange-50 transition-colors shadow-sm">
                                         Ubah
                                     </button>
                                     <button onclick="deleteRole('{{ $item->id_role }}', '{{ $item->nama_role }}')" 
-                                        class="bg-orange-50 text-[#A33215] px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider hover:bg-orange-100 transition-all border border-orange-100">
+                                        class="bg-[#7F1911] text-white px-3 md:px-4 py-1.5 rounded-lg text-[10px] md:text-sm font-bold hover:bg-[#5A120C] transition-colors shadow-sm">
                                         Hapus
                                     </button>
                                 </div>
@@ -231,7 +231,7 @@
             </div>
             <div class="flex gap-3 pt-5 border-t-[3px] border-gray-200">
                 <button type="button" onclick="closeModal('modalRole')" 
-                    class="flex-1 py-3.5 bg-gray-100 text-gray-500 font-bold rounded-xl text-xs sm:text-sm uppercase tracking-wider hover:bg-gray-200 transition-all">
+                    class="flex-1 py-3.5 bg-gray-100 text-[#7F1911] font-bold rounded-xl text-xs sm:text-sm uppercase tracking-wider hover:bg-gray-200 transition-all">
                     Batal
                 </button>
                 <button type="submit" 
@@ -269,7 +269,7 @@
             </div>
             <div class="flex gap-3 pt-5 border-t-[3px] border-gray-200">
                 <button type="button" onclick="closeModal('modalAssignRole')" 
-                    class="flex-1 py-3.5 bg-gray-100 text-gray-500 font-bold rounded-xl text-xs sm:text-sm uppercase tracking-wider hover:bg-gray-200 transition-all">
+                    class="flex-1 py-3.5 bg-gray-100 text-[#7F1911] font-bold rounded-xl text-xs sm:text-sm uppercase tracking-wider hover:bg-gray-200 transition-all">
                     Batal
                 </button>
                 <button type="submit" 
@@ -285,19 +285,11 @@
     <div class="bg-white p-7 rounded-2xl text-center w-full max-w-sm shadow-2xl animate-zoom-in">
         <h3 class="text-xl font-bold text-gray-900 mb-4 uppercase tracking-tight">Hapus Role?</h3>
         <p id="deleteText" class="text-xs sm:text-sm text-gray-500 mb-6 font-medium leading-relaxed uppercase tracking-wide"></p>
-        <div class="flex gap-3">
-            <button type="button" onclick="closeModal('modalDeleteRole')" 
-                class="flex-1 py-3.5 bg-gray-100 text-gray-500 rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-gray-200 transition-all">
-                Batal
-            </button>
-            <form action="#" method="POST" class="flex-1">
-                @csrf @method('DELETE')
-                <button type="submit" 
-                    class="w-full py-3.5 bg-[#A33215] text-white rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-[#69200F] transition-all shadow-lg shadow-orange-200">
-                    Ya, Hapus
-                </button>
-            </form>
-        </div>
+        <form action="#" method="POST" class="flex gap-3 justify-center">
+            @csrf @method('DELETE')
+            <button type="button" onclick="closeModal('modalDeleteRole')" class="flex-1 px-4 py-3 bg-gray-100 text-[#7F1911] rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-gray-200 transition-all">Batal</button>
+            <button type="submit" class="flex-1 px-4 py-3 bg-[#7F1911] text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#5A120C] transition-all shadow-lg shadow-orange-100">Ya, Hapus</button>
+        </form>
     </div>
 </div>
 
@@ -305,19 +297,11 @@
     <div class="bg-white p-7 rounded-2xl text-center w-full max-w-sm shadow-2xl animate-zoom-in">
         <h3 class="text-xl font-bold text-gray-900 mb-4 uppercase tracking-tight">Cabut Akses?</h3>
         <p id="revokeText" class="text-xs sm:text-sm text-gray-500 mb-6 font-medium leading-relaxed uppercase tracking-wide"></p>
-        <div class="flex gap-3">
-            <button type="button" onclick="closeModal('modalRevokeAkses')" 
-                class="flex-1 py-3.5 bg-gray-100 text-gray-500 rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-gray-200 transition-all">
-                Batal
-            </button>
-            <form id="formRevoke" action="#" method="POST" class="flex-1">
-                @csrf @method('DELETE')
-                <button type="submit" 
-                    class="w-full py-3.5 bg-[#A33215] text-white rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-[#69200F] transition-all shadow-lg shadow-orange-200">
-                    Ya, Cabut
-                </button>
-            </form>
-        </div>
+        <form id="formRevoke" action="#" method="POST" class="flex gap-3 justify-center">
+            @csrf @method('DELETE')
+            <button type="button" onclick="closeModal('modalRevokeAkses')" class="flex-1 px-4 py-3 bg-gray-100 text-[#7F1911] rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-gray-200 transition-all">Batal</button>
+            <button type="submit" class="flex-1 px-4 py-3 bg-[#7F1911] text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#5A120C] transition-all shadow-lg shadow-orange-100">Ya, Cabut</button>
+        </form>
     </div>
 </div>
 

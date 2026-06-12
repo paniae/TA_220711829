@@ -121,7 +121,7 @@
                 </div>
             </div>
             <div class="p-4 border-t bg-gray-50 flex justify-end gap-3">
-                <button type="button" onclick="closeModal('modalLaporan')" class="px-5 py-2 text-gray-500 font-bold hover:bg-gray-100 rounded-lg text-xs uppercase tracking-widest">Batal</button>
+                <button type="button" onclick="closeModal('modalLaporan')" class="px-5 py-2 text-[#7F1911] font-bold hover:bg-gray-100 rounded-lg text-xs uppercase tracking-widest">Batal</button>
                 <button type="submit" class="px-8 py-2 bg-[#C54716] text-white rounded-xl font-bold hover:bg-[#A33215] transition-all text-xs shadow-lg shadow-orange-100 uppercase tracking-widest">Simpan Laporan</button>
             </div>
         </form>
@@ -170,7 +170,7 @@
                 </div>
             </div>
             <div class="p-4 border-t bg-gray-50 flex justify-end gap-3">
-                <button type="button" onclick="closeModal('modalEditLaporan')" class="px-5 py-2 text-gray-500 font-bold hover:bg-gray-100 rounded-lg text-xs uppercase tracking-widest">Batal</button>
+                <button type="button" onclick="closeModal('modalEditLaporan')" class="px-5 py-2 text-[#7F1911] font-bold hover:bg-gray-100 rounded-lg text-xs uppercase tracking-widest">Batal</button>
                 <button type="submit" class="px-8 py-2 bg-[#C54716] text-white rounded-xl font-bold hover:bg-[#A33215] transition-all text-xs shadow-lg shadow-orange-100 uppercase tracking-widest">Simpan Perubahan</button>
             </div>
         </form>
@@ -181,11 +181,11 @@
     <div class="bg-white p-10 rounded-[2.5rem] text-center w-full max-w-sm shadow-2xl border border-[#FA8145] relative animate-fade-in">
         <h3 class="text-xl font-bold text-[#69200F] mb-3 uppercase tracking-tight">Hapus Laporan?</h3>
         <p class="text-sm text-gray-500 mb-8 font-medium">Laporan kehilangan Anda akan dihapus secara permanen beserta semua diskusinya.</p>
-        <form id="formHapusLaporan" method="POST" class="flex flex-col gap-3">
+        <form id="formHapusLaporan" method="POST" class="flex gap-3 justify-center">
             @csrf
             @method('DELETE')
-            <button type="submit" class="w-full py-4 bg-[#69200F] text-white rounded-2xl font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-[#A33215] shadow-xl shadow-orange-100 transition-all">Ya, Hapus Sekarang</button>
-            <button type="button" onclick="closeModal('modalHapusLaporan')" class="w-full py-4 text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider hover:text-gray-600 transition-all">Batal</button>
+            <button type="button" onclick="closeModal('modalHapusLaporan')" class="flex-1 px-4 py-3 bg-gray-100 text-[#7F1911] rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-gray-200 transition-all">Batal</button>
+            <button type="submit" class="flex-1 px-4 py-3 bg-[#7F1911] text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#5A120C] transition-all shadow-lg shadow-orange-100">Ya, Hapus</button>
         </form>
     </div>
 </div>

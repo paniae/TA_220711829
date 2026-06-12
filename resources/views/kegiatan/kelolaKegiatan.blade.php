@@ -186,21 +186,21 @@
                     data-lokasi="{{ $item->lokasi }}"
                     data-dana="{{ $item->dana_dikeluarkan ?? 0 }}"
                     data-poster="{{ $item->poster_kegiatan ?? '' }}"
-                    class="bg-[#C54716] text-white px-4 py-2.5 rounded-xl text-xs font-bold hover:bg-[#A33215] transition-all uppercase tracking-wider flex-1 text-center shadow-sm">
+                    class="bg-white text-[#C54716] border border-[#C54716] px-4 py-2.5 rounded-xl text-xs font-bold hover:bg-orange-50 transition-all uppercase tracking-wider flex-1 text-center shadow-sm">
                     Ubah
                 </button>
             @endif
 
             @if($item->status_kegiatan == 'berlangsung')
                 <button onclick="event.stopPropagation(); openSelesaiModal('{{ $item->id_kegiatan }}', '{{ $item->nama_kegiatan }}')"
-                    class="bg-[#69200F] text-white px-4 py-2.5 rounded-xl text-xs font-bold hover:bg-[#4A160A] transition-all shadow-sm uppercase tracking-wider flex-1 text-center">
+                    class="bg-[#2A5521] text-white px-4 py-2.5 rounded-xl text-xs font-bold hover:bg-[#1A3515] transition-all shadow-sm uppercase tracking-wider flex-1 text-center">
                     Selesai
                 </button>
             @endif
 
-            @if($item->status_kegiatan != 'selesai')
+            @if(in_array(strtolower($item->status_kegiatan), ['direncanakan', 'selesai']))
                 <button onclick="event.stopPropagation(); openDeleteModal('{{ $item->id_kegiatan }}')"
-                    class="bg-[#A33215] text-white px-4 py-2.5 rounded-xl text-xs font-bold hover:bg-[#69200F] transition-all shadow-sm uppercase tracking-wider flex-1 text-center">
+                    class="bg-[#7F1911] text-white px-4 py-2.5 rounded-xl text-xs font-bold hover:bg-[#5A120C] transition-all shadow-sm uppercase tracking-wider flex-1 text-center">
                     Hapus
                 </button>
             @endif
@@ -271,7 +271,7 @@
                 </div>
             </div>
             <div class="p-4 border-t bg-gray-50/50 flex justify-end gap-3">
-                <button type="button" onclick="closeModal('modalKegiatan')" class="px-5 py-2 text-gray-500 font-bold hover:bg-gray-100 rounded-lg text-xs sm:text-sm uppercase tracking-wider">Batal</button>
+                <button type="button" onclick="closeModal('modalKegiatan')" class="px-5 py-2 text-[#7F1911] font-bold hover:bg-gray-100 rounded-lg text-xs sm:text-sm uppercase tracking-wider">Batal</button>
                 <button type="submit" class="px-8 py-2 bg-[#C54716] text-white rounded-xl font-bold hover:bg-[#A33215] transition-all text-xs sm:text-sm shadow-lg shadow-orange-100 uppercase tracking-wider">Simpan</button>
             </div>
         </form>
@@ -331,7 +331,7 @@
                 </div>
             </div>
             <div class="p-4 border-t bg-gray-50/50 flex justify-end gap-3">
-                <button type="button" onclick="closeModal('modalEditKegiatan')" class="px-5 py-2 text-gray-500 font-bold hover:bg-gray-100 rounded-lg text-xs sm:text-sm uppercase tracking-wider">Batal</button>
+                <button type="button" onclick="closeModal('modalEditKegiatan')" class="px-5 py-2 text-[#7F1911] font-bold hover:bg-gray-100 rounded-lg text-xs sm:text-sm uppercase tracking-wider">Batal</button>
                 <button type="submit" class="px-8 py-2 bg-[#C54716] text-white rounded-xl font-bold hover:bg-[#A33215] transition-all text-xs sm:text-sm shadow-lg shadow-orange-100 uppercase tracking-wider">Simpan Perubahan</button>
             </div>
         </form>
@@ -342,10 +342,10 @@
     <div class="bg-white p-10 rounded-[2.5rem] text-center w-full max-w-sm shadow-2xl border border-[#FA8145]">
         <h3 class="text-xl font-semibold text-[#69200F] mb-3 uppercase tracking-tight">Hapus Kegiatan?</h3>
         <p class="text-sm text-gray-500 mb-6 font-medium">Data kegiatan ini akan dihapus secara permanen.</p>
-        <form id="formDeleteKegiatan" method="POST" class="flex flex-col gap-3">
+        <form id="formDeleteKegiatan" method="POST" class="flex gap-3 justify-center">
             @csrf @method('DELETE')
-            <button type="submit" class="w-full py-4 bg-[#A33215] text-white rounded-2xl font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-[#69200F] shadow-xl shadow-orange-100 transition-all">Hapus Sekarang</button>
-            <button type="button" onclick="closeModal('modalDeleteKegiatan')" class="w-full py-4 text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider hover:text-gray-600 transition-all">Batal</button>
+            <button type="button" onclick="closeModal('modalDeleteKegiatan')" class="flex-1 px-4 py-3 bg-gray-100 text-[#7F1911] rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-gray-200 transition-all">Batal</button>
+            <button type="submit" class="flex-1 px-4 py-3 bg-[#7F1911] text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#5A120C] transition-all shadow-lg shadow-orange-100">Hapus</button>
         </form>
     </div>
 </div>
@@ -357,7 +357,7 @@
         <form id="formMulaiKegiatan" method="POST" class="flex flex-col gap-3">
             @csrf @method('PUT')
             <button type="submit" class="w-full py-4 bg-[#C54716] text-white rounded-2xl font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-[#A33215] shadow-xl shadow-orange-100 transition-all">Ya, Mulai</button>
-            <button type="button" onclick="closeModal('modalMulaiKegiatan')" class="w-full py-4 text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider hover:text-gray-600 transition-all">Batal</button>
+            <button type="button" onclick="closeModal('modalMulaiKegiatan')" class="w-full py-4 text-xs sm:text-sm font-bold text-[#7F1911] uppercase tracking-wider hover:text-[#7F1911] transition-all">Batal</button>
         </form>
     </div>
 </div>
@@ -368,8 +368,8 @@
         <p id="textSelesai" class="text-sm text-gray-500 mb-6 font-medium">Kegiatan telah selesai dilaksanakan?</p>
         <form id="formSelesaiKegiatan" method="POST" class="flex flex-col gap-3">
             @csrf @method('PUT')
-            <button type="submit" class="w-full py-4 bg-[#69200F] text-white rounded-2xl font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-[#4A160A] shadow-xl shadow-orange-100 transition-all">Selesai</button>
-            <button type="button" onclick="closeModal('modalSelesaiKegiatan')" class="w-full py-4 text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider hover:text-gray-600 transition-all">Batal</button>
+            <button type="submit" class="w-full py-4 bg-[#264D1E] text-white rounded-2xl font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-[#1A3515] shadow-xl shadow-green-100 transition-all">Selesai</button>
+            <button type="button" onclick="closeModal('modalSelesaiKegiatan')" class="w-full py-4 text-xs sm:text-sm font-bold text-[#7F1911] uppercase tracking-wider hover:text-[#7F1911] transition-all">Batal</button>
         </form>
     </div>
 </div>

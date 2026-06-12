@@ -28,7 +28,7 @@
             </form>
 
             <button onclick="openModal('modalPenduduk')"
-                class="bg-[#C54716] text-white px-6 py-2.5 rounded-xl text-sm font-bold hover:bg-[#A33215] transition-all shadow-lg shadow-orange-100 active:scale-95 whitespace-nowrap">
+                class="bg-[#C54716] text-white px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider hover:bg-[#A33215] transition-all hover:scale-105 active:scale-95 shadow-lg shadow-orange-100 whitespace-nowrap text-center">
                 + Tambah Penduduk
             </button>
         </div>
@@ -41,62 +41,132 @@
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
             <div onclick="window.location.href='{{ route('penduduk.index', ['filter' => '', 'search' => $search]) }}'" 
                  class="p-4 rounded-xl border transition-all cursor-pointer active:scale-95 hover:shadow-md {{ empty($filter) ? 'bg-orange-100/60 border-[#FA8145] ring-2 ring-[#C54716]' : 'bg-orange-50/40 border-orange-100 shadow-sm' }}">
-                <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Total Penduduk</h3>
-                <p class="text-2xl font-bold text-[#A33215]">{{ $stats['total_penduduk'] ?? 0 }}</p>
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-white/60 rounded-xl text-[#C54716] shadow-sm border border-orange-100/50 shrink-0">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-0.5">Total Penduduk</h3>
+                        <p class="text-xl font-bold text-[#A33215] leading-none">{{ $stats['total_penduduk'] ?? 0 }}</p>
+                    </div>
+                </div>
             </div>
 
             <div onclick="window.location.href='{{ route('penduduk.index', ['filter' => '', 'search' => $search]) }}'" 
                  class="p-4 rounded-xl border transition-all cursor-pointer active:scale-95 hover:shadow-md bg-orange-50/40 border-orange-100 shadow-sm">
-                <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Total KK</h3>
-                <p class="text-2xl font-bold text-[#A33215]">{{ $stats['total_kk'] ?? 0 }}</p>
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-white/60 rounded-xl text-[#C54716] shadow-sm border border-orange-100/50 shrink-0">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-0.5">Total KK</h3>
+                        <p class="text-xl font-bold text-[#A33215] leading-none">{{ $stats['total_kk'] ?? 0 }}</p>
+                    </div>
+                </div>
             </div>
 
             <div onclick="window.location.href='{{ route('penduduk.index', ['filter' => 'laki_aktif', 'search' => $search]) }}'" 
                  class="p-4 rounded-xl border transition-all cursor-pointer active:scale-95 hover:shadow-md {{ $filter === 'laki_aktif' ? 'bg-orange-100/60 border-[#FA8145] ring-2 ring-[#C54716]' : 'bg-orange-50/40 border-orange-100 shadow-sm' }}">
-                <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Laki-Laki (Aktif)</h3>
-                <p class="text-2xl font-bold text-[#A33215]">{{ $stats['laki_aktif'] ?? 0 }}</p>
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-white/60 rounded-xl text-[#C54716] shadow-sm border border-orange-100/50 shrink-0">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-0.5">Laki-Laki (Aktif)</h3>
+                        <p class="text-xl font-bold text-[#A33215] leading-none">{{ $stats['laki_aktif'] ?? 0 }}</p>
+                    </div>
+                </div>
             </div>
 
             <div onclick="window.location.href='{{ route('penduduk.index', ['filter' => 'perempuan', 'search' => $search]) }}'" 
                  class="p-4 rounded-xl border transition-all cursor-pointer active:scale-95 hover:shadow-md {{ $filter === 'perempuan' ? 'bg-orange-100/60 border-[#FA8145] ring-2 ring-[#C54716]' : 'bg-orange-50/40 border-orange-100 shadow-sm' }}">
-                <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Perempuan</h3>
-                <p class="text-2xl font-bold text-[#A33215]">{{ $stats['perempuan'] ?? 0 }}</p>
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-white/60 rounded-xl text-[#C54716] shadow-sm border border-orange-100/50 shrink-0">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-0.5">Perempuan</h3>
+                        <p class="text-xl font-bold text-[#A33215] leading-none">{{ $stats['perempuan'] ?? 0 }}</p>
+                    </div>
+                </div>
             </div>
 
             <div onclick="window.location.href='{{ route('penduduk.index', ['filter' => 'lansia', 'search' => $search]) }}'" 
                  class="p-4 rounded-xl border transition-all cursor-pointer active:scale-95 hover:shadow-md {{ $filter === 'lansia' ? 'bg-orange-100/60 border-[#FA8145] ring-2 ring-[#C54716]' : 'bg-orange-50/40 border-orange-100 shadow-sm' }}">
-                <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Lansia (60+)</h3>
-                <p class="text-2xl font-bold text-[#A33215]">{{ $stats['lansia'] ?? 0 }}</p>
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-white/60 rounded-xl text-[#C54716] shadow-sm border border-orange-100/50 shrink-0">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-0.5">Lansia (60+)</h3>
+                        <p class="text-xl font-bold text-[#A33215] leading-none">{{ $stats['lansia'] ?? 0 }}</p>
+                    </div>
+                </div>
             </div>
 
             <div onclick="window.location.href='{{ route('penduduk.index', ['filter' => 'dewasa', 'search' => $search]) }}'" 
                  class="p-4 rounded-xl border transition-all cursor-pointer active:scale-95 hover:shadow-md {{ $filter === 'dewasa' ? 'bg-orange-100/60 border-[#FA8145] ring-2 ring-[#C54716]' : 'bg-orange-50/40 border-orange-100 shadow-sm' }}">
-                <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Dewasa (19-59)</h3>
-                <p class="text-2xl font-bold text-[#A33215]">{{ $stats['dewasa'] ?? 0 }}</p>
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-white/60 rounded-xl text-[#C54716] shadow-sm border border-orange-100/50 shrink-0">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-0.5">Dewasa (19-59)</h3>
+                        <p class="text-xl font-bold text-[#A33215] leading-none">{{ $stats['dewasa'] ?? 0 }}</p>
+                    </div>
+                </div>
             </div>
 
             <div onclick="window.location.href='{{ route('penduduk.index', ['filter' => 'remaja', 'search' => $search]) }}'" 
                  class="p-4 rounded-xl border transition-all cursor-pointer active:scale-95 hover:shadow-md {{ $filter === 'remaja' ? 'bg-orange-100/60 border-[#FA8145] ring-2 ring-[#C54716]' : 'bg-orange-50/40 border-orange-100 shadow-sm' }}">
-                <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Remaja (12-18)</h3>
-                <p class="text-2xl font-bold text-[#A33215]">{{ $stats['remaja'] ?? 0 }}</p>
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-white/60 rounded-xl text-[#C54716] shadow-sm border border-orange-100/50 shrink-0">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-0.5">Remaja (12-18)</h3>
+                        <p class="text-xl font-bold text-[#A33215] leading-none">{{ $stats['remaja'] ?? 0 }}</p>
+                    </div>
+                </div>
             </div>
 
             <div onclick="window.location.href='{{ route('penduduk.index', ['filter' => 'anak', 'search' => $search]) }}'" 
                  class="p-4 rounded-xl border transition-all cursor-pointer active:scale-95 hover:shadow-md {{ $filter === 'anak' ? 'bg-orange-100/60 border-[#FA8145] ring-2 ring-[#C54716]' : 'bg-orange-50/40 border-orange-100 shadow-sm' }}">
-                <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Anak-Anak (&lt;12)</h3>
-                <p class="text-2xl font-bold text-[#A33215]">{{ $stats['anak'] ?? 0 }}</p>
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-white/60 rounded-xl text-[#C54716] shadow-sm border border-orange-100/50 shrink-0">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-0.5">Anak-Anak (&lt;12)</h3>
+                        <p class="text-xl font-bold text-[#A33215] leading-none">{{ $stats['anak'] ?? 0 }}</p>
+                    </div>
+                </div>
             </div>
 
             <div onclick="window.location.href='{{ route('penduduk.index', ['filter' => 'pindah', 'search' => $search]) }}'" 
                  class="p-4 rounded-xl border transition-all cursor-pointer active:scale-95 hover:shadow-md {{ $filter === 'pindah' ? 'bg-orange-100/60 border-[#FA8145] ring-2 ring-[#C54716]' : 'bg-orange-50/40 border-orange-100 shadow-sm' }}">
-                <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Pindah ({{ date('Y') }})</h3>
-                <p class="text-2xl font-bold text-[#A33215]">{{ $stats['pindah_tahun_ini'] ?? 0 }}</p>
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-white/60 rounded-xl text-[#C54716] shadow-sm border border-orange-100/50 shrink-0">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-0.5">Pindah ({{ date('Y') }})</h3>
+                        <p class="text-xl font-bold text-[#A33215] leading-none">{{ $stats['pindah_tahun_ini'] ?? 0 }}</p>
+                    </div>
+                </div>
             </div>
 
             <div onclick="window.location.href='{{ route('penduduk.index', ['filter' => 'meninggal', 'search' => $search]) }}'" 
                  class="p-4 rounded-xl border transition-all cursor-pointer active:scale-95 hover:shadow-md {{ $filter === 'meninggal' ? 'bg-orange-100/60 border-[#FA8145] ring-2 ring-[#C54716]' : 'bg-orange-50/40 border-orange-100 shadow-sm' }}">
-                <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Meninggal ({{ date('Y') }})</h3>
-                <p class="text-2xl font-bold text-[#A33215]">{{ $stats['meninggal_tahun_ini'] ?? 0 }}</p>
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-white/60 rounded-xl text-[#C54716] shadow-sm border border-orange-100/50 shrink-0">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-0.5">Meninggal ({{ date('Y') }})</h3>
+                        <p class="text-xl font-bold text-[#A33215] leading-none">{{ $stats['meninggal_tahun_ini'] ?? 0 }}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -171,12 +241,12 @@
                         '{{ addslashes($d->provinsi) }}',
                         '{{ addslashes($d->alamat) }}',
                         '{{ $d->status_penduduk }}'
-                        )" class="bg-orange-50 text-[#C54716] px-4 py-2 rounded-xl text-xs font-bold hover:bg-[#C54716] hover:text-white transition-all border border-orange-100 shadow-sm uppercase tracking-wider min-w-[75px] text-center">
+                        )" class="bg-white text-[#C54716] border border-[#C54716] px-3 md:px-4 py-1.5 rounded-lg text-[10px] md:text-sm font-bold hover:bg-orange-50 transition-colors shadow-sm">
                         Ubah
                     </button>
 
                     <button onclick="openDeleteModal('{{ $d->nomor_induk_kependudukan }}', '{{ addslashes($d->nama_lengkap) }}')" 
-                        class="bg-orange-50 text-[#69200F] px-4 py-2 rounded-xl text-xs font-bold hover:bg-[#69200F] hover:text-white transition-all border border-orange-200 shadow-sm uppercase tracking-wider min-w-[75px] text-center">
+                        class="bg-[#7F1911] text-white px-3 md:px-4 py-1.5 rounded-lg text-[10px] md:text-sm font-bold hover:bg-[#5A120C] transition-colors shadow-sm">
                         Hapus
                     </button>
                     </div>
@@ -267,12 +337,34 @@
 
                     <div>
                         <label class="text-base font-medium">Agama <span class="text-[#A33215]">*</span></label>
-                        <input type="text" name="agama" required class="border p-2 rounded-lg w-full" value="{{ old('agama') }}">
+                        <select name="agama" required class="border p-2 rounded-lg w-full">
+                            <option value="">-- Pilih Agama --</option>
+                            <option value="Islam" {{ old('agama') == 'Islam' ? 'selected' : '' }}>Islam</option>
+                            <option value="Kristen" {{ old('agama') == 'Kristen' ? 'selected' : '' }}>Kristen</option>
+                            <option value="Katolik" {{ old('agama') == 'Katolik' ? 'selected' : '' }}>Katolik</option>
+                            <option value="Hindu" {{ old('agama') == 'Hindu' ? 'selected' : '' }}>Hindu</option>
+                            <option value="Buddha" {{ old('agama') == 'Buddha' ? 'selected' : '' }}>Buddha</option>
+                            <option value="Konghucu" {{ old('agama') == 'Konghucu' ? 'selected' : '' }}>Konghucu</option>
+                            <option value="Penganut Kepercayaan" {{ old('agama') == 'Penganut Kepercayaan' ? 'selected' : '' }}>Penganut Kepercayaan</option>
+                            <option value="Lainnya" {{ old('agama') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                        </select>
                     </div>
 
                     <div>
                         <label class="text-base font-medium">Pendidikan <span class="text-[#A33215]">*</span></label>
-                        <input type="text" name="pendidikan" required class="border p-2 rounded-lg w-full" value="{{ old('pendidikan') }}">
+                        <select name="pendidikan" required class="border p-2 rounded-lg w-full">
+                            <option value="">-- Pilih Pendidikan --</option>
+                            <option value="Tidak / Belum Sekolah" {{ old('pendidikan') == 'Tidak / Belum Sekolah' ? 'selected' : '' }}>Tidak / Belum Sekolah</option>
+                            <option value="Belum Tamat SD / Sederajat" {{ old('pendidikan') == 'Belum Tamat SD / Sederajat' ? 'selected' : '' }}>Belum Tamat SD / Sederajat</option>
+                            <option value="Tamat SD / Sederajat" {{ old('pendidikan') == 'Tamat SD / Sederajat' ? 'selected' : '' }}>Tamat SD / Sederajat</option>
+                            <option value="SLTP / Sederajat" {{ old('pendidikan') == 'SLTP / Sederajat' ? 'selected' : '' }}>SLTP / Sederajat</option>
+                            <option value="SLTA / Sederajat" {{ old('pendidikan') == 'SLTA / Sederajat' ? 'selected' : '' }}>SLTA / Sederajat</option>
+                            <option value="Diploma I / II" {{ old('pendidikan') == 'Diploma I / II' ? 'selected' : '' }}>Diploma I / II</option>
+                            <option value="Akademi / Diploma III / S. Muda" {{ old('pendidikan') == 'Akademi / Diploma III / S. Muda' ? 'selected' : '' }}>Akademi / Diploma III / S. Muda</option>
+                            <option value="Diploma IV / Strata I" {{ old('pendidikan') == 'Diploma IV / Strata I' ? 'selected' : '' }}>Diploma IV / Strata I</option>
+                            <option value="Strata II" {{ old('pendidikan') == 'Strata II' ? 'selected' : '' }}>Strata II</option>
+                            <option value="Strata III" {{ old('pendidikan') == 'Strata III' ? 'selected' : '' }}>Strata III</option>
+                        </select>
                     </div>
 
                     <div>
@@ -336,7 +428,7 @@
 
                 <div class="mt-6 flex justify-end gap-3 pt-4 border-t">
                     <button type="button" onclick="closeModal('modalPenduduk')"
-                        class="px-5 py-2 text-gray-500 font-bold hover:bg-gray-100 rounded-lg text-xs uppercase tracking-wide">
+                        class="px-5 py-2 text-[#7F1911] font-bold hover:bg-gray-100 rounded-lg text-xs uppercase tracking-wide">
                         Batal
                     </button>
                     <button type="submit"
@@ -535,12 +627,34 @@
 
                     <div>
                         <label class="text-base font-medium">Agama <span class="text-[#A33215]">*</span></label>
-                        <input type="text" name="agama" id="edit_agama" required class="border p-2 rounded-xl w-full focus:border-[#C54716] outline-none transition-all">
+                        <select name="agama" id="edit_agama" required class="border p-2 rounded-xl w-full focus:border-[#C54716] outline-none transition-all">
+                            <option value="">-- Pilih Agama --</option>
+                            <option value="Islam">Islam</option>
+                            <option value="Kristen">Kristen</option>
+                            <option value="Katolik">Katolik</option>
+                            <option value="Hindu">Hindu</option>
+                            <option value="Buddha">Buddha</option>
+                            <option value="Konghucu">Konghucu</option>
+                            <option value="Penganut Kepercayaan">Penganut Kepercayaan</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
                     </div>
 
                     <div>
                         <label class="text-base font-medium">Pendidikan <span class="text-[#A33215]">*</span></label>
-                        <input type="text" name="pendidikan" id="edit_pendidikan" required class="border p-2 rounded-xl w-full focus:border-[#C54716] outline-none transition-all">
+                        <select name="pendidikan" id="edit_pendidikan" required class="border p-2 rounded-xl w-full focus:border-[#C54716] outline-none transition-all">
+                            <option value="">-- Pilih Pendidikan --</option>
+                            <option value="Tidak / Belum Sekolah">Tidak / Belum Sekolah</option>
+                            <option value="Belum Tamat SD / Sederajat">Belum Tamat SD / Sederajat</option>
+                            <option value="Tamat SD / Sederajat">Tamat SD / Sederajat</option>
+                            <option value="SLTP / Sederajat">SLTP / Sederajat</option>
+                            <option value="SLTA / Sederajat">SLTA / Sederajat</option>
+                            <option value="Diploma I / II">Diploma I / II</option>
+                            <option value="Akademi / Diploma III / S. Muda">Akademi / Diploma III / S. Muda</option>
+                            <option value="Diploma IV / Strata I">Diploma IV / Strata I</option>
+                            <option value="Strata II">Strata II</option>
+                            <option value="Strata III">Strata III</option>
+                        </select>
                     </div>
 
                     <div>
@@ -634,16 +748,12 @@
         <h3 class="text-xl font-bold text-[#69200F] mb-3 uppercase tracking-tight">Hapus Penduduk?</h3>
         <p class="text-sm text-gray-500 mb-8 font-medium">Yakin ingin menghapus data <strong id="delete_nama_teks" class="text-[#A33215]"></strong>?</p>
 
-        <form id="formDelete" method="POST" class="flex flex-col gap-3">
+        <form id="formDelete" method="POST" class="flex gap-3 justify-center">
             @csrf
             @method('DELETE')
 
-            <button type="submit" class="w-full py-4 bg-[#A33215] text-white rounded-2xl font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-[#69200F] shadow-xl shadow-orange-100 transition-all">
-                Ya, Hapus Sekarang
-            </button>
-            <button type="button" onclick="closeModal('modalDelete')" class="w-full py-4 text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider hover:text-gray-600 transition-all">
-                Batal
-            </button>
+            <button type="button" onclick="closeModal('modalDelete')" class="flex-1 px-4 py-3 bg-gray-100 text-[#7F1911] rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-gray-200 transition-all">Batal</button>
+            <button type="submit" class="flex-1 px-4 py-3 bg-[#7F1911] text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#5A120C] transition-all shadow-lg shadow-orange-100">Ya, Hapus</button>
         </form>
 
     </div>

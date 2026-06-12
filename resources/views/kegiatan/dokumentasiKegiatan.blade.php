@@ -42,7 +42,7 @@
             <img
                 src="{{ asset('storage/' . $kegiatan->poster_kegiatan) }}"
                 alt="Poster {{ $kegiatan->nama_kegiatan }}"
-                onclick="openPreview('{{ asset('storage/' . $kegiatan->poster_kegiatan) }}', false)"
+                onclick="showImage('{{ asset('storage/' . $kegiatan->poster_kegiatan) }}')"
                 class="w-44 sm:w-52 object-contain rounded-2xl border border-orange-100 shadow-md cursor-pointer hover:scale-105 hover:shadow-xl transition-all duration-300">
             <p class="text-[10px] text-gray-400 mt-2 text-center">Klik untuk perbesar</p>
         </div>
@@ -133,20 +133,20 @@
             Galeri Dokumentasi
         </h2>
         <div class="flex gap-2">
-            <button onclick="openModal('modalDokumentasi')"
-                class="bg-[#C54716] text-white px-5 sm:px-6 py-2.5 rounded-xl font-bold text-[10px] sm:text-xs uppercase tracking-wider shadow-lg shadow-orange-100 hover:bg-[#A33215] transition-all active:scale-95">
-                + Tambah
-            </button>
             @if(!$kegiatan->dokumentasi->isEmpty())
                 <button onclick="openModal('modalDownloadAll')"
-                    class="bg-[#A33215] text-white px-5 sm:px-6 py-2.5 rounded-xl font-bold text-[10px] sm:text-xs uppercase tracking-wider shadow-lg shadow-orange-100 hover:bg-[#69200F] transition-all active:scale-95 hidden sm:block">
+                    class="bg-orange-50 text-[#C54716] border border-orange-200 px-5 sm:px-6 py-2.5 rounded-xl font-bold text-[10px] sm:text-xs uppercase tracking-wider shadow-sm shadow-orange-100 hover:bg-orange-100 hover:text-[#A33215] transition-all active:scale-95 hidden sm:block">
                     Simpan Semua
                 </button>
                 <button onclick="openModal('modalDownloadAll')"
-                    class="bg-[#A33215] text-white px-4 py-2.5 rounded-xl font-bold text-[10px] sm:text-xs uppercase tracking-wider shadow-lg shadow-orange-100 hover:bg-[#69200F] transition-all active:scale-95 block sm:hidden">
+                    class="bg-orange-50 text-[#C54716] border border-orange-200 px-4 py-2.5 rounded-xl font-bold text-[10px] sm:text-xs uppercase tracking-wider shadow-sm shadow-orange-100 hover:bg-orange-100 hover:text-[#A33215] transition-all active:scale-95 block sm:hidden">
                     Simpan
                 </button>
             @endif
+            <button onclick="openModal('modalDokumentasi')"
+                class="bg-[#C54716] text-white px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider hover:bg-[#A33215] transition-all hover:scale-105 active:scale-95 shadow-lg shadow-orange-100 whitespace-nowrap text-center">
+                + Tambah
+            </button>
         </div>
     </div>
 
@@ -160,7 +160,7 @@
             @php $isVideo = Str::endsWith($item->file_kegiatan, ['.mp4', '.mov', '.avi']); @endphp
 
             <div class="group bg-white rounded-[2rem] border border-gray-200 hover:border-[#FA8145] shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-1">
-                <div class="relative aspect-video overflow-hidden bg-black cursor-pointer group-hover:shadow-md transition-all" onclick="openPreview('{{ asset('storage/' . $item->file_kegiatan) }}', {{ $isVideo ? 'true' : 'false' }})">
+                <div class="relative aspect-video overflow-hidden bg-black cursor-pointer group-hover:shadow-md transition-all" onclick="openPreview('{{ asset('storage/' . $item->file_kegiatan) }}', {{ $isVideo ? 'true' : 'false' }}, '{{ \Carbon\Carbon::parse($item->tanggal_dokumentasi)->translatedFormat('d M Y') }}', '{{ addslashes($item->deskripsi_dokumentasi ?? 'Dokumentasi untuk ' . $kegiatan->nama_kegiatan) }}')">
                     @if($isVideo)
                         <video class="w-full h-full object-cover opacity-80" muted>
                             <source src="{{ asset('storage/' . $item->file_kegiatan) }}">
@@ -177,21 +177,21 @@
                     </div>
                 </div>
 
-                <div class="p-6">
+                <div class="p-6 cursor-pointer" onclick="openPreview('{{ asset('storage/' . $item->file_kegiatan) }}', {{ $isVideo ? 'true' : 'false' }}, '{{ \Carbon\Carbon::parse($item->tanggal_dokumentasi)->translatedFormat('d M Y') }}', '{{ addslashes($item->deskripsi_dokumentasi ?? 'Dokumentasi untuk ' . $kegiatan->nama_kegiatan) }}')">
                     <p class="text-xs font-bold text-[#FA8145] uppercase tracking-wider mb-2">
                         {{ \Carbon\Carbon::parse($item->tanggal_dokumentasi)->translatedFormat('d M Y') }}
                     </p>
-                    <p class="text-sm text-gray-700 line-clamp-2 min-h-[2.5rem] leading-relaxed mb-6 font-medium">
+                    <p class="text-sm text-gray-700 line-clamp-2 min-h-[2.5rem] leading-relaxed mb-6 font-medium group-hover:text-[#C54716] transition-colors">
                         {{ $item->deskripsi_dokumentasi ?? 'Dokumentasi untuk ' . $kegiatan->nama_kegiatan }}
                     </p>
 
-                    <div class="grid grid-cols-2 gap-2">
+                    <div class="grid grid-cols-2 gap-2" onclick="event.stopPropagation()">
                         <a href="{{ asset('storage/' . $item->file_kegiatan) }}" download
-                            class="bg-[#E75C16] text-white py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-[#C54716] text-center transition-all shadow-sm shadow-orange-50">Simpan</a>
+                            class="bg-orange-50 text-[#C54716] border border-orange-200 py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-orange-100 hover:text-[#A33215] text-center transition-all shadow-sm shadow-orange-50">Simpan</a>
                         <button onclick="openEditDokumentasi('{{ $item->id_dokumentasi }}', '{{ $item->tanggal_dokumentasi }}', '{{ addslashes($item->deskripsi_dokumentasi) }}', '{{ asset('storage/' . $item->file_kegiatan) }}', {{ $isVideo ? 'true' : 'false' }})"
-                            class="bg-[#C54716] text-white py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-[#A33215] transition-all shadow-sm shadow-orange-50">Ubah</button>
+                            class="bg-orange-50 text-[#C54716] border border-orange-200 py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-orange-100 hover:text-[#A33215] transition-all shadow-sm shadow-orange-50">Ubah</button>
                         <button onclick="openDeleteDokumentasi('{{ $item->id_dokumentasi }}')"
-                            class="bg-[#A33215] text-white py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-[#69200F] transition-all shadow-sm shadow-orange-50">Hapus</button>
+                            class="col-span-2 bg-[#7F1911] text-white py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-[#5A120C] transition-all shadow-sm shadow-orange-50">Hapus</button>
                     </div>
                 </div>
             </div>
@@ -231,7 +231,7 @@
                 </div>
             </div>
             <div class="p-8 border-t bg-gray-50/50 flex justify-end gap-4">
-                <button type="button" onclick="closeModal('modalEditDokumentasi')" class="px-6 py-3 text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider hover:text-[#A33215] transition-all">Batal</button>
+                <button type="button" onclick="closeModal('modalEditDokumentasi')" class="px-6 py-3 text-xs sm:text-sm font-bold text-[#7F1911] uppercase tracking-wider hover:text-[#5A120C] transition-all">Batal</button>
                 <button type="submit" class="px-10 py-3 bg-[#C54716] text-white rounded-2xl font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-[#A33215] shadow-xl shadow-orange-100 transition-all">Simpan Perubahan</button>
             </div>
         </form>
@@ -269,18 +269,41 @@
                 </div>
             </div>
             <div class="p-8 border-t bg-gray-50/50 flex justify-end gap-4">
-                <button type="button" onclick="closeModal('modalDokumentasi')" class="px-6 py-3 text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider hover:text-[#A33215] transition-all">Batal</button>
+                <button type="button" onclick="closeModal('modalDokumentasi')" class="px-6 py-3 text-xs sm:text-sm font-bold text-[#7F1911] uppercase tracking-wider hover:text-[#5A120C] transition-all">Batal</button>
                 <button type="submit" class="px-10 py-3 bg-[#C54716] text-white rounded-2xl font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-[#A33215] shadow-xl shadow-orange-100 transition-all">Simpan</button>
             </div>
         </form>
     </div>
 </div>
 
-<div id="modalPreview" class="hidden fixed inset-0 bg-black/40 z-[999] flex items-center justify-center p-4 backdrop-blur-sm">
-    <div class="relative max-w-5xl w-full flex flex-col items-center">
-        <button onclick="closePreview()" class="absolute -top-12 right-0 text-white text-4xl font-light hover:text-[#FA8145] transition-colors">✕</button>
-        <img id="previewImage" class="hidden max-w-full max-h-[80vh] rounded-3xl shadow-2xl border-4 border-white/10">
-        <video id="previewVideo" controls class="hidden max-w-full max-h-[80vh] rounded-3xl shadow-2xl border-4 border-white/10"></video>
+<div id="modalPreview" class="hidden fixed inset-0 bg-[#69200F]/60 z-[999] flex items-center justify-center p-4 md:p-8 backdrop-blur-md transition-all">
+    <div class="relative max-w-6xl w-full flex flex-col md:flex-row bg-white rounded-[2.5rem] shadow-2xl overflow-hidden max-h-[90vh] animate-zoom-in border border-[#FA8145]/30">
+        <button onclick="closePreview()" class="absolute top-4 right-6 text-gray-400 hover:text-[#A33215] text-3xl font-light transition-colors z-10 bg-white/80 hover:bg-white rounded-full w-10 h-10 flex items-center justify-center backdrop-blur-sm">✕</button>
+        
+        <!-- Media Section -->
+        <div class="w-full md:w-[65%] bg-black flex items-center justify-center min-h-[40vh] md:min-h-[70vh] relative">
+            <img id="previewImage" class="hidden max-w-full max-h-[70vh] object-contain">
+            <video id="previewVideo" controls class="hidden max-w-full max-h-[70vh] object-contain"></video>
+        </div>
+        
+        <!-- Detail Section -->
+        <div class="w-full md:w-[35%] p-8 md:p-10 flex flex-col bg-gray-50/50">
+            <div class="mb-6">
+                <span id="previewDate" class="inline-block px-4 py-1.5 rounded-full bg-orange-50 text-[#C54716] text-[10px] sm:text-xs font-bold uppercase tracking-wider border border-orange-100"></span>
+            </div>
+            <h3 class="text-xl font-bold text-[#69200F] uppercase tracking-tight mb-4">Detail Dokumentasi</h3>
+            <div class="w-12 h-1.5 bg-[#FA8145] rounded-full mb-6"></div>
+            <div class="flex-grow overflow-y-auto pr-2 custom-scrollbar">
+                <p id="previewDesc" class="text-sm text-gray-600 leading-relaxed font-medium"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalImagePreview" class="hidden fixed inset-0 bg-black/80 z-[999] flex items-center justify-center p-4 backdrop-blur-sm" onclick="closeModal('modalImagePreview')">
+    <div class="relative max-w-4xl w-full flex justify-center">
+        <button onclick="closeModal('modalImagePreview')" class="absolute -top-12 right-0 text-white text-4xl font-light hover:text-[#FA8145] transition-colors">✕</button>
+        <img id="simplePreviewImage" src="" class="max-w-full max-h-[80vh] rounded-3xl shadow-2xl object-contain border-4 border-white/10" onclick="event.stopPropagation()">
     </div>
 </div>
 
@@ -288,10 +311,10 @@
     <div class="bg-white p-10 rounded-[2.5rem] text-center w-full max-w-sm shadow-2xl border border-[#FA8145]">
         <h3 class="text-xl font-bold text-[#69200F] uppercase tracking-tight mb-3">Hapus Data?</h3>
         <p class="text-sm text-gray-500 mb-8 font-medium">Data yang dihapus tidak dapat dikembalikan lagi.</p>
-        <form id="formDeleteDokumentasi" method="POST" class="flex flex-col gap-3">
+        <form id="formDeleteDokumentasi" method="POST" class="flex gap-3 justify-center">
             @csrf @method('DELETE')
-            <button type="submit" class="w-full py-4 bg-[#A33215] text-white rounded-2xl font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-[#69200F] shadow-xl shadow-orange-100 transition-all">Ya, Hapus Sekarang</button>
-            <button type="button" onclick="closeModal('modalDeleteDokumentasi')" class="w-full py-4 text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider hover:text-gray-600 transition-all">Batal</button>
+            <button type="button" onclick="closeModal('modalDeleteDokumentasi')" class="flex-1 px-4 py-3 bg-gray-100 text-[#7F1911] rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-gray-200 transition-all">Batal</button>
+            <button type="submit" class="flex-1 px-4 py-3 bg-[#7F1911] text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#5A120C] transition-all shadow-lg shadow-orange-100">Ya, Hapus</button>
         </form>
     </div>
 </div>
@@ -304,7 +327,7 @@
             <a href="{{ route('kegiatan.dokumentasi.downloadAll', $kegiatan->id_kegiatan) }}" 
                onclick="closeModal('modalDownloadAll')"
                class="w-full py-4 bg-[#A33215] text-white rounded-2xl font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-[#69200F] shadow-xl shadow-orange-100 transition-all text-center">Ya, Unduh</a>
-            <button type="button" onclick="closeModal('modalDownloadAll')" class="w-full py-4 text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider hover:text-gray-600 transition-all">Batal</button>
+            <button type="button" onclick="closeModal('modalDownloadAll')" class="w-full py-4 text-xs sm:text-sm font-bold text-[#7F1911] uppercase tracking-wider hover:text-[#5A120C] transition-all">Batal</button>
         </div>
     </div>
 </div>
@@ -364,10 +387,20 @@ function updateInputFiles() {
     document.getElementById('inputFoto').files = dataTransfer.files;
 }
 
-function openPreview(src, isVideo) {
+function showImage(src) {
+    document.getElementById('simplePreviewImage').src = src;
+    openModal('modalImagePreview');
+}
+
+function openPreview(src, isVideo, date, desc) {
     const modal = document.getElementById('modalPreview');
     const img = document.getElementById('previewImage');
     const vid = document.getElementById('previewVideo');
+    const dateEl = document.getElementById('previewDate');
+    const descEl = document.getElementById('previewDesc');
+
+    dateEl.innerText = date;
+    descEl.innerText = desc || 'Tidak ada deskripsi tersedia.';
 
     modal.classList.remove('hidden');
 

@@ -14,6 +14,7 @@ class PenggunaSeeder extends Seeder
         DB::table('pengguna')->insert([
             [
                 'nama' => 'Admin Dukuh',
+                'username' => 'dukuh1',
                 'nik' => '1234567890123456',
                 'jenis_kelamin_pengguna' => 'Laki-laki',
                 'nomor_telepon_pengguna' => '081234567890',
@@ -25,6 +26,7 @@ class PenggunaSeeder extends Seeder
             ],
             [
                 'nama' => 'Ketua RT',
+                'username' => 'rt1234',
                 'nik' => '6543210987654321',
                 'jenis_kelamin_pengguna' => 'Laki-laki',
                 'nomor_telepon_pengguna' => '081111111111',
@@ -36,6 +38,7 @@ class PenggunaSeeder extends Seeder
             ],
             [
                 'nama' => 'Warga 1',
+                'username' => 'warga1',
                 'nik' => '1111111111111111',
                 'jenis_kelamin_pengguna' => 'Perempuan',
                 'nomor_telepon_pengguna' => '082222222222',

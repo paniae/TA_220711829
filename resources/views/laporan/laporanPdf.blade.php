@@ -61,6 +61,7 @@
                     <th>Pekerjaan</th>
                     <th>Alamat (RT/RW)</th>
                     <th>Status</th>
+                    <th>Tgl Pembaruan</th>
                 @endif
             </tr>
         </thead>
@@ -100,11 +101,12 @@
                         <td>{{ $item->jenis_pekerjaan }}</td>
                         <td>RT {{ $item->rt }}/RW {{ $item->rw }}</td>
                         <td>{{ $item->status_penduduk }}</td>
+                        <td>{{ $item->updated_at ? \Carbon\Carbon::parse($item->updated_at)->translatedFormat('d M Y') : '-' }}</td>
                     @endif
                 </tr>
             @empty
                 <tr>
-                    <td colspan="5" style="text-align: center;">Belum ada data untuk kategori ini.</td>
+                    <td colspan="11" style="text-align: center;">Belum ada data untuk kategori ini.</td>
                 </tr>
             @endforelse
         </tbody>

@@ -62,6 +62,25 @@
 
 </div>
 
+    <!-- Visualisasi Chart -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <!-- Gender Chart -->
+        <div class="bg-white/90 p-4 md:p-6 rounded-xl shadow border border-[#FA8145]">
+            <h2 class="text-lg font-bold text-gray-800 mb-4 text-center">Berdasarkan Jenis Kelamin</h2>
+            <div class="relative h-64 md:h-72 flex justify-center w-full">
+                <canvas id="genderChart"></canvas>
+            </div>
+        </div>
+        
+        <!-- Age Chart -->
+        <div class="bg-white/90 p-4 md:p-6 rounded-xl shadow border border-[#FA8145]">
+            <h2 class="text-lg font-bold text-gray-800 mb-4 text-center">Berdasarkan Kelompok Umur</h2>
+            <div class="relative h-64 md:h-72 flex justify-center w-full">
+                <canvas id="ageChart"></canvas>
+            </div>
+        </div>
+    </div>
+
 <div id="tableContainer" class="bg-white/90 p-4 md:p-6 rounded-xl shadow border border-[#FA8145] overflow-x-auto">
     <table class="w-full text-base whitespace-nowrap">
         <thead>
@@ -100,6 +119,55 @@
     @endif
 
 </div>
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const chartData = @json($chartData);
+        
+        const commonOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { font: { family: "'Inter', sans-serif", weight: 'bold' } }
+                }
+            }
+        };
+
+        if (document.getElementById('genderChart')) {
+            new Chart(document.getElementById('genderChart'), {
+                type: 'pie',
+                data: {
+                    labels: chartData.penduduk_gender.labels.map((label, index) => `${label} : ${chartData.penduduk_gender.data[index]}`),
+                    datasets: [{
+                        data: chartData.penduduk_gender.data,
+                        backgroundColor: ['#FA8145', '#C54716'],
+                        borderWidth: 1
+                    }]
+                },
+                options: commonOptions
+            });
+        }
+
+        if (document.getElementById('ageChart')) {
+            new Chart(document.getElementById('ageChart'), {
+                type: 'pie',
+                data: {
+                    labels: chartData.penduduk_umur.labels.map((label, index) => `${label} : ${chartData.penduduk_umur.data[index]}`),
+                    datasets: [{
+                        data: chartData.penduduk_umur.data,
+                        backgroundColor: ['#A33215', '#C54716', '#E75C16', '#FA8145'],
+                        borderWidth: 1
+                    }]
+                },
+                options: commonOptions
+            });
+        }
+    });
+</script>
+@endpush
+
 @endsection
-    
-    

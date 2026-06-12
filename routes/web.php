@@ -29,6 +29,7 @@ Route::get('/check-uniqueness', function (Illuminate\Http\Request $request) {
     $value = $request->query('value');
 
     $columnMap = [
+        'username' => 'username',
         'nik' => 'nik',
         'nomor_telepon' => 'nomor_telepon_pengguna',
         'email' => 'email_pengguna',

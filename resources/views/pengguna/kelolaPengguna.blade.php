@@ -28,7 +28,7 @@
             </div>
 
             <button onclick="openModal('modalTambahPengguna')"
-                class="bg-[#C54716] text-white px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold hover:bg-[#A33215] transition-all shadow-lg shadow-orange-100 active:scale-95 whitespace-nowrap">
+                class="bg-[#C54716] text-white px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider hover:bg-[#A33215] transition-all hover:scale-105 active:scale-95 shadow-lg shadow-orange-100 whitespace-nowrap text-center">
                 + Tambah Akun
             </button>
         </div>
@@ -139,7 +139,7 @@
                                     Terima
                                 </button>
                                 <button type="button" onclick="event.stopPropagation(); confirmTolak('{{ route('pengguna.tolak', $user->id_pengguna) }}', '{{ $user->nama }}')" 
-                                    class="bg-orange-50 text-[#A33215] px-3 md:px-4 py-1.5 md:py-2 rounded-lg text-[10px] md:text-sm font-bold hover:bg-orange-100 border border-orange-200 transition-colors">
+                                    class="bg-[#7F1911] text-white px-3 md:px-4 py-1.5 md:py-2 rounded-lg text-[10px] md:text-sm font-bold hover:bg-[#5A120C] transition-colors shadow-sm">
                                     Tolak
                                 </button>
                             </div>
@@ -194,8 +194,9 @@
                         @foreach($activeUsers as $user)
                         <tr class="hover:bg-gray-50 cursor-pointer pengguna-row" 
                             onclick="showDetail(this)"
-                            data-search="{{ strtolower($user->nama . ' ' . $user->nik . ' ' . $user->nomor_telepon_pengguna . ' ' . ($user->email_pengguna ?? '') . ' ' . $user->jenis_kelamin_pengguna . ' ' . $user->alamat_pengguna . ' ' . ($user->role->nama_role ?? '')) }}"
+                            data-search="{{ strtolower($user->nama . ' ' . $user->username . ' ' . $user->nik . ' ' . $user->nomor_telepon_pengguna . ' ' . ($user->email_pengguna ?? '') . ' ' . $user->jenis_kelamin_pengguna . ' ' . $user->alamat_pengguna . ' ' . ($user->role->nama_role ?? '')) }}"
                             data-nama="{{ $user->nama }}"
+                            data-username="{{ $user->username }}"
                             data-nik="{{ $user->nik }}"
                             data-hp="{{ $user->nomor_telepon_pengguna }}"
                             data-email="{{ $user->email_pengguna ?? '-' }}"
@@ -224,11 +225,11 @@
                                         Detail
                                     </button>
                                     <button type="button" onclick="event.stopPropagation(); editPengguna(this)"
-                                        class="bg-[#C54716] text-white px-3 md:px-4 py-1.5 rounded-lg text-[10px] md:text-sm font-bold hover:bg-[#A33215] transition-colors shadow-sm">
+                                        class="bg-white text-[#C54716] border border-[#C54716] px-3 md:px-4 py-1.5 rounded-lg text-[10px] md:text-sm font-bold hover:bg-orange-50 transition-colors shadow-sm">
                                         Ubah
                                     </button>
                                     <button type="button" onclick="event.stopPropagation(); confirmDelete('{{ $user->id_pengguna }}', '{{ $user->nama }}')"
-                                        class="bg-orange-50 text-[#A33215] px-3 md:px-4 py-1.5 rounded-lg text-[10px] md:text-sm font-bold hover:bg-orange-100 border border-orange-200 transition-colors">
+                                        class="bg-[#7F1911] text-white px-3 md:px-4 py-1.5 rounded-lg text-[10px] md:text-sm font-bold hover:bg-[#5A120C] transition-colors shadow-sm">
                                         Hapus
                                     </button>
                                 </div>
@@ -285,6 +286,16 @@
                         class="w-full mt-1 px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C54716] focus:border-[#C54716] @error('nama') border-[#A33215] @enderror"
                         required>
                     <p id="m_err_nama" class="text-[#A33215] text-xs mt-1 hidden"></p>
+                </div>
+
+                <div>
+                    <label class="text-xs font-bold text-gray-700 uppercase tracking-wide">Username <span class="text-[#A33215]">*</span></label>
+                    <input type="text" id="m_username" name="username" value="{{ old('username') }}"
+                        placeholder="Masukkan username"
+                        class="w-full mt-1 px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C54716] focus:border-[#C54716] @error('username') border-[#A33215] @enderror"
+                        required>
+                    <p id="m_err_username" class="text-[#A33215] text-xs mt-1 hidden"></p>
+                    @error('username') <p class="text-[#A33215] text-xs mt-1">{{ $message }}</p> @enderror
                 </div>
 
                 <div>
@@ -397,7 +408,7 @@
             <div class="p-4 border-t flex justify-end gap-3 bg-gray-50/50">
                 <button type="button"
                     onclick="closeModal('modalTambahPengguna')"
-                    class="px-5 py-2 text-gray-500 font-bold hover:bg-gray-100 rounded-lg text-sm uppercase tracking-wide">
+                    class="px-5 py-2 text-[#7F1911] font-bold hover:bg-gray-100 rounded-lg text-sm uppercase tracking-wide">
                     Batal
                 </button>
 
@@ -501,6 +512,10 @@
                     <input type="text" name="nama" id="edit_nama" class="w-full border p-2 rounded-lg mt-1" required>
                 </div>
                 <div>
+                    <label class="text-[10px] font-black text-gray-900 uppercase tracking-[0.2em] ml-1">Username <span class="text-[#A33215]">*</span></label>
+                    <input type="text" name="username" id="edit_username" class="w-full border p-2 rounded-lg mt-1" required>
+                </div>
+                <div>
                     <label class="text-sm font-medium">NIK <span class="text-[#A33215]">*</span></label>
                     <input type="text" name="nik" id="edit_nik" class="w-full border p-2 rounded-lg mt-1" required>
                 </div>
@@ -544,7 +559,7 @@
                 </div>
             </div>
             <div class="p-4 border-t flex justify-end gap-3 bg-gray-50/50">
-                <button type="button" onclick="closeModal('modalEdit')" class="px-5 py-2 text-gray-500 font-bold hover:bg-gray-100 rounded-lg text-xs uppercase tracking-wide">Batal</button>
+                <button type="button" onclick="closeModal('modalEdit')" class="px-5 py-2 text-[#7F1911] font-bold hover:bg-gray-100 rounded-lg text-xs uppercase tracking-wide">Batal</button>
                 <button type="submit" class="bg-[#C54716] text-white px-8 py-2 rounded-xl font-bold hover:bg-[#A33215] transition-all shadow-lg shadow-orange-100 text-xs uppercase tracking-wide">Perbarui Data</button>
             </div>
         </form>
@@ -558,8 +573,8 @@
         <form id="formDelete" method="POST" class="flex gap-3 justify-center">
             @csrf
             @method('DELETE')
-            <button type="button" onclick="closeModal('modalDelete')" class="flex-1 px-4 py-3 bg-gray-100 text-gray-500 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-gray-200 transition-all">Batal</button>
-            <button type="submit" class="flex-1 px-4 py-3 bg-[#A33215] text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#69200F] transition-all shadow-lg shadow-orange-100">Hapus Akun</button>
+            <button type="button" onclick="closeModal('modalDelete')" class="flex-1 px-4 py-3 bg-gray-100 text-[#7F1911] rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-gray-200 transition-all">Batal</button>
+            <button type="submit" class="flex-1 px-4 py-3 bg-[#7F1911] text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#5A120C] transition-all shadow-lg shadow-orange-100">Hapus Akun</button>
         </form>
     </div>
 </div>
@@ -571,7 +586,7 @@
         <form id="formTerima" method="POST" class="flex gap-3 justify-center">
             @csrf
             @method('PUT')
-            <button type="button" onclick="closeModal('modalTerima')" class="flex-1 px-4 py-2.5 bg-gray-100 text-gray-500 rounded-xl font-bold text-sm hover:bg-gray-200 transition-all">Batal</button>
+            <button type="button" onclick="closeModal('modalTerima')" class="flex-1 px-4 py-2.5 bg-gray-100 text-[#7F1911] rounded-xl font-bold text-sm hover:bg-gray-200 transition-all">Batal</button>
             <button type="submit" class="flex-1 px-4 py-2.5 bg-[#C54716] text-white rounded-xl font-bold text-sm hover:bg-[#A33215] transition-all shadow-lg shadow-orange-100">Terima</button>
         </form>
     </div>
@@ -584,8 +599,8 @@
         <form id="formTolak" method="POST" class="flex gap-3 justify-center">
             @csrf
             @method('DELETE')
-            <button type="button" onclick="closeModal('modalTolak')" class="flex-1 px-4 py-2.5 bg-gray-100 text-gray-500 rounded-xl font-bold text-sm hover:bg-gray-200 transition-all">Batal</button>
-            <button type="submit" class="flex-1 px-4 py-2.5 bg-orange-50 text-[#A33215] border border-orange-200 rounded-xl font-bold text-sm hover:bg-orange-100 transition-all">Tolak</button>
+            <button type="button" onclick="closeModal('modalTolak')" class="flex-1 px-4 py-2.5 bg-gray-100 text-[#7F1911] rounded-xl font-bold text-sm hover:bg-gray-200 transition-all">Batal</button>
+            <button type="submit" class="flex-1 px-4 py-2.5 bg-[#7F1911] text-white border border-[#7F1911] rounded-xl font-bold text-sm hover:bg-[#5A120C] hover:border-[#5A120C] transition-all shadow-md shadow-red-100">Tolak</button>
         </form>
     </div>
 </div>
@@ -665,6 +680,7 @@
     function editPengguna(btn) {
         const d = btn.closest('tr').dataset;
         document.getElementById('edit_nama').value = d.nama;
+        document.getElementById('edit_username').value = d.username;
         document.getElementById('edit_nik').value = d.nik;
         document.getElementById('edit_hp').value = d.hp;
         document.getElementById('edit_email').value = d.email;
@@ -748,6 +764,12 @@
     (function() {
         const fields = {
             m_nama:         { err: 'm_err_nama',         validate: v => v.trim() ? '' : 'Nama lengkap wajib diisi.' },
+            m_username:     { err: 'm_err_username',     validate: v => {
+                if (!v.trim()) return 'Username wajib diisi.';
+                if (v.length < 6) return 'Username minimal 6 karakter.';
+                if (!/^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+$/.test(v)) return 'Username harus mengandung huruf dan angka, tanpa spasi.';
+                return '';
+            }},
             m_nik:          { err: 'm_err_nik',          validate: v => {
                 if (!v.trim()) return 'NIK wajib diisi.';
                 if (!/^\d+$/.test(v)) return 'NIK harus berupa angka saja.';

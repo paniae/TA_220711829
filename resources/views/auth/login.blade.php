@@ -65,7 +65,7 @@
     </h2>
 
     <p class="text-center text-gray-500 text-sm mb-6">
-        Silakan login menggunakan nomor telepon
+        Silakan login menggunakan username
     </p>
 
     <form action="/login" method="POST" class="space-y-4">
@@ -101,16 +101,16 @@
 
         <div>
             <label class="text-sm sm:text-base font-semibold text-gray-700">
-                Nomor Telepon <span class="text-[#A33215]">*</span>
+                Username <span class="text-[#A33215]">*</span>
             </label>
-            <input type="tel" name="nomor_telepon"
-                value="{{ old('nomor_telepon') }}"
-                placeholder="08xxxxxxxxxx"
+            <input type="text" name="username"
+                value="{{ old('username') }}"
+                placeholder="Masukkan username"
                 class="w-full mt-1 px-4 py-2.5 text-sm sm:text-base border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C54716] focus:border-[#C54716]
-                @error('nomor_telepon') border-[#A33215] @enderror"
+                @error('username') border-[#A33215] @enderror"
                 required>
 
-            @error('nomor_telepon')
+            @error('username')
                 <p class="text-[#A33215] text-xs sm:text-sm mt-1">{{ $message }}</p>
             @enderror
         </div>
@@ -178,14 +178,14 @@
 
         <h2 class="text-xl sm:text-2xl font-bold text-[#A33215] mb-2">Lupa Password?</h2>
         <p class="text-xs sm:text-sm text-gray-500 mb-6 leading-relaxed">
-            Masukkan Nomor Telepon dan Tanggal Lahir Anda yang terdaftar. Jika data sesuai, password Anda akan diatur ulang menjadi tanggal lahir Anda (Format: <strong>ddmmyyyy</strong>, contoh: 01012001).
+            Masukkan Username dan Tanggal Lahir Anda yang terdaftar. Jika data sesuai, password Anda akan diatur ulang menjadi tanggal lahir Anda (Format: <strong>ddmmyyyy</strong>, contoh: 01012001).
         </p>
 
         <form action="{{ route('forgot-password.reset') }}" method="POST" class="space-y-4">
             @csrf
             <div>
-                <label class="text-sm sm:text-base font-semibold text-gray-700">Nomor Telepon <span class="text-[#A33215]">*</span></label>
-                <input type="tel" name="reset_nomor_telepon" placeholder="08xxxxxxxxxx" class="w-full mt-1 px-4 py-2.5 text-sm sm:text-base border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C54716] focus:border-[#C54716]" required>
+                <label class="text-sm sm:text-base font-semibold text-gray-700">Username <span class="text-[#A33215]">*</span></label>
+                <input type="text" name="reset_username" placeholder="Masukkan username" class="w-full mt-1 px-4 py-2.5 text-sm sm:text-base border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C54716] focus:border-[#C54716]" required>
             </div>
 
             <div>
@@ -194,7 +194,7 @@
             </div>
 
             <div class="pt-2 flex justify-end gap-2">
-                <button type="button" onclick="closeForgotModal()" class="px-4 py-2 text-gray-500 hover:bg-gray-100 rounded-xl font-bold text-sm sm:text-base">
+                <button type="button" onclick="closeForgotModal()" class="px-4 py-2 text-[#7F1911] hover:bg-gray-100 rounded-xl font-bold text-sm sm:text-base">
                     Batal
                 </button>
                 <button type="submit" class="bg-[#C54716] text-white px-5 py-2.5 rounded-xl font-bold hover:bg-[#A33215] transition-all text-sm sm:text-base">

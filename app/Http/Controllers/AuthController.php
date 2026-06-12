@@ -16,15 +16,15 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'nomor_telepon' => 'required',
+            'username' => 'required',
             'password' => 'required',
         ]);
 
-        $user = Pengguna::where('nomor_telepon_pengguna', $request->nomor_telepon)->first();
+        $user = Pengguna::where('username', $request->username)->first();
 
         if (!$user) {
             return back()->withErrors([
-                'login' => 'Nomor telepon tidak ditemukan'
+                'login' => 'Username tidak ditemukan'
             ])->withInput();
         }
 
@@ -69,6 +69,7 @@ class AuthController extends Controller
     {
         $request->validate([
             'nama' => 'required',
+            'username' => ['required', 'unique:pengguna,username', 'min:6', 'regex:/^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+$/'],
             'nik' => 'required|unique:pengguna,nik',
             'nomor_telepon' => 'required|unique:pengguna,nomor_telepon_pengguna',
             'email' => 'required|email|unique:pengguna,email_pengguna',
@@ -77,6 +78,9 @@ class AuthController extends Controller
             'tanggal_lahir' => 'required|date|before_or_equal:today',
             'password' => ['required', 'min:8', 'confirmed', 'regex:/\d/'],
         ], [
+            'username.unique' => 'Username ini sudah terdaftar.',
+            'username.min' => 'Username minimal 6 karakter.',
+            'username.regex' => 'Username harus mengandung huruf dan angka, serta tidak boleh mengandung spasi.',
             'nomor_telepon.unique' => 'Nomor telepon ini sudah terdaftar.',
             'nik.unique' => 'NIK ini sudah terdaftar.',
             'email.unique' => 'Email ini sudah terdaftar.',
@@ -92,6 +96,7 @@ class AuthController extends Controller
 
         $user = Pengguna::create([
             'nama' => $request->nama,
+            'username' => $request->username,
             'nik' => $request->nik,
             'nomor_telepon_pengguna' => $request->nomor_telepon,
             'email_pengguna' => $request->email,
@@ -123,16 +128,16 @@ class AuthController extends Controller
     public function resetPassword(Request $request)
     {
         $request->validate([
-            'reset_nomor_telepon' => 'required',
+            'reset_username' => 'required',
             'reset_tanggal_lahir' => 'required|date',
         ]);
 
-        $user = Pengguna::where('nomor_telepon_pengguna', $request->reset_nomor_telepon)
+        $user = Pengguna::where('username', $request->reset_username)
                         ->where('tanggal_lahir_pengguna', $request->reset_tanggal_lahir)
                         ->first();
 
         if (!$user) {
-            return redirect()->back()->with('error', 'Nomor telepon atau tanggal lahir tidak sesuai dengan data terdaftar.');
+            return redirect()->back()->with('error', 'Username atau tanggal lahir tidak sesuai dengan data terdaftar.');
         }
 
         // Format tanggal lahir menjadi ddmmyyyy (dmY)

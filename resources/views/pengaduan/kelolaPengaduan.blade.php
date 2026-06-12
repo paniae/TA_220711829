@@ -198,7 +198,7 @@
 
             <button type="button"
                 onclick="closeConfirmModal()"
-                class="w-full py-4 text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider hover:text-gray-600 transition-all">
+                class="w-full py-4 text-xs sm:text-sm font-bold text-[#7F1911] uppercase tracking-wider hover:text-[#7F1911] transition-all">
                 Batal
             </button>
         </form>

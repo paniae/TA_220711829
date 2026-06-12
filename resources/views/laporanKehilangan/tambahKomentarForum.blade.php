@@ -74,7 +74,7 @@
                                 {{ $laporan->komentar->count() }} Komentar
                             </span>
                             @if($laporan->status_kehilangan == 'hilang' && auth()->id() == $laporan->id_pengguna)
-                                <button type="button" onclick="openTutupForumModal()" class="bg-[#C54716] text-white px-5 py-2 rounded-xl text-xs font-bold hover:bg-[#A33215] transition-all shadow-md active:scale-95 uppercase tracking-wide cursor-pointer">
+                                <button type="button" onclick="openTutupForumModal()" class="bg-[#C54716] text-white px-5 py-2 rounded-xl text-xs font-bold hover:bg-[#7F1911] transition-all shadow-md active:scale-95 uppercase tracking-wide cursor-pointer">
                                     Tutup Forum
                                 </button>
                             @endif
@@ -185,7 +185,7 @@
             </div>
             <div class="p-4 border-t bg-gray-50/50 flex justify-end gap-3">
                 <button type="submit" class="px-8 py-4 bg-[#C54716] text-white rounded-2xl font-bold hover:bg-[#A33215] transition-all text-xs shadow-xl shadow-orange-100">Simpan Perubahan</button>
-                <button type="button" onclick="closeModal('modalEdit')" class="px-5 py-4 text-gray-500 font-bold hover:text-gray-600 transition-all text-xs">Batal</button>
+                <button type="button" onclick="closeModal('modalEdit')" class="px-5 py-4 text-[#7F1911] font-bold hover:text-[#7F1911] transition-all text-xs">Batal</button>
             </div>
         </form>
     </div>
@@ -262,7 +262,7 @@ document.getElementById('editFileInput')?.addEventListener('change', function(e)
             @csrf
             @method('PUT')
             <button type="submit" class="w-full py-4 bg-[#C54716] text-white rounded-2xl font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-[#A33215] shadow-xl shadow-orange-100 transition-all">Ya, Ditemukan!</button>
-            <button type="button" onclick="closeModal('modalTutupForum')" class="w-full py-4 text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider hover:text-gray-600 transition-all">Batal</button>
+            <button type="button" onclick="closeModal('modalTutupForum')" class="w-full py-4 text-xs sm:text-sm font-bold text-[#7F1911] uppercase tracking-wider hover:text-[#7F1911] transition-all">Batal</button>
         </form>
     </div>
 </div>

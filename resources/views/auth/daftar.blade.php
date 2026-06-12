@@ -91,6 +91,22 @@
 
         <div>
             <label class="text-sm sm:text-base font-semibold text-gray-700">
+                Username <span class="text-[#A33215]">*</span>
+            </label>
+            <input type="text" name="username" id="username"
+                value="{{ old('username') }}"
+                placeholder="Masukkan username unik"
+                class="w-full mt-1 px-4 py-2.5 text-sm sm:text-base border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C54716] focus:border-[#C54716]
+                @error('username') border-[#A33215] @enderror"
+                required>
+            <p id="error-username" class="text-[#A33215] text-xs sm:text-sm mt-1 hidden"></p>
+            @error('username')
+                <p class="text-[#A33215] text-xs sm:text-sm mt-1 server-error">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div>
+            <label class="text-sm sm:text-base font-semibold text-gray-700">
                 NIK <span class="text-[#A33215]">*</span>
             </label>
             <input type="text" name="nik" id="nik"
@@ -265,11 +281,13 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // Unique status checking configurations
     const uniqueStates = {
+        username: true,
         nik: true,
         nomor_telepon: true,
         email: true
     };
     const checkTimeouts = {
+        username: null,
         nik: null,
         nomor_telepon: null,
         email: null
@@ -281,6 +299,17 @@ document.addEventListener("DOMContentLoaded", function() {
             errorEl: document.getElementById("error-nama"),
             validate: (val) => {
                 if (!val.trim()) return "Nama lengkap wajib diisi.";
+                return "";
+            }
+        },
+        username: {
+            el: document.getElementById("username"),
+            errorEl: document.getElementById("error-username"),
+            validate: (val) => {
+                uniqueStates.username = true;
+                if (!val.trim()) return "Username wajib diisi.";
+                if (val.length < 6) return "Username minimal 6 karakter.";
+                if (!/^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+$/.test(val)) return "Username harus mengandung huruf dan angka, tanpa spasi.";
                 return "";
             }
         },
@@ -398,7 +427,9 @@ document.addEventListener("DOMContentLoaded", function() {
             field.el.classList.add("border-gray-200");
 
             // Perform uniqueness checks if local format validation passes
-            if (key === 'nik' && value.length === 16) {
+            if (key === 'username' && value.length >= 6 && /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+$/.test(value)) {
+                checkFieldUniqueness('username', value);
+            } else if (key === 'nik' && value.length === 16) {
                 checkFieldUniqueness('nik', value);
             } else if (key === 'nomor_telepon' && value.length >= 10 && value.length <= 13) {
                 checkFieldUniqueness('nomor_telepon', value);
@@ -422,6 +453,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 .then(data => {
                     const field = inputs[fieldKey];
                     const labelNames = {
+                        username: "Username",
                         nik: "NIK",
                         nomor_telepon: "Nomor telepon",
                         email: "Email"
@@ -493,8 +525,9 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
         // Block submit if any unique field is already registered
-        const uniqueKeys = ['nik', 'nomor_telepon', 'email'];
+        const uniqueKeys = ['username', 'nik', 'nomor_telepon', 'email'];
         const labelNames = {
+            username: "Username",
             nik: "NIK",
             nomor_telepon: "Nomor telepon",
             email: "Email"

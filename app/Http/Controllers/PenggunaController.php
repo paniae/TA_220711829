@@ -20,11 +20,24 @@ class PenggunaController extends Controller
 
         $request->validate([
             'alamat_pengguna' => 'nullable|string',
-            'foto_profil' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+            'foto_profil' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'email_pengguna' => 'nullable|email|unique:pengguna,email_pengguna,' . $pengguna->id_pengguna . ',id_pengguna',
+            'nomor_telepon_pengguna' => 'nullable|numeric|unique:pengguna,nomor_telepon_pengguna,' . $pengguna->id_pengguna . ',id_pengguna',
+        ], [
+            'email_pengguna.unique' => 'Email ini sudah terdaftar.',
+            'nomor_telepon_pengguna.unique' => 'Nomor telepon ini sudah terdaftar.'
         ]);
 
         if ($request->has('alamat_pengguna')) {
             $pengguna->alamat_pengguna = $request->alamat_pengguna;
+        }
+
+        if ($request->has('email_pengguna')) {
+            $pengguna->email_pengguna = $request->email_pengguna;
+        }
+
+        if ($request->has('nomor_telepon_pengguna')) {
+            $pengguna->nomor_telepon_pengguna = $request->nomor_telepon_pengguna;
         }
 
         if ($request->hasFile('foto_profil')) {
@@ -41,6 +54,8 @@ class PenggunaController extends Controller
 
         return response()->json([
             'alamat_pengguna' => $pengguna->alamat_pengguna,
+            'email_pengguna' => $pengguna->email_pengguna,
+            'nomor_telepon_pengguna' => $pengguna->nomor_telepon_pengguna,
             'foto' => $pengguna->foto_profil ?: null
         ]);
     }
@@ -105,6 +120,7 @@ class PenggunaController extends Controller
     {
         $request->validate([
             'nama' => 'required',
+            'username' => ['required', 'unique:pengguna,username', 'min:6', 'regex:/^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+$/'],
             'nik' => 'required|unique:pengguna,nik',
             'nomor_telepon' => 'required|unique:pengguna,nomor_telepon_pengguna',
             'email' => 'required|email|unique:pengguna,email_pengguna',
@@ -114,6 +130,9 @@ class PenggunaController extends Controller
             'password' => 'required|min:6|confirmed',
             'id_role' => 'required|exists:role,id_role',
         ], [
+            'username.unique' => 'Username sudah terdaftar dalam sistem.',
+            'username.min' => 'Username minimal 6 karakter.',
+            'username.regex' => 'Username harus mengandung huruf dan angka, serta tidak boleh mengandung spasi.',
             'nik.unique' => 'NIK sudah terdaftar dalam sistem.',
             'nomor_telepon.unique' => 'Nomor telepon sudah terdaftar dalam sistem.',
             'email.unique' => 'Email sudah terdaftar dalam sistem.',
@@ -125,6 +144,7 @@ class PenggunaController extends Controller
 
         \App\Models\Pengguna::create([
             'nama' => $request->nama,
+            'username' => $request->username,
             'nik' => $request->nik,
             'nomor_telepon_pengguna' => $request->nomor_telepon,
             'email_pengguna' => $request->email,
@@ -145,6 +165,7 @@ class PenggunaController extends Controller
         
         $request->validate([
             'nama' => 'required',
+            'username' => ['required', 'unique:pengguna,username,' . $id . ',id_pengguna', 'min:6', 'regex:/^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+$/'],
             'nik' => 'required|unique:pengguna,nik,' . $id . ',id_pengguna',
             'nomor_telepon' => 'required|unique:pengguna,nomor_telepon_pengguna,' . $id . ',id_pengguna',
             'email' => 'nullable|email',
@@ -162,6 +183,7 @@ class PenggunaController extends Controller
 
         $data = [
             'nama' => $request->nama,
+            'username' => $request->username,
             'nik' => $request->nik,
             'nomor_telepon_pengguna' => $request->nomor_telepon,
             'email_pengguna' => $request->email,

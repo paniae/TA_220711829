@@ -22,13 +22,13 @@
             <div class="flex flex-row sm:flex-col gap-2">
                 @if((Auth::id() == $komen->id_pengguna || (Auth::check() && Auth::user()->hasAkses('kelola_komentar'))) && $laporan->status_kehilangan != 'ditemukan')
                 <button onclick="openEditModal('{{ $komen->id_komen }}', '{{ addslashes($komen->komentar) }}')" 
-                    class="bg-orange-50 text-[#C54716] px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-orange-100 hover:-translate-y-0.5 transition-all shadow-sm">
+                    class="bg-white text-[#C54716] border border-[#C54716] px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-orange-50 hover:-translate-y-0.5 transition-all shadow-sm">
                     Ubah
                 </button>
                 @endif
                 @if($isModerator && Auth::check() && (Auth::id() == $komen->id_pengguna || Auth::user()->hasAkses('kelola_komentar') || Auth::user()->isDukuh()))
                 <button onclick="openDeleteModal('{{ $komen->id_komen }}')" 
-                    class="bg-orange-50 text-[#A33215] px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-orange-50 hover:-translate-y-0.5 transition-all shadow-sm">
+                    class="bg-[#7F1911] text-white px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[#5A120C] hover:-translate-y-0.5 transition-all shadow-sm">
                     Hapus
                 </button>
                 @endif

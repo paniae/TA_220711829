@@ -123,7 +123,7 @@
         </h2>
         @if(auth()->check() && auth()->id() == $umkm->id_pengguna)
         <button onclick="openModal('modalProduk')"
-            class="bg-[#C54716] text-white px-5 py-2 rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-orange-100 hover:bg-[#A33215] transition-all active:scale-95">
+            class="bg-[#C54716] text-white px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider hover:bg-[#A33215] transition-all hover:scale-105 active:scale-95 shadow-lg shadow-orange-100 whitespace-nowrap text-center">
             + Tambah Produk
         </button>
         @endif
@@ -185,7 +185,7 @@
                             data-status="{{ $item->status }}"
                             class="bg-white text-[#C54716] border border-[#C54716] py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-orange-50 transition-all text-center">Ubah</button>
                         <button onclick="openDeleteModal({{ $item->id_produk }})"
-                            class="bg-white text-[#A33215] border border-[#A33215] py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-orange-50 transition-all text-center">Hapus</button>
+                            class="bg-[#7F1911] text-white py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-[#5A120C] shadow-sm transition-all text-center">Hapus</button>
                     </div>
                     @endif
                 </div>
@@ -248,7 +248,7 @@
             </div>
             
             <div class="p-8 border-t bg-gray-50/50 flex justify-end gap-4">
-                <button type="button" onclick="closeModal('modalProduk')" class="px-6 py-3 text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider hover:text-[#A33215] transition-all">Batal</button>
+                <button type="button" onclick="closeModal('modalProduk')" class="px-6 py-3 text-xs sm:text-sm font-bold text-[#7F1911] uppercase tracking-wider hover:text-[#7F1911] transition-all">Batal</button>
                 <button type="submit" class="px-10 py-3 bg-[#C54716] text-white rounded-2xl font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-[#A33215] shadow-xl shadow-orange-100 transition-all">Simpan</button>
             </div>
         </form>
@@ -298,7 +298,7 @@
             </div>
             
             <div class="p-8 border-t bg-gray-50/50 flex justify-end gap-4">
-                <button type="button" onclick="closeEditModal()" class="px-6 py-3 text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider hover:text-[#A33215] transition-all">Batal</button>
+                <button type="button" onclick="closeEditModal()" class="px-6 py-3 text-xs sm:text-sm font-bold text-[#7F1911] uppercase tracking-wider hover:text-[#7F1911] transition-all">Batal</button>
                 <button type="submit" class="px-10 py-3 bg-[#C54716] text-white rounded-2xl font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-[#A33215] shadow-xl shadow-orange-100 transition-all">Simpan</button>
             </div>
         </form>
@@ -344,10 +344,10 @@
     <div class="bg-white p-10 rounded-[2.5rem] text-center w-full max-w-sm shadow-2xl border border-[#FA8145]">
         <h3 class="text-xl font-bold text-[#69200F] uppercase tracking-tight mb-3">Hapus Produk?</h3>
         <p class="text-sm text-gray-500 mb-8 font-medium">Produk ini akan dihapus permanen.</p>
-        <form id="formDeleteProduk" method="POST" class="flex flex-col gap-3">
+        <form id="formDeleteProduk" method="POST" class="flex gap-3 justify-center">
             @csrf @method('DELETE')
-            <button type="submit" class="w-full py-4 bg-[#A33215] text-white rounded-2xl font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-[#69200F] shadow-xl shadow-orange-100 transition-all">Ya, Hapus</button>
-            <button type="button" onclick="closeDeleteModal()" class="w-full py-4 text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider hover:text-gray-600 transition-all">Batal</button>
+            <button type="button" onclick="closeDeleteModal()" class="flex-1 px-4 py-3 bg-gray-100 text-[#7F1911] rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-gray-200 transition-all">Batal</button>
+            <button type="submit" class="flex-1 px-4 py-3 bg-[#7F1911] text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#5A120C] transition-all shadow-lg shadow-orange-100">Ya, Hapus</button>
         </form>
     </div>
 </div>

@@ -399,7 +399,7 @@
                 @csrf
                 @method('PUT')
                 <div class="flex gap-3 justify-center">
-                    <button type="button" onclick="closeKonfirmasiUMKM()" class="px-5 py-2.5 rounded-xl text-sm font-bold text-gray-500 bg-gray-100 hover:bg-gray-200 transition-all">Batal</button>
+                    <button type="button" onclick="closeKonfirmasiUMKM()" class="px-5 py-2.5 rounded-xl text-sm font-bold text-[#7F1911] bg-gray-100 hover:bg-gray-200 transition-all">Batal</button>
                     <button type="submit" class="px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-[#C54716] hover:bg-[#A33215] shadow-lg shadow-orange-200 transition-all">Konfirmasi</button>
                 </div>
             </form>
@@ -420,7 +420,7 @@
                 @csrf
                 @method('PUT')
                 <div class="flex gap-3 justify-center">
-                    <button type="button" onclick="closeKonfirmasiProduk()" class="px-5 py-2.5 rounded-xl text-sm font-bold text-gray-500 bg-gray-100 hover:bg-gray-200 transition-all">Batal</button>
+                    <button type="button" onclick="closeKonfirmasiProduk()" class="px-5 py-2.5 rounded-xl text-sm font-bold text-[#7F1911] bg-gray-100 hover:bg-gray-200 transition-all">Batal</button>
                     <button type="submit" class="px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-[#C54716] hover:bg-[#A33215] shadow-lg shadow-orange-200 transition-all">Konfirmasi</button>
                 </div>
             </form>

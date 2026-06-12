@@ -59,12 +59,12 @@
 
                 <div class="py-4 px-5 rounded-2xl border border-[#FA8145] bg-gray-50/20">
                     <p class="text-xs uppercase tracking-widest font-bold text-gray-400 mb-1">Nomor Telepon</p>
-                    <p class="text-lg font-bold text-gray-900">{{ $pengguna->nomor_telepon_pengguna ?? '-' }}</p>
+                    <p id="hpText" class="text-lg font-bold text-gray-900">{{ $pengguna->nomor_telepon_pengguna ?? '-' }}</p>
                 </div>
 
                 <div class="py-4 px-5 rounded-2xl border border-[#FA8145] bg-gray-50/20">
                     <p class="text-xs uppercase tracking-widest font-bold text-gray-400 mb-1">Alamat Email</p>
-                    <p class="text-lg font-bold text-gray-900 truncate">{{ $pengguna->email_pengguna }}</p>
+                    <p id="emailText" class="text-lg font-bold text-gray-900 truncate">{{ $pengguna->email_pengguna }}</p>
                 </div>
 
                 <div class="py-4 px-5 rounded-2xl border border-[#FA8145] bg-gray-50/20">
@@ -106,17 +106,30 @@
                 <input type="file" name="foto_profil" class="text-sm w-full mb-2">
                 
                 <button type="button" id="btnHapusFoto" onclick="hapusFotoProfil()" 
-                    class="text-xs text-[#A33215] font-bold hover:underline uppercase tracking-wider flex items-center gap-1 {{ !$pengguna->foto_profil ? 'hidden' : '' }}">
+                    class="text-xs text-[#7F1911] font-bold hover:underline uppercase tracking-wider flex items-center gap-1 {{ !$pengguna->foto_profil ? 'hidden' : '' }}">
                     Hapus Foto Saat Ini
                 </button>
             </div>
 
-            <textarea name="alamat_pengguna" class="w-full border p-2 mb-3"
+            <div class="mb-4">
+                <label class="block text-xs font-bold text-gray-600 uppercase tracking-wide mb-1">Nomor Telepon</label>
+                <input type="tel" name="nomor_telepon_pengguna" id="m_nomor_telepon_pengguna" value="{{ $pengguna->nomor_telepon_pengguna }}" class="w-full border p-2 rounded-lg text-sm focus:border-[#C54716] focus:ring-[#C54716]">
+                <p id="err_nomor_telepon_pengguna" class="text-[#A33215] text-xs font-bold mt-1 hidden"></p>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-xs font-bold text-gray-600 uppercase tracking-wide mb-1">Email</label>
+                <input type="email" name="email_pengguna" id="m_email_pengguna" value="{{ $pengguna->email_pengguna }}" class="w-full border p-2 rounded-lg text-sm focus:border-[#C54716] focus:ring-[#C54716]">
+                <p id="err_email_pengguna" class="text-[#A33215] text-xs font-bold mt-1 hidden"></p>
+            </div>
+
+            <label class="block text-xs font-bold text-gray-600 uppercase tracking-wide mb-1">Alamat</label>
+            <textarea name="alamat_pengguna" class="w-full border p-2 mb-3 rounded-lg text-sm focus:border-[#C54716] focus:ring-[#C54716]"
                 rows="3">{{ $pengguna->alamat_pengguna }}</textarea>
 
             <div class="flex justify-end gap-3 pt-4 border-t">
                 <button type="button" onclick="closeEditProfil()" 
-                    class="px-5 py-2 text-gray-500 font-bold hover:bg-gray-100 rounded-lg text-xs uppercase tracking-wide">
+                    class="px-5 py-2 text-[#7F1911] font-bold hover:bg-gray-100 rounded-lg text-xs uppercase tracking-wide">
                     Batal
                 </button>
 
@@ -156,7 +169,7 @@
             </div>
             <div class="flex justify-end gap-3 pt-4 border-t border-gray-100">
                 <button type="button" onclick="closeUbahPassword()" 
-                    class="px-5 py-2.5 text-gray-500 font-bold hover:bg-gray-100 rounded-xl text-sm uppercase tracking-wide transition-all">
+                    class="px-5 py-2.5 text-[#7F1911] font-bold hover:bg-gray-100 rounded-xl text-sm uppercase tracking-wide transition-all">
                     Batal
                 </button>
                 <button type="submit" class="px-8 py-2.5 bg-[#C54716] text-white rounded-xl font-bold hover:bg-[#A33215] transition-all shadow-lg shadow-orange-100 text-sm uppercase tracking-wide">
@@ -171,9 +184,9 @@
     <div class="bg-white p-10 rounded-[2.5rem] text-center w-full max-w-sm shadow-2xl border border-orange-50 animate-in fade-in zoom-in duration-300">
         <h3 class="text-xl font-bold text-[#69200F] uppercase tracking-tight mb-3">Hapus Foto?</h3>
         <p class="text-sm text-gray-500 mb-8 leading-relaxed font-medium">Foto profil Anda akan dihapus secara permanen dan dikembalikan ke gambar standar.</p>
-        <div class="flex flex-col gap-3">
-            <button type="button" onclick="performHapusFoto()" class="w-full py-4 bg-[#A33215] text-white rounded-2xl font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-[#69200F] shadow-xl shadow-orange-100 transition-all">Ya, Hapus</button>
-            <button type="button" onclick="closeModalKonfirmasi()" class="w-full py-4 text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider hover:text-gray-600 transition-all">Batal</button>
+        <div class="flex gap-3 justify-center">
+            <button type="button" onclick="closeModalKonfirmasi()" class="flex-1 px-4 py-3 bg-gray-100 text-[#7F1911] rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-gray-200 transition-all">Batal</button>
+            <button type="button" onclick="performHapusFoto()" class="flex-1 px-4 py-3 bg-[#7F1911] text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#5A120C] transition-all shadow-lg shadow-orange-100">Ya, Hapus</button>
         </div>
     </div>
 </div>
@@ -185,6 +198,10 @@
 
 function openEditProfil() {
     document.getElementById('editProfilModal').classList.remove('hidden');
+    document.getElementById('err_nomor_telepon_pengguna').classList.add('hidden');
+    document.getElementById('err_email_pengguna').classList.add('hidden');
+    document.getElementById('m_nomor_telepon_pengguna').classList.remove('border-[#A33215]');
+    document.getElementById('m_email_pengguna').classList.remove('border-[#A33215]');
 }
 
 function closeEditProfil() {
@@ -199,14 +216,45 @@ document.getElementById('formEditProfil').addEventListener('submit', function(e)
     fetch("{{ route('pengguna.profil.update') }}", {
         method: "POST",
         headers: {
-            'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+            'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+            'Accept': 'application/json'
         },
         body: formData
     })
-    .then(res => res.json())
+    .then(async res => {
+        if (!res.ok) {
+            if (res.status === 422) {
+                let data = await res.json();
+                
+                document.getElementById('err_nomor_telepon_pengguna').classList.add('hidden');
+                document.getElementById('err_email_pengguna').classList.add('hidden');
+                document.getElementById('m_nomor_telepon_pengguna').classList.remove('border-[#A33215]');
+                document.getElementById('m_email_pengguna').classList.remove('border-[#A33215]');
+
+                if (data.errors.nomor_telepon_pengguna) {
+                    let p = document.getElementById('err_nomor_telepon_pengguna');
+                    p.innerText = data.errors.nomor_telepon_pengguna[0];
+                    p.classList.remove('hidden');
+                    document.getElementById('m_nomor_telepon_pengguna').classList.add('border-[#A33215]');
+                }
+                
+                if (data.errors.email_pengguna) {
+                    let p = document.getElementById('err_email_pengguna');
+                    p.innerText = data.errors.email_pengguna[0];
+                    p.classList.remove('hidden');
+                    document.getElementById('m_email_pengguna').classList.add('border-[#A33215]');
+                }
+                
+                throw new Error("Validation failed");
+            }
+        }
+        return res.json();
+    })
     .then(data => {
 
-        document.getElementById('alamatText').innerText = data.alamat_pengguna;
+        document.getElementById('alamatText').innerText = data.alamat_pengguna || '-';
+        document.getElementById('hpText').innerText = data.nomor_telepon_pengguna || '-';
+        document.getElementById('emailText').innerText = data.email_pengguna || '-';
 
         const btnHapus = document.getElementById('btnHapusFoto');
         if (data.foto) {
@@ -219,6 +267,9 @@ document.getElementById('formEditProfil').addEventListener('submit', function(e)
 
         closeEditProfil();
         showAlert();
+    })
+    .catch(error => {
+        console.error(error);
     });
 });
 

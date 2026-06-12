@@ -131,7 +131,7 @@
         </div>
 
         <button onclick="openModal('modalUmkm')"
-            class="px-4 py-2 text-xs sm:text-sm font-bold uppercase tracking-wider rounded-xl transition-all border bg-[#C54716] text-white border-[#C54716] shadow-md shadow-orange-200">
+            class="bg-[#C54716] text-white px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider hover:bg-[#A33215] transition-all hover:scale-105 active:scale-95 shadow-lg shadow-orange-100 whitespace-nowrap text-center">
             + Tambah UMKM
         </button>
     </div>
@@ -216,13 +216,13 @@
                         data-email="{{ $item->email }}"
                         data-bidang="{{ $item->bidang_umkm }}"
                         data-deskripsi="{{ $item->deskripsi_umkm }}"
-                        class="flex-1 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg border border-orange-200 text-[#C54716] bg-white hover:bg-orange-50 transition-all text-center">
+                        class="flex-1 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg border border-[#C54716] text-[#C54716] bg-white hover:bg-orange-50 transition-all text-center">
                         Ubah
                     </button>
 
                     <button
                         onclick="event.stopPropagation(); openDeleteModal('{{ $item->id_umkm }}')"
-                        class="flex-1 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg border border-orange-200 text-[#A33215] bg-white hover:bg-orange-50 transition-all text-center">
+                        class="flex-1 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg bg-[#7F1911] text-white hover:bg-[#5A120C] transition-all text-center shadow-sm">
                         Hapus
                     </button>
                 </div>
@@ -502,12 +502,12 @@
 
             <button type="button"
                 onclick="closeModal('modalDeleteUmkm')"
-                class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm hover:bg-gray-300">
+                class="px-4 py-2 bg-gray-200 text-[#7F1911] rounded-lg text-sm hover:bg-gray-300">
                 Batal
             </button>
 
             <button
-                class="px-4 py-2 bg-[#A33215] text-white rounded-lg text-sm hover:bg-[#A33215]">
+                class="px-4 py-2 bg-[#7F1911] text-white rounded-lg text-sm hover:bg-[#5A120C]">
                 Ya, Hapus
             </button>
         </form>

@@ -79,9 +79,6 @@
         </div>
 
         <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full sm:w-auto">
-            <button onclick="openModalTambahUmkm()" class="w-full sm:w-auto px-4 py-2.5 text-xs font-bold uppercase tracking-wider rounded-xl bg-[#C54716] text-white hover:bg-[#A33215] transition-all shadow-sm flex justify-center items-center gap-2 whitespace-nowrap">
-                + Tambah UMKM
-            </button>
 
         <form action="{{ route('umkm.konfirmasi.index') }}" method="GET" class="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
             @if(request('status'))
@@ -104,8 +101,10 @@
                 <option value="jasa & produk kreatif" {{ request('kategori') == 'jasa & produk kreatif' ? 'selected' : '' }}>Jasa & Produk Kreatif</option>
                 <option value="teknologi dan digital" {{ request('kategori') == 'teknologi dan digital' ? 'selected' : '' }}>Teknologi & Digital</option>
             </select>
-            </select>
         </form>
+            <button onclick="openModalTambahUmkm()" class="bg-[#C54716] text-white px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider hover:bg-[#A33215] transition-all hover:scale-105 active:scale-95 shadow-lg shadow-orange-100 whitespace-nowrap text-center">
+                + Tambah UMKM
+            </button>
         </div>
     </div>
 
@@ -184,7 +183,7 @@
             
             <div class="mt-4 pt-4 border-t border-orange-100/50 flex justify-between items-center">
                 @if($item->status == 'menunggu' && auth()->check() && auth()->user()->hasAkses('konfirmasi_umkm'))
-                    <button type="button" onclick="event.stopPropagation(); openConfirmModal('Konfirmasi UMKM', 'Anda akan mengonfirmasi UMKM <strong class=\'text-[#FA8145]\'>{{ addslashes($item->nama_umkm) }}</strong>. UMKM ini akan menjadi aktif.', '{{ route('umkm.konfirmasi.confirm', $item->id_umkm) }}')" class="bg-[#C54716] text-white px-3 py-1.5 rounded-lg font-bold text-[10px] uppercase tracking-wider shadow-sm hover:bg-[#A33215] transition-all">
+                    <button type="button" onclick="event.stopPropagation(); openConfirmModal('Konfirmasi UMKM', 'Anda akan mengonfirmasi UMKM <strong class=\'text-[#FA8145]\'>{{ addslashes($item->nama_umkm) }}</strong>. UMKM ini akan menjadi aktif.', '{{ route('umkm.konfirmasi.confirm', $item->id_umkm) }}')" class="bg-[#C54716] text-white px-4 py-2 rounded-xl font-bold text-xs uppercase tracking-wider shadow-sm hover:bg-[#A33215] transition-all">
                         Konfirmasi
                     </button>
                 @else
@@ -235,9 +234,7 @@
             </div>
 
             <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full sm:w-auto">
-                <button onclick="openModalTambahProdukMaster()" class="w-full sm:w-auto px-4 py-2.5 text-xs font-bold uppercase tracking-wider rounded-xl bg-[#C54716] text-white hover:bg-[#A33215] transition-all shadow-sm flex justify-center items-center gap-2 whitespace-nowrap">
-                    + Tambah Produk Master
-                </button>
+
                 <form action="{{ route('umkm.konfirmasi.index') }}" method="GET" class="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
                 <input type="hidden" name="tab" value="produk">
                 @if(request('status'))
@@ -261,6 +258,9 @@
                     <option value="aktif" {{ request('status_produk') == 'aktif' ? 'selected' : '' }}>Aktif</option>
                 </select>
             </form>
+                <button onclick="openModalTambahProdukMaster()" class="bg-[#C54716] text-white px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider hover:bg-[#A33215] transition-all hover:scale-105 active:scale-95 shadow-lg shadow-orange-100 whitespace-nowrap text-center">
+                    + Tambah Produk Master
+                </button>
             </div>
         </div>
 
@@ -299,11 +299,11 @@
                                 </td>
                                 <td class="p-3 sm:p-4 flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-2 align-top sm:align-middle">
                                     @if(strtolower($pm->status_produk_master) == 'menunggu')
-                                        <button onclick="openConfirmMasterModal('{{ route('umkm.konfirmasiProdukMaster', $pm->id_produk_master) }}', '{{ $pm->nama_produk_master }}')" class="w-full sm:w-auto px-4 py-2 text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-xl bg-white border border-[#E75C16] text-[#E75C16] hover:bg-orange-50 transition-all">Konfirmasi</button>
-                                        <button onclick="openTolakMasterModal('{{ route('umkm.tolakProdukMaster', $pm->id_produk_master) }}', '{{ $pm->nama_produk_master }}')" class="w-full sm:w-auto px-4 py-2 text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-xl bg-white border border-[#A33215] text-[#A33215] hover:bg-orange-50 transition-all">Tolak / Koreksi</button>
+                                        <button onclick="openConfirmMasterModal('{{ route('umkm.konfirmasiProdukMaster', $pm->id_produk_master) }}', '{{ $pm->nama_produk_master }}')" class="w-full sm:w-auto px-5 py-2.5 text-xs sm:text-sm font-bold uppercase tracking-wider rounded-xl bg-white border border-[#E75C16] text-[#E75C16] hover:bg-orange-50 transition-all">Konfirmasi</button>
+                                        <button onclick="openTolakMasterModal('{{ route('umkm.tolakProdukMaster', $pm->id_produk_master) }}', '{{ $pm->nama_produk_master }}')" class="w-full sm:w-auto px-4 py-2 text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-xl bg-white border border-[#7F1911] text-[#7F1911] hover:bg-[#7F1911] hover:text-white transition-all">Tolak / Koreksi</button>
                                     @else
                                         <button onclick="openUbahMasterModal('{{ route('umkm.updateProdukMasterAdmin', $pm->id_produk_master) }}', '{{ $pm->nama_produk_master }}')" class="w-full sm:w-auto px-4 py-2 text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-xl bg-white border border-[#C54716] text-[#C54716] hover:bg-orange-50 transition-all">Ubah</button>
-                                        <button type="button" onclick="openHapusMasterModal('{{ route('umkm.destroyProdukMasterAdmin', $pm->id_produk_master) }}', '{{ addslashes($pm->nama_produk_master) }}')" class="w-full sm:w-auto px-4 py-2 text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-xl bg-white border border-[#A33215] text-[#A33215] hover:bg-orange-50 transition-all">Hapus</button>
+                                        <button type="button" onclick="openHapusMasterModal('{{ route('umkm.destroyProdukMasterAdmin', $pm->id_produk_master) }}', '{{ addslashes($pm->nama_produk_master) }}')" class="w-full sm:w-auto px-4 py-2 text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-xl bg-[#7F1911] text-white hover:bg-[#5A120C] shadow-sm transition-all">Hapus</button>
                                     @endif
                                 </td>
                             </tr>
@@ -316,37 +316,29 @@
     </div>
 </div>
 
-<div id="confirmModal" class="fixed inset-0 bg-[#69200F]/40 hidden z-[999] flex items-center justify-center p-4 backdrop-blur-sm">
-    <div class="bg-white w-full max-w-sm rounded-[2.5rem] shadow-2xl border border-[#FA8145] flex flex-col overflow-hidden relative text-center">
-        <div class="p-8 pb-6">
-            <h3 id="confirmTitle" class="text-xl font-bold text-[#69200F] uppercase tracking-tight mb-2">Konfirmasi</h3>
-            <p id="confirmText" class="text-sm text-gray-500">Apakah Anda yakin?</p>
-        </div>
-        <div class="flex border-t border-gray-100 bg-gray-50/50">
-            <button type="button" onclick="closeConfirmModal()" class="flex-1 py-4 text-sm font-bold text-gray-500 hover:bg-gray-100 transition-colors uppercase tracking-wider border-r border-gray-100">Batal</button>
-            <form id="confirmForm" method="POST" class="flex-1 flex">
-                @csrf
-                @method('PUT')
-                <button type="submit" class="w-full py-4 text-sm font-bold text-[#E75C16] hover:bg-orange-50 transition-colors uppercase tracking-wider">Ya, Lanjutkan</button>
-            </form>
-        </div>
+<div id="confirmModal" class="fixed inset-0 bg-black/40 hidden z-[999] flex items-center justify-center p-4 backdrop-blur-sm">
+    <div class="bg-white p-8 rounded-2xl text-center w-full max-w-sm shadow-2xl border border-[#FA8145]">
+        <h3 id="confirmTitle" class="text-lg font-bold text-gray-900 mb-2">Konfirmasi</h3>
+        <p id="confirmText" class="text-sm text-gray-500 mb-6">Apakah Anda yakin?</p>
+        <form id="confirmForm" method="POST" class="flex gap-3 justify-center">
+            @csrf
+            @method('PUT')
+            <button type="button" onclick="closeConfirmModal()" class="flex-1 px-4 py-2.5 bg-gray-100 text-[#7F1911] rounded-xl font-bold text-sm hover:bg-gray-200 transition-all">Batal</button>
+            <button type="submit" class="flex-1 px-4 py-2.5 bg-[#C54716] text-white rounded-xl font-bold text-sm hover:bg-[#A33215] transition-all shadow-lg shadow-orange-100">Lanjutkan</button>
+        </form>
     </div>
 </div>
 
-<div id="confirmMasterModal" class="fixed inset-0 bg-[#69200F]/40 hidden z-[999] flex items-center justify-center p-4 backdrop-blur-sm">
-    <div class="bg-white w-full max-w-sm rounded-[2.5rem] shadow-2xl border border-[#FA8145] flex flex-col overflow-hidden relative text-center">
-        <div class="p-8 pb-6">
-            <h3 class="text-xl font-bold text-[#69200F] uppercase tracking-tight mb-2">Konfirmasi Master</h3>
-            <p class="text-sm text-gray-500">Anda akan mengaktifkan produk master <strong id="cm_product_name" class="text-[#FA8145]"></strong>. Produk ini akan tampil ke publik.</p>
-        </div>
-        <div class="flex border-t border-gray-100 bg-gray-50/50">
-            <button type="button" onclick="closeConfirmMasterModal()" class="flex-1 py-4 text-sm font-bold text-gray-500 hover:bg-gray-100 transition-colors uppercase tracking-wider border-r border-gray-100">Batal</button>
-            <form id="cm_form" method="POST" class="flex-1 flex">
-                @csrf
-                @method('PUT')
-                <button type="submit" class="w-full py-4 text-sm font-bold text-[#E75C16] hover:bg-orange-50 transition-colors uppercase tracking-wider">Aktifkan</button>
-            </form>
-        </div>
+<div id="confirmMasterModal" class="fixed inset-0 bg-black/40 hidden z-[999] flex items-center justify-center p-4 backdrop-blur-sm">
+    <div class="bg-white p-8 rounded-2xl text-center w-full max-w-sm shadow-2xl border border-[#FA8145]">
+        <h3 class="text-lg font-bold text-gray-900 mb-2">Konfirmasi Master</h3>
+        <p class="text-sm text-gray-500 mb-6">Anda akan mengaktifkan produk master <strong id="cm_product_name" class="text-[#FA8145]"></strong>. Produk ini akan tampil ke publik.</p>
+        <form id="cm_form" method="POST" class="flex gap-3 justify-center">
+            @csrf
+            @method('PUT')
+            <button type="button" onclick="closeConfirmMasterModal()" class="flex-1 px-4 py-2.5 bg-gray-100 text-[#7F1911] rounded-xl font-bold text-sm hover:bg-gray-200 transition-all">Batal</button>
+            <button type="submit" class="flex-1 px-4 py-2.5 bg-[#C54716] text-white rounded-xl font-bold text-sm hover:bg-[#A33215] transition-all shadow-lg shadow-orange-100">Aktifkan</button>
+        </form>
     </div>
 </div>
 
@@ -373,7 +365,7 @@
                 </div>
             </div>
             <div class="p-6 md:p-8 pt-0 flex justify-end gap-3">
-                <button type="button" onclick="closeTolakMasterModal()" class="px-5 py-2.5 text-sm font-bold text-gray-500 bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors uppercase tracking-wider">Batal</button>
+                <button type="button" onclick="closeTolakMasterModal()" class="px-5 py-2.5 text-sm font-bold text-[#7F1911] bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors uppercase tracking-wider">Batal</button>
                 <button type="submit" class="px-5 py-2.5 text-sm font-bold text-white bg-[#E75C16] hover:bg-[#C54716] shadow-md shadow-orange-200 rounded-xl transition-all uppercase tracking-wider">Simpan & Koreksi</button>
             </div>
         </form>
@@ -439,7 +431,7 @@
                 </div>
             </div>
             <div class="p-6 border-t border-gray-50 bg-gray-50/50 flex justify-end gap-3 shrink-0">
-                <button type="button" onclick="closeModalTambahUmkm()" class="px-5 py-2.5 text-sm font-bold text-gray-500 bg-white border border-gray-200 hover:bg-gray-50 rounded-xl transition-colors uppercase tracking-wider">Batal</button>
+                <button type="button" onclick="closeModalTambahUmkm()" class="px-5 py-2.5 text-sm font-bold text-[#7F1911] bg-white border border-gray-200 hover:bg-gray-50 rounded-xl transition-colors uppercase tracking-wider">Batal</button>
                 <button type="submit" class="px-5 py-2.5 text-sm font-bold text-white bg-[#C54716] hover:bg-[#A33215] shadow-md shadow-orange-200 rounded-xl transition-all uppercase tracking-wider">Simpan & Aktifkan</button>
             </div>
         </form>
@@ -469,7 +461,7 @@
                 </div>
             </div>
             <div class="p-6 pt-0 flex justify-end gap-3">
-                <button type="button" onclick="closeModalTambahProdukMaster()" class="px-5 py-2.5 text-sm font-bold text-gray-500 bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors uppercase tracking-wider">Batal</button>
+                <button type="button" onclick="closeModalTambahProdukMaster()" class="px-5 py-2.5 text-sm font-bold text-[#7F1911] bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors uppercase tracking-wider">Batal</button>
                 <button type="submit" class="px-5 py-2.5 text-sm font-bold text-white bg-[#E75C16] hover:bg-[#C54716] shadow-md shadow-orange-200 rounded-xl transition-all uppercase tracking-wider">Tambahkan</button>
             </div>
         </form>
@@ -500,7 +492,7 @@
                 </div>
             </div>
             <div class="p-6 pt-0 flex justify-end gap-3">
-                <button type="button" onclick="closeUbahMasterModal()" class="px-5 py-2.5 text-sm font-bold text-gray-500 bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors uppercase tracking-wider">Batal</button>
+                <button type="button" onclick="closeUbahMasterModal()" class="px-5 py-2.5 text-sm font-bold text-[#7F1911] bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors uppercase tracking-wider">Batal</button>
                 <button type="submit" class="px-5 py-2.5 text-sm font-bold text-white bg-[#E75C16] hover:bg-[#C54716] shadow-md shadow-orange-200 rounded-xl transition-all uppercase tracking-wider">Simpan</button>
             </div>
         </form>
@@ -512,10 +504,10 @@
         <button onclick="closeHapusMasterModal()" class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-black rounded-full hover:bg-gray-100">✕</button>
         <h3 class="text-xl font-bold text-[#69200F] uppercase tracking-tight mb-3 mt-4">Hapus Produk Master?</h3>
         <p class="text-sm text-gray-500 mb-8 font-medium">Apakah Anda yakin ingin menghapus produk master <strong id="hm_product_name" class="text-[#A33215]"></strong> secara permanen?</p>
-        <form id="hm_form" method="POST" class="flex flex-col gap-3">
+        <form id="hm_form" method="POST" class="flex gap-3 justify-center">
             @csrf @method('DELETE')
-            <button type="submit" class="w-full py-4 bg-[#A33215] text-white rounded-2xl font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-[#69200F] shadow-xl shadow-orange-100 transition-all">Ya, Hapus</button>
-            <button type="button" onclick="closeHapusMasterModal()" class="w-full py-4 text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider hover:text-gray-600 transition-all">Batal</button>
+            <button type="button" onclick="closeHapusMasterModal()" class="flex-1 px-4 py-3 bg-gray-100 text-[#7F1911] rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-gray-200 transition-all">Batal</button>
+            <button type="submit" class="flex-1 px-4 py-3 bg-[#7F1911] text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#5A120C] transition-all shadow-lg shadow-orange-100">Ya, Hapus</button>
         </form>
     </div>
 </div>

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('pengguna', function (Blueprint $table) {
             $table->id('id_pengguna');
             $table->string('nama');
+            $table->string('username')->unique();
             $table->string('password');
             $table->string('nik');
             $table->string('foto_profil')->nullable();

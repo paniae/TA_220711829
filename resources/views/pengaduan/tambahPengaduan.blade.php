@@ -143,11 +143,11 @@
                     <div class="pt-4 border-t-2 border-gray-100 flex justify-end gap-3 mt-2">
                         <button onclick="openUbahModal({{ $item->id_pengaduan }}, '{{ addslashes($item->isi_pengaduan) }}', this.getAttribute('data-fotos'))" 
                             data-fotos="{{ json_encode($item->foto) }}"
-                            class="bg-orange-50 text-[#C54716] px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-orange-100 hover:-translate-y-0.5 transition-all shadow-sm">
+                            class="bg-white text-[#C54716] border border-[#C54716] px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-orange-50 hover:-translate-y-0.5 transition-all shadow-sm">
                             Ubah
                         </button>
                         <button onclick="openHapusModal({{ $item->id_pengaduan }})" 
-                            class="bg-orange-50 text-[#A33215] px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-orange-50 hover:-translate-y-0.5 transition-all shadow-sm">
+                            class="bg-[#7F1911] text-white px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[#5A120C] hover:-translate-y-0.5 transition-all shadow-sm">
                             Hapus
                         </button>
                     </div>
@@ -186,7 +186,7 @@
             </div>
 
             <div class="flex gap-3 justify-end">
-                <button type="button" onclick="closeModal('modalUbahPengaduan')" class="px-6 py-2.5 rounded-xl font-bold text-gray-500 hover:bg-gray-50 uppercase text-xs tracking-widest transition-colors">Batal</button>
+                <button type="button" onclick="closeModal('modalUbahPengaduan')" class="px-6 py-2.5 rounded-xl font-bold text-[#7F1911] hover:bg-gray-50 uppercase text-xs tracking-widest transition-colors">Batal</button>
                 <button type="submit" class="px-6 py-2.5 rounded-xl font-bold bg-[#C54716] text-white hover:bg-[#A33215] uppercase text-xs tracking-widest transition-colors shadow-md shadow-orange-100">Simpan Perubahan</button>
             </div>
         </form>
@@ -197,11 +197,11 @@
     <div class="bg-white rounded-[2rem] p-8 max-w-sm w-full mx-4 shadow-2xl text-center relative" onclick="event.stopPropagation()">
         <h3 class="text-lg font-bold text-gray-900 mb-2 uppercase tracking-tight">Hapus Pengaduan</h3>
         <p class="text-xs text-gray-500 mb-8 font-medium">Yakin ingin menghapus pengaduan ini? Tindakan ini tidak dapat dibatalkan.</p>
-        <form id="formHapusPengaduan" method="POST" class="flex justify-center gap-3">
+        <form id="formHapusPengaduan" method="POST" class="flex gap-3 justify-center">
             @csrf
             @method('DELETE')
-            <button type="button" onclick="closeModal('modalHapusPengaduan')" class="flex-1 px-4 py-2.5 rounded-xl font-bold text-gray-500 bg-gray-50 hover:bg-gray-100 uppercase text-[10px] tracking-widest transition-colors">Batal</button>
-            <button type="submit" class="flex-1 px-4 py-2.5 rounded-xl font-bold bg-[#A33215] text-white hover:bg-[#A33215] uppercase text-[10px] tracking-widest transition-colors shadow-md shadow-red-100">Hapus</button>
+            <button type="button" onclick="closeModal('modalHapusPengaduan')" class="flex-1 px-4 py-3 bg-gray-100 text-[#7F1911] rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-gray-200 transition-all">Batal</button>
+            <button type="submit" class="flex-1 px-4 py-3 bg-[#7F1911] text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#5A120C] transition-all shadow-lg shadow-orange-100">Hapus</button>
         </form>
     </div>
 </div>

@@ -74,7 +74,7 @@
                                 {{ $laporan->komentar->count() }} Komentar
                             </span>
                             @if($laporan->status_kehilangan == 'hilang' && auth()->id() == $laporan->id_pengguna)
-                                <button type="button" onclick="openTutupForumModal()" class="bg-[#C54716] text-white px-5 py-2 rounded-xl text-xs font-bold hover:bg-[#A33215] transition-all shadow-md active:scale-95 uppercase tracking-wide cursor-pointer">
+                                <button type="button" onclick="openTutupForumModal()" class="bg-[#C54716] text-white px-5 py-2 rounded-xl text-xs font-bold hover:bg-[#7F1911] transition-all shadow-md active:scale-95 uppercase tracking-wide cursor-pointer">
                                     Tutup Forum
                                 </button>
                             @endif
@@ -173,7 +173,7 @@
             </div>
             <div class="p-4 border-t bg-gray-50/50 flex justify-end gap-3">
                 <button type="submit" class="px-8 py-4 bg-[#C54716] text-white rounded-2xl font-bold hover:bg-[#A33215] text-xs shadow-xl shadow-orange-50 transition-all">Simpan Perubahan</button>
-                <button type="button" onclick="closeModal('modalEdit')" class="px-5 py-4 text-gray-500 font-bold hover:text-gray-600 transition-all text-xs">Batal</button>
+                <button type="button" onclick="closeModal('modalEdit')" class="px-5 py-4 text-[#7F1911] font-bold hover:text-[#5A120C] transition-all text-xs">Batal</button>
             </div>
         </form>
     </div>
@@ -184,10 +184,10 @@
         <button onclick="closeModal('modalDelete')" class="absolute top-4 right-4 text-gray-400 hover:text-[#A33215] text-2xl transition-colors font-bold">✕</button>
         <h3 class="text-xl font-bold text-[#69200F] mb-3 uppercase tracking-tight">Hapus Pesan?</h3>
         <p class="text-sm text-gray-500 mb-8 font-medium">Tindakan moderasi ini akan menghapus pesan secara permanen dari forum.</p>
-        <form id="formDelete" method="POST" class="flex flex-col gap-3">
+        <form id="formDelete" method="POST" class="flex gap-3 justify-center">
             @csrf @method('DELETE')
-            <button type="submit" class="w-full py-4 bg-[#69200F] text-white rounded-2xl font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-[#A33215] shadow-xl shadow-orange-100 transition-all">Ya, Hapus Sekarang</button>
-            <button type="button" onclick="closeModal('modalDelete')" class="w-full py-4 text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider hover:text-gray-600 transition-all">Batal</button>
+            <button type="button" onclick="closeModal('modalDelete')" class="flex-1 px-4 py-3 bg-gray-100 text-[#7F1911] rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-gray-200 transition-all">Batal</button>
+            <button type="submit" class="flex-1 px-4 py-3 bg-[#7F1911] text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#5A120C] transition-all shadow-lg shadow-orange-100">Ya, Hapus</button>
         </form>
     </div>
 </div>
@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function() {
             @csrf
             @method('PUT')
             <button type="submit" class="w-full py-4 bg-[#C54716] text-white rounded-2xl font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-[#A33215] shadow-xl shadow-orange-100 transition-all">Ya, Ditemukan!</button>
-            <button type="button" onclick="closeModal('modalTutupForum')" class="w-full py-4 text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider hover:text-gray-600 transition-all">Batal</button>
+            <button type="button" onclick="closeModal('modalTutupForum')" class="w-full py-4 text-xs sm:text-sm font-bold text-[#7F1911] uppercase tracking-wider hover:text-[#5A120C] transition-all">Batal</button>
         </form>
     </div>
 </div>

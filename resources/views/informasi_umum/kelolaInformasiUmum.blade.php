@@ -304,7 +304,7 @@
                 </div>
             </div>
             <div class="p-4 border-t bg-gray-50 flex justify-end gap-3">
-                <button type="button" onclick="closeModal('modalEditProfil')" class="px-5 py-2 text-gray-500 font-bold hover:bg-gray-100 rounded-lg text-sm uppercase tracking-wide">Batal</button>
+                <button type="button" onclick="closeModal('modalEditProfil')" class="px-5 py-2 text-[#7F1911] font-bold hover:bg-gray-100 rounded-lg text-sm uppercase tracking-wide">Batal</button>
                 <button type="submit" class="px-8 py-2 bg-[#C54716] text-white rounded-xl font-bold hover:bg-[#A33215] transition-all shadow-lg shadow-orange-100 text-sm uppercase tracking-wide">Simpan Perubahan</button>
             </div>
         </form>
@@ -352,7 +352,7 @@
                 </div>
             </div>
             <div class="pt-4 flex justify-end gap-3">
-                <button type="button" onclick="closeModal('modalEditKontak')" class="px-5 py-2 text-gray-500 font-bold hover:bg-gray-100 rounded-lg text-sm uppercase tracking-wide">Batal</button>
+                <button type="button" onclick="closeModal('modalEditKontak')" class="px-5 py-2 text-[#7F1911] font-bold hover:bg-gray-100 rounded-lg text-sm uppercase tracking-wide">Batal</button>
                 <button type="submit" class="px-8 py-2 bg-[#C54716] text-white rounded-xl font-bold hover:bg-[#A33215] transition-all shadow-lg shadow-orange-100 text-sm uppercase tracking-wide">Simpan Kontak</button>
             </div>
         </form>
