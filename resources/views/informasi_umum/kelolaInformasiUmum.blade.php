@@ -57,7 +57,7 @@
                 <p class="text-sm text-[#E75C16] font-bold uppercase tracking-widest">Identitas Resmi Padukuhan</p>
             </div>
             <button onclick="openModal('modalEditProfil')" 
-                class="bg-[#C54716] text-white px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-[#A33215] shadow-lg shadow-orange-100 transition-all active:scale-95">
+                class="bg-[#C54716] text-white px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider hover:bg-[#A33215] transition-all hover:scale-105 active:scale-95 shadow-lg shadow-orange-100 whitespace-nowrap text-center">
                 Ubah Profil
             </button>
         </div>
@@ -182,7 +182,7 @@
                 Kontak Padukuhan
             </h2>
             <button onclick="openModal('modalEditKontak')" 
-                class="bg-[#C54716] text-white px-6 py-2.5 rounded-xl text-base font-bold hover:bg-[#A33215] shadow-lg shadow-orange-100 transition-all active:scale-95">
+                class="bg-[#C54716] text-white px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider hover:bg-[#A33215] transition-all hover:scale-105 active:scale-95 shadow-lg shadow-orange-100 whitespace-nowrap text-center">
                 Ubah Kontak
             </button>
         </div>

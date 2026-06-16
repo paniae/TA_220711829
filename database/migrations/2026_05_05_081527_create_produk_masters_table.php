@@ -15,6 +15,11 @@ return new class extends Migration
             $table->id('id_produk_master');
             $table->string('nama_produk_master');
             $table->string('status_produk_master');
+            
+            // Relasi ke tabel pengguna
+            $table->unsignedBigInteger('id_pengguna')->nullable();
+            $table->foreign('id_pengguna')->references('id_pengguna')->on('pengguna')->cascadeOnDelete();
+            
             $table->timestamps();
         });
     }
