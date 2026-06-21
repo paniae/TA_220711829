@@ -1,30 +1,110 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Pendaftaran Akun Ditolak - Padukuhan</title>
+    <title>Pendaftaran Akun Ditolak</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #fffaf5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #ffeada;
+        }
+        .header {
+            background-color: #A33215;
+            color: #ffffff;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .content {
+            padding: 30px;
+        }
+        .activity-card {
+            background-color: #fff9f4;
+            border-left: 5px solid #C54716;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        .info-row {
+            margin-bottom: 15px;
+        }
+        .label {
+            font-size: 10px;
+            font-weight: bold;
+            color: #E75C16;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 2px;
+            letter-spacing: 1px;
+        }
+        .value {
+            font-size: 16px;
+            color: #69200F;
+            font-weight: 600;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+            border-top: 1px solid #eee;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #C54716;
+            color: #ffffff !important;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
 </head>
-<body style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
-    <div style="max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
-        <h2 style="color: #A33215; text-align: center;">Pendaftaran Akun Belum Disetujui</h2>
-        
-        <p>Halo {{ $pengguna->nama }},</p>
-        <p>Kami menginformasikan bahwa pendaftaran akun Anda untuk sistem informasi Padukuhan <strong>tidak dapat didaftarkan / ditolak</strong> oleh administrator.</p>
-        
-        <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #A33215;">
-            <p style="margin: 0; font-weight: bold; color: #A33215;">Keterangan / Alasan:</p>
-            <p style="margin: 5px 0 0 0; color: #555;">
-                Mungkin NIK yang Anda masukkan tidak terdaftar di Padukuhan Bruno II, atau terdapat ketidaksesuaian data kependudukan lainnya.
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Pendaftaran Ditolak</h1>
+        </div>
+        <div class="content">
+            <p>Halo {{ $pengguna->nama }},</p>
+            <p>Kami menginformasikan bahwa pendaftaran akun Anda untuk sistem informasi Padukuhan <strong>tidak dapat didaftarkan / ditolak</strong> oleh administrator.</p>
+            
+            <div class="activity-card">
+                <div class="info-row">
+                    <span class="label">Keterangan / Alasan</span>
+                    <span class="value" style="font-size: 14px; font-weight: normal;">Mungkin NIK yang Anda masukkan tidak terdaftar di Padukuhan Bruno II, atau terdapat ketidaksesuaian data kependudukan lainnya.</span>
+                </div>
+            </div>
+
+            <p>Anda dapat mendaftarkan kembali akun Anda atau menghubungi Kepala Dukuh setempat untuk memastikan data kependudukan Anda sudah terdaftar dengan benar di Padukuhan Bruno II.</p>
+            
+            <p style="text-align: center;">
+                <a href="{{ route('register') }}" style="display: inline-block; padding: 12px 25px; background-color: #C54716; color: #ffffff; text-decoration: none; border-radius: 8px; font-weight: bold; margin-top: 20px;">Daftar Akun Kembali</a>
             </p>
         </div>
-
-        <p>Anda dapat mendaftarkan kembali akun Anda atau menghubungi Kepala Dukuh setempat untuk memastikan data kependudukan Anda sudah terdaftar dengan benar di Padukuhan Bruno II.</p>
-        
-        <div style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
-            <a href="{{ url('/register') }}" style="background-color: #C54716; color: white; padding: 10px 20px; text-decoration: none; font-weight: bold; border-radius: 5px;">Daftar Akun Kembali</a>
+        <div class="footer">
+            Email ini dikirim otomatis oleh website Padukuhan Bruno II. <br>
+            © {{ date('Y') }} - Kebersamaan Untuk Kemajuan
         </div>
-        
-        <hr style="margin-top: 30px; border: 0; border-top: 1px solid #eee;">
-        <p style="font-size: 12px; color: #999; text-align: center;">Email ini dikirim otomatis oleh sistem informasi Padukuhan.</p>
     </div>
 </body>
 </html>

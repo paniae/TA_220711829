@@ -42,7 +42,9 @@ class KegiatanController extends Controller
             $query->whereDate('tgl_waktu_pelaksanaan', $request->date);
         }
         
-        $kegiatan = $query->orderBy('tgl_waktu_pelaksanaan', 'desc')->get();
+        $kegiatan = $query->orderByRaw("FIELD(status_kegiatan, 'berlangsung', 'direncanakan', 'selesai')")
+                          ->orderByRaw("ABS(DATEDIFF(tgl_waktu_pelaksanaan, NOW()))")
+                          ->get();
         return view('kegiatan.kelolaKegiatan', compact('kegiatan', 'tab'));
     }
 
@@ -73,7 +75,9 @@ class KegiatanController extends Controller
             $query->whereDate('tgl_waktu_pelaksanaan', $request->date);
         }
         
-        $kegiatan = $query->orderBy('tgl_waktu_pelaksanaan', 'desc')->get();
+        $kegiatan = $query->orderByRaw("FIELD(status_kegiatan, 'berlangsung', 'direncanakan', 'selesai')")
+                          ->orderByRaw("ABS(DATEDIFF(tgl_waktu_pelaksanaan, NOW()))")
+                          ->get();
         return view('kegiatan.lihatKegiatan', compact('kegiatan', 'tab'));
     }
 
@@ -231,7 +235,9 @@ class KegiatanController extends Controller
             $query->whereDate('tgl_waktu_pelaksanaan', $request->date);
         }
         
-        $kegiatan = $query->orderBy('tgl_waktu_pelaksanaan', 'desc')->get();
+        $kegiatan = $query->orderByRaw("FIELD(status_kegiatan, 'berlangsung', 'direncanakan', 'selesai')")
+                          ->orderByRaw("ABS(DATEDIFF(tgl_waktu_pelaksanaan, NOW()))")
+                          ->get();
         return view('kegiatan.lihatProker', compact('kegiatan'));
     }
 

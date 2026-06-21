@@ -95,7 +95,7 @@
                         <td>{{ $item->nomor_induk_kependudukan }}</td>
                         <td>{{ $item->nomor_kk }}</td>
                         <td>{{ $item->nama_lengkap }}</td>
-                        <td>{{ $item->tempat_lahir }}, {{ \Carbon\Carbon::parse($item->tanggal_lahir)->format('d M Y') }}</td>
+                        <td>{{ $item->tempat_lahir ?? '-' }}, {{ $item->tanggal_lahir ? \Carbon\Carbon::parse($item->tanggal_lahir)->format('d M Y') : '-' }}</td>
                         <td>{{ $item->jenis_kelamin }}</td>
                         <td>{{ $item->agama }}</td>
                         <td>{{ $item->jenis_pekerjaan }}</td>

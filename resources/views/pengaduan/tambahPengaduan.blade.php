@@ -39,23 +39,28 @@
                 Isi Pengaduan <span class="text-[#A33215]">*</span>
             </label>
             <textarea name="isi_pengaduan" rows="5" required
-                class="w-full text-lg rounded-2xl border-2 border-gray-400 shadow-sm focus:border-[#C54716] focus:ring-4 focus:ring-[#C54716]/20 placeholder:text-gray-400 p-4 text-gray-900 font-medium"
+                class="w-full text-lg rounded-2xl border-2 border-gray-400 shadow-sm focus:border-[#C54716] 
+                focus:ring-4 focus:ring-[#C54716]/20 placeholder:text-gray-400 p-4 text-gray-900 font-medium"
                 placeholder="Tuliskan detail pengaduan Anda di sini dengan jelas..."></textarea>
-            <p class="text-xs text-gray-500 mt-2 italic font-medium">Mohon ceritakan kronologi atau keluhan Anda secara mendetail agar mudah kami tindak lanjuti.</p>
+            <p class="text-xs text-gray-500 mt-2 italic font-medium">Mohon ceritakan kronologi atau keluhan Anda 
+                secara mendetail agar mudah kami tindak lanjuti.</p>
         </div>
 
         <div class="mb-6">
             <label class="block text-base font-bold text-gray-900 mb-2 uppercase tracking-wide">Foto Bukti (Opsional)</label>
             <div class="p-4 border-2 border-dashed border-gray-300 rounded-2xl bg-gray-50/50">
                 <input type="file" id="foto_pengaduan" name="foto_pengaduan[]" multiple accept="image/*"
-                    class="w-full text-sm text-gray-600 file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-0 file:text-xs file:font-black file:bg-[#C54716] file:text-white hover:file:bg-[#A33215] uppercase tracking-widest cursor-pointer transition-all">
+                    class="w-full text-sm text-gray-600 file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-0 file:text-xs 
+                    file:font-black file:bg-[#C54716] file:text-white hover:file:bg-[#A33215] 
+                    uppercase tracking-widest cursor-pointer transition-all">
                 <p class="text-[10px] text-gray-400 mt-2 font-bold uppercase tracking-widest">Format: JPG, PNG • Max: 2MB per foto</p>
             </div>
             
             <div id="previewContainer" class="mt-4 flex flex-wrap gap-3"></div>
         </div>
 
-        <button type="submit" class="bg-[#C54716] text-white px-8 py-3 rounded-xl text-xs font-bold hover:bg-[#A33215] transition-all shadow-lg shadow-orange-100 uppercase tracking-widest active:scale-95">
+        <button type="submit" class="bg-[#C54716] text-white px-8 py-3 rounded-xl text-xs font-bold hover:bg-[#A33215] transition-all 
+        shadow-lg shadow-orange-100 uppercase tracking-widest active:scale-95">
             Kirim Pengaduan
         </button>
     </form>
@@ -99,7 +104,6 @@
         <div class="space-y-3">
             @foreach($pengaduan as $item)
             <div class="border border-gray-200 rounded-2xl p-5 bg-white shadow hover:shadow-lg transition-all duration-300">
-                
                 <div class="flex items-start sm:items-center justify-between mb-4 pb-3 border-b-2 border-gray-100 gap-4">
                     <div class="flex items-center gap-3">
                         <div class="w-9 h-9 rounded-full bg-orange-100 text-[#C54716] flex items-center justify-center font-bold shadow-inner">
@@ -107,20 +111,23 @@
                         </div>
                         <div>
                             <p class="text-xs font-bold text-gray-800 tracking-wide">{{ $item->pengguna->nama ?? 'Anonim' }}</p>
-                            <p class="text-[10px] text-gray-400 font-medium mt-0.5">{{ \Carbon\Carbon::parse($item->tgl_waktu_pengaduan)->translatedFormat('d M Y H:i') }}</p>
+                            <p class="text-[10px] text-gray-400 font-medium mt-0.5">{{ \Carbon\Carbon::parse($item->tgl_waktu_pengaduan)
+                                ->translatedFormat('d M Y H:i') }}</p>
                         </div>
                     </div>
                     <div>
                         @if($item->status_pengaduan == 'menunggu')
-                            <span class="px-3 py-1.5 rounded-full bg-orange-50 text-[#C54716] border border-orange-100 text-[10px] font-black uppercase tracking-widest shadow-sm">Menunggu</span>
+                            <span class="px-3 py-1.5 rounded-full bg-orange-50 text-[#C54716] border border-orange-100 text-[10px] font-black uppercase 
+                            tracking-widest shadow-sm">Menunggu</span>
                         @elseif($item->status_pengaduan == 'diterima')
-                            <span class="px-3 py-1.5 rounded-full bg-orange-50 text-[#A33215] border border-orange-200 text-[10px] font-black uppercase tracking-widest shadow-sm">Diterima</span>
+                            <span class="px-3 py-1.5 rounded-full bg-orange-50 text-[#A33215] border border-orange-200 text-[10px] font-black uppercase 
+                            tracking-widest shadow-sm">Diterima</span>
                         @elseif($item->status_pengaduan == 'selesai')
-                            <span class="px-3 py-1.5 rounded-full bg-orange-100/50 text-[#69200F] border border-orange-200 text-[10px] font-black uppercase tracking-widest shadow-sm">Selesai</span>
-                        @elseif($item->status_pengaduan == 'ditolak')
-                            <span class="px-3 py-1.5 rounded-full bg-gray-50 text-gray-500 border border-gray-200 text-[10px] font-black uppercase tracking-widest shadow-sm">Ditolak</span>
+                            <span class="px-3 py-1.5 rounded-full bg-orange-100/50 text-[#69200F] border border-orange-200 text-[10px] font-black uppercase 
+                            tracking-widest shadow-sm">Selesai</span>
                         @else
-                            <span class="px-3 py-1.5 rounded-full bg-gray-50 text-gray-700 border border-gray-100 text-[10px] font-black uppercase tracking-widest shadow-sm">{{ $item->status_pengaduan }}</span>
+                            <span class="px-3 py-1.5 rounded-full bg-gray-50 text-gray-700 border border-gray-100 text-[10px] font-black uppercase 
+                            tracking-widest shadow-sm">{{ $item->status_pengaduan }}</span>
                         @endif
                     </div>
                 </div>
@@ -143,11 +150,13 @@
                     <div class="pt-4 border-t-2 border-gray-100 flex justify-end gap-3 mt-2">
                         <button onclick="openUbahModal({{ $item->id_pengaduan }}, '{{ addslashes($item->isi_pengaduan) }}', this.getAttribute('data-fotos'))" 
                             data-fotos="{{ json_encode($item->foto) }}"
-                            class="bg-white text-[#C54716] border border-[#C54716] px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-orange-50 hover:-translate-y-0.5 transition-all shadow-sm">
+                            class="bg-white text-[#C54716] border border-[#C54716] px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest 
+                            hover:bg-orange-50 hover:-translate-y-0.5 transition-all shadow-sm">
                             Ubah
                         </button>
                         <button onclick="openHapusModal({{ $item->id_pengaduan }})" 
-                            class="bg-[#7F1911] text-white px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[#5A120C] hover:-translate-y-0.5 transition-all shadow-sm">
+                            class="bg-[#7F1911] text-white px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[#5A120C] 
+                            hover:-translate-y-0.5 transition-all shadow-sm">
                             Hapus
                         </button>
                     </div>
@@ -222,9 +231,7 @@ const previewContainer = document.getElementById('previewContainer');
 fileInput.addEventListener('change', function(e) {
     const files = Array.from(e.target.files);
     
-    // Tambahkan file baru ke array
     files.forEach(file => {
-        // Cek jika file sudah ada berdasarkan nama dan ukuran (sederhana)
         const isDuplicate = selectedFiles.some(f => f.name === file.name && f.size === file.size);
         if (!isDuplicate) {
             selectedFiles.push(file);
@@ -337,7 +344,6 @@ function closeModal(id) {
     modal.classList.remove('flex');
 }
 
-// Auto hide alert success
 document.addEventListener('DOMContentLoaded', function() {
     const alertSuccess = document.getElementById('alertSuccess');
     if (alertSuccess) {
@@ -345,8 +351,8 @@ document.addEventListener('DOMContentLoaded', function() {
             alertSuccess.style.opacity = '0';
             setTimeout(() => {
                 alertSuccess.style.display = 'none';
-            }, 500); // Wait for transition
-        }, 3000); // Hide after 3 seconds
+            }, 500); 
+        }, 3000); 
     }
 });
 </script>

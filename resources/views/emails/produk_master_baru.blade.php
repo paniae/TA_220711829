@@ -2,34 +2,117 @@
 <html>
 <head>
     <title>Pengajuan Produk Master Baru</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #fffaf5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #ffeada;
+        }
+        .header {
+            background-color: #A33215;
+            color: #ffffff;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .content {
+            padding: 30px;
+        }
+        .activity-card {
+            background-color: #fff9f4;
+            border-left: 5px solid #C54716;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        .info-row {
+            margin-bottom: 15px;
+        }
+        .label {
+            font-size: 10px;
+            font-weight: bold;
+            color: #E75C16;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 2px;
+            letter-spacing: 1px;
+        }
+        .value {
+            font-size: 16px;
+            color: #69200F;
+            font-weight: 600;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+            border-top: 1px solid #eee;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #C54716;
+            color: #ffffff !important;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
 </head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-    
-    <div style="background-color: #69200F; padding: 20px; text-align: center; border-radius: 10px 10px 0 0;">
-        <h2 style="color: #fff; margin: 0; text-transform: uppercase; letter-spacing: 2px;">Notifikasi Sistem</h2>
-    </div>
-
-    <div style="background-color: #fff; padding: 30px; border: 1px solid #ddd; border-top: none; border-radius: 0 0 10px 10px;">
-        <h3 style="color: #A33215; margin-top: 0;">Halo Admin,</h3>
-        
-        <p>Terdapat pengajuan penambahan <strong>Produk Master Baru</strong> dari warga pengelola UMKM yang membutuhkan konfirmasi Anda.</p>
-        
-        <div style="background-color: #FA814520; border-left: 4px solid #FA8145; padding: 15px; margin: 20px 0;">
-            <p style="margin: 5px 0;"><strong>Nama Pengaju:</strong> {{ $pengaju->nama ?? 'Warga' }}</p>
-            <p style="margin: 5px 0;"><strong>Nama Produk Master:</strong> {{ $produkMaster->nama_produk_master }}</p>
-            <p style="margin: 5px 0;"><strong>Status:</strong> <span style="color: #A33215; font-weight: bold;">Menunggu Konfirmasi</span></p>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Produk Master Baru</h1>
         </div>
+        <div class="content">
+            <p>Halo Admin,</p>
+            <p>Terdapat pengajuan penambahan <strong>Produk Master Baru</strong> dari warga pengelola UMKM yang membutuhkan konfirmasi Anda.</p>
+            
+            <div class="activity-card">
+                <div class="info-row">
+                    <span class="label">Nama Pengaju</span>
+                    <span class="value">{{ $pengaju->nama ?? 'Warga' }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Nama Produk Master</span>
+                    <span class="value">{{ $produkMaster->nama_produk_master }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Status</span>
+                    <span class="value" style="color: #A33215;">Menunggu Konfirmasi</span>
+                </div>
+            </div>
 
-        <p>Silakan login ke sistem untuk melakukan pengecekan dan konfirmasi (Terima/Tolak) agar produk warga dapat segera digunakan.</p>
+            <p>Silakan login ke sistem untuk melakukan pengecekan dan konfirmasi (Terima/Tolak) agar produk warga dapat segera digunakan.</p>
 
-        <div style="text-align: center; margin-top: 30px;">
-            <a href="{{ url('/umkm/konfirmasi') }}" style="background-color: #C54716; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">Kelola Produk Master</a>
+            <p style="text-align: center;">
+                <a href="{{ url('/') }}" class="button">Kelola Produk Master</a>
+            </p>
+        </div>
+        <div class="footer">
+            Email ini dikirim otomatis oleh website Padukuhan Bruno II. <br>
+            © {{ date('Y') }} - Kebersamaan Untuk Kemajuan
         </div>
     </div>
-
-    <div style="text-align: center; margin-top: 20px; font-size: 12px; color: #777;">
-        <p>Email ini dibuat otomatis oleh Sistem Informasi Padukuhan.<br>Mohon tidak membalas email ini.</p>
-    </div>
-
 </body>
 </html>

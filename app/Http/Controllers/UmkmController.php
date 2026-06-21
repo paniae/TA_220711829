@@ -157,7 +157,7 @@ class UmkmController extends Controller
         }
 
         Umkm::create([
-            'id_pengguna' => auth()->id() ?? 1,
+            'id_pengguna' => $request->id_pengguna ?? auth()->id() ?? 1,
             'nama_umkm' => $request->nama_umkm,
             'alamat_umkm' => $request->alamat_umkm,
             'nomor_telepon_umkm' => $request->nomor_telepon,
@@ -300,26 +300,30 @@ class UmkmController extends Controller
 
         $produkMaster = \App\Models\ProdukMaster::whereRaw('LOWER(nama_produk_master) = ?', [strtolower(trim($request->nama_produk_umum))])->first();
         if (!$produkMaster) {
+            $isUmkmAdmin = auth()->check() && auth()->user()->hasAkses('konfirmasi_umkm');
+
             $produkMaster = \App\Models\ProdukMaster::create([
                 'nama_produk_master' => $namaProdukUmum,
-                'status_produk_master' => 'menunggu',
+                'status_produk_master' => $isUmkmAdmin ? 'aktif' : 'menunggu',
             ]);
 
-            // Kirim notifikasi email ke user yang punya akses 'konfirmasi_umkm'
-            $adminUsers = \App\Models\Pengguna::with('role.akses')
-                ->whereNotNull('email_pengguna')
-                ->where('status_pengguna', 'aktif')
-                ->get()
-                ->filter(function($u) {
-                    return $u->hasAkses('konfirmasi_umkm');
-                });
+            if (!$isUmkmAdmin) {
+                // Kirim notifikasi email ke user yang punya akses 'konfirmasi_umkm'
+                $adminUsers = \App\Models\Pengguna::with('role.akses')
+                    ->whereNotNull('email_pengguna')
+                    ->where('status_pengguna', 'aktif')
+                    ->get()
+                    ->filter(function($u) {
+                        return $u->hasAkses('konfirmasi_umkm');
+                    });
 
-            foreach ($adminUsers as $admin) {
-                try {
-                    \Illuminate\Support\Facades\Mail::to($admin->email_pengguna)
-                        ->send(new \App\Mail\ProdukMasterBaruMail($produkMaster, auth()->user()));
-                } catch (\Exception $e) {
-                    // Abaikan jika konfigurasi email gagal
+                foreach ($adminUsers as $admin) {
+                    try {
+                        \Illuminate\Support\Facades\Mail::to($admin->email_pengguna)
+                            ->send(new \App\Mail\ProdukMasterBaruMail($produkMaster, auth()->user()));
+                    } catch (\Exception $e) {
+                        // Abaikan jika konfigurasi email gagal
+                    }
                 }
             }
         }
@@ -454,7 +458,8 @@ class UmkmController extends Controller
             'currentStatusProduk' => $statusProduk,
             'totalProdukMaster' => \App\Models\ProdukMaster::count(),
             'menungguProdukMaster' => \App\Models\ProdukMaster::where('status_produk_master', 'menunggu')->count(),
-            'aktifProdukMaster' => \App\Models\ProdukMaster::where('status_produk_master', 'aktif')->count()
+            'aktifProdukMaster' => \App\Models\ProdukMaster::where('status_produk_master', 'aktif')->count(),
+            'penggunaList' => \App\Models\Pengguna::where('status_pengguna', 'aktif')->get()
         ]);
     }
 

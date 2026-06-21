@@ -53,7 +53,7 @@ class LaporanController extends Controller
                     $query->where('status_penduduk', $status);
                 }
                 
-                $dateColumn = in_array(strtolower($status), ['pindah', 'meninggal']) ? 'updated_at' : 'created_at';
+                $dateColumn = in_array(strtolower($status ?? ''), ['pindah', 'meninggal']) ? 'updated_at' : 'created_at';
                 
                 if ($month) $query->whereMonth($dateColumn, $month);
                 if ($year) $query->whereYear($dateColumn, $year);
@@ -221,16 +221,23 @@ class LaporanController extends Controller
 
     public function exportPdf(Request $request)
     {
-        $tab = $request->tab ?? 'umkm';
-        $month = $request->month;
-        $year = $request->year;
-        $status = $request->status;
+        try {
+            $tab = $request->tab ?? 'umkm';
+            $month = $request->month;
+            $year = $request->year;
+            $status = $request->status;
 
-        $data = $this->getFilteredData($tab, $month, $year, $status, true);
+            $data = $this->getFilteredData($tab, $month, $year, $status, true);
 
-        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('laporan.laporanPdf', compact('data', 'tab', 'month', 'year', 'status'));
-        $pdf->setPaper('A4', 'landscape');
-        
-        return $pdf->download("laporan_{$tab}_" . date('Ymd_His') . ".pdf");
+            set_time_limit(0);
+            ini_set('memory_limit', '-1');
+
+            $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('laporan.laporanPdf', compact('data', 'tab', 'month', 'year', 'status'));
+            $pdf->setPaper('A4', 'landscape');
+            
+            return $pdf->download("laporan_{$tab}_" . date('Ymd_His') . ".pdf");
+        } catch (\Throwable $th) {
+            return response("Error saat generate PDF: " . $th->getMessage() . " di baris " . $th->getLine() . " file " . $th->getFile(), 500);
+        }
     }
 }

@@ -10,6 +10,10 @@ class PendudukController extends Controller
 {
     public function index(Request $request)
     {
+        if (!auth()->user() || !auth()->user()->hasAkses('kelola_penduduk')) {
+            abort(403, 'Anda tidak memiliki akses ke halaman ini.');
+        }
+
         $search = $request->input('search');
         $filter = $request->input('filter');
         $query = Penduduk::query();
@@ -22,14 +26,13 @@ class PendudukController extends Controller
             });
         }
 
-        // Apply demography filter
         if ($filter) {
             switch ($filter) {
                 case 'laki_aktif':
-                    $query->where('jenis_kelamin', 'L')->where('status_penduduk', 'Aktif');
+                    $query->where('jenis_kelamin', 'Laki-laki')->where('status_penduduk', 'Aktif');
                     break;
                 case 'perempuan':
-                    $query->where('jenis_kelamin', 'P');
+                    $query->where('jenis_kelamin', 'Perempuan');
                     break;
                 case 'lansia':
                     $query->where('tanggal_lahir', '<=', now()->subYears(60)->toDateString());
@@ -59,8 +62,8 @@ class PendudukController extends Controller
         $stats = [
             'total_kk' => Penduduk::distinct('nomor_kk')->count('nomor_kk'),
             'total_penduduk' => Penduduk::count(),
-            'perempuan' => Penduduk::where('jenis_kelamin', 'P')->count(),
-            'laki_aktif' => Penduduk::where('jenis_kelamin', 'L')->where('status_penduduk', 'Aktif')->count(),
+            'perempuan' => Penduduk::where('jenis_kelamin', 'Perempuan')->count(),
+            'laki_aktif' => Penduduk::where('jenis_kelamin', 'Laki-laki')->where('status_penduduk', 'Aktif')->count(),
             'pindah_tahun_ini' => Penduduk::where('status_penduduk', 'Pindah')->whereYear('updated_at', date('Y'))->count(),
             'meninggal_tahun_ini' => Penduduk::where('status_penduduk', 'Meninggal')->whereYear('updated_at', date('Y'))->count(),
             'lansia' => Penduduk::where('tanggal_lahir', '<=', now()->subYears(60)->toDateString())->count(),
@@ -78,6 +81,10 @@ class PendudukController extends Controller
 
     public function store(Request $request)
     {
+        if (!auth()->user() || !auth()->user()->hasAkses('kelola_penduduk')) {
+            abort(403, 'Tindakan ini tidak diizinkan.');
+        }
+
         $request->validate([
             'nik' => 'required|digits:16|unique:penduduk,nomor_induk_kependudukan',
             'nomor_kk' => 'required|digits:16',
@@ -137,6 +144,10 @@ class PendudukController extends Controller
 
     public function update(Request $request, $id)
     {
+        if (!auth()->user() || !auth()->user()->hasAkses('kelola_penduduk')) {
+            abort(403, 'Tindakan ini tidak diizinkan.');
+        }
+
         $penduduk = Penduduk::findOrFail($id);
 
         $request->validate([
@@ -199,6 +210,10 @@ class PendudukController extends Controller
 
     public function destroy($id)
     {
+        if (!auth()->user() || !auth()->user()->hasAkses('kelola_penduduk')) {
+            abort(403, 'Tindakan ini tidak diizinkan.');
+        }
+
         $penduduk = Penduduk::findOrFail($id);
         $penduduk->delete();
 

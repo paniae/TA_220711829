@@ -43,7 +43,7 @@
             </p>
             <a href="{{ route('login') }}"
                class="block bg-[#C54716] text-white text-xs sm:text-sm font-bold py-2.5 rounded-xl hover:bg-[#E75C16] transition-all shadow-md shadow-orange-900/20 uppercase tracking-widest">
-                Login
+                Masuk
             </a>
         </div>
     </div>

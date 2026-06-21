@@ -72,10 +72,8 @@ Route::group(['prefix' => 'pengaduan', 'as' => 'pengaduan.'], function () {
     Route::put('/{id}', [PengaduanController::class, 'update'])->name('update');
     Route::delete('/{id}', [PengaduanController::class, 'destroy'])->name('destroy');
     Route::put('/{id}/terima', [PengaduanController::class, 'terima'])->name('terima');
-    Route::put('/{id}/tolak', [PengaduanController::class, 'tolak'])->name('tolak');
     Route::put('/{id}/selesai', [PengaduanController::class, 'selesai'])->name('selesai');
 });
-
 
 
 Route::get('/profilPadukuhan', [ProfilPadukuhanController::class, 'index'])->name('profilPadukuhan');
@@ -84,11 +82,9 @@ Route::put('/profilPadukuhan', [ProfilPadukuhanController::class, 'update'])->na
 Route::get('/kontakPadukuhan', [KontakPadukuhanController::class, 'index'])->name('kontakPadukuhan');
 Route::put('/kontakPadukuhan', [KontakPadukuhanController::class, 'update'])->name('kontakPadukuhan.update');
 
-// Route gabungan Informasi Umum Padukuhan
 Route::get('/informasiUmum', [ProfilPadukuhanController::class, 'index'])->name('informasiUmum');
 Route::put('/informasiUmum/profil', [ProfilPadukuhanController::class, 'update'])->name('informasiUmum.profil.update');
 Route::put('/informasiUmum/kontak', [KontakPadukuhanController::class, 'update'])->name('informasiUmum.kontak.update');
-
 
 
 Route::group(['prefix' => 'penduduk', 'as' => 'penduduk.'], function () {
@@ -111,7 +107,6 @@ Route::group(['prefix' => 'pengguna', 'as' => 'pengguna.'], function () {
     Route::put('/{id}/terima', [PenggunaController::class, 'terima'])->name('terima');
     Route::delete('/{id}/tolak', [PenggunaController::class, 'tolak'])->name('tolak');
 });
-
 
 
 Route::group(['prefix' => 'kehilangan', 'as' => 'kehilangan.'], function () {
@@ -146,7 +141,6 @@ Route::get('/kegiatan/{id}/dokumentasi/download-all', [KegiatanController::class
 Route::put('/dokumentasi/{id}', [KegiatanController::class, 'updateDokumentasi'])->name('kegiatan.dokumentasi.update');
 Route::delete('/dokumentasi/{id}', [KegiatanController::class, 'destroyDokumentasi'])->name('kegiatan.dokumentasi.destroy');
 
-// Routes UMKM
 Route::get('/umkm/guest', [UmkmController::class, 'indexGuest'])->name('guest.umkm');
 Route::get('/umkm', [UmkmController::class, 'index'])->name('warga.umkm');
 Route::post('/umkm', [UmkmController::class, 'store'])->name('umkm.store');

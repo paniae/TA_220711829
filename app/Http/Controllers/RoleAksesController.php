@@ -21,6 +21,8 @@ class RoleAksesController extends Controller
     {
         $request->validate([
             'nama_role' => 'required|string|max:255|unique:role,nama_role',
+        ], [
+            'nama_role.unique' => 'Role sudah terdaftar'
         ]);
 
         Role::create([
@@ -34,6 +36,8 @@ class RoleAksesController extends Controller
     {
         $request->validate([
             'nama_role' => 'required|string|max:255|unique:role,nama_role,' . $id . ',id_role',
+        ], [
+            'nama_role.unique' => 'Role sudah terdaftar'
         ]);
 
         $role = Role::findOrFail($id);

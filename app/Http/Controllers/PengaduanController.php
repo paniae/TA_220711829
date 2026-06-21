@@ -82,19 +82,17 @@ class PengaduanController extends Controller
             }
         }
 
-        // Mengirim notifikasi email ke Dukuh
         try {
-            $dukuhs = \App\Models\Pengguna::whereHas('role', function($q) {
-                $q->where('nama_role', 'dukuh');
+            $pengelolas = \App\Models\Pengguna::whereHas('role.akses', function($q) {
+                $q->where('nama_akses', 'kelola_pengaduan');
             })->get();
 
-            foreach ($dukuhs as $dukuh) {
-                if ($dukuh->email_pengguna) {
-                    \Illuminate\Support\Facades\Mail::to($dukuh->email_pengguna)->send(new \App\Mail\PengaduanBaruMail($pengaduan));
+            foreach ($pengelolas as $pengelola) {
+                if ($pengelola->email_pengguna) {
+                    \Illuminate\Support\Facades\Mail::to($pengelola->email_pengguna)->send(new \App\Mail\PengaduanBaruMail($pengaduan));
                 }
             }
         } catch (\Exception $e) {
-            // Log error tapi jangan sampai membatalkan pengaduan
             \Illuminate\Support\Facades\Log::error('Gagal mengirim email pengaduan: ' . $e->getMessage());
         }
 
@@ -105,28 +103,23 @@ class PengaduanController extends Controller
     {
         $pengaduan = Pengaduan::findOrFail($id);
 
-        // 🔐 validasi
         $request->validate([
             'isi_pengaduan' => 'required|string',
             'foto_pengaduan.*' => 'image|mimes:jpg,jpeg,png|max:2048'
         ]);
 
-        // 🔐 cek pemilik
         if ($pengaduan->id_pengguna != Auth::id()) {
             abort(403);
         }
 
-        // 🔐 cek status
         if ($pengaduan->status_pengaduan != 'menunggu') {
             return back()->with('error', 'Tidak bisa diubah');
         }
 
-        // update isi
         $pengaduan->update([
             'isi_pengaduan' => $request->isi_pengaduan
         ]);
 
-        // 🗑 hapus foto lama
         if ($request->delete_foto) {
             foreach ($request->delete_foto as $fotoId) {
 
@@ -141,7 +134,6 @@ class PengaduanController extends Controller
             }
         }
 
-        // 📸 upload baru
         if ($request->hasFile('foto_pengaduan')) {
             foreach ($request->file('foto_pengaduan') as $file) {
 
@@ -186,15 +178,6 @@ class PengaduanController extends Controller
         $pengaduan->save();
 
         return back()->with('success', 'Pengaduan diterima');
-    }
-
-    public function tolak($id)
-    {
-        $pengaduan = Pengaduan::findOrFail($id);
-        $pengaduan->status_pengaduan = 'ditolak';
-        $pengaduan->save();
-
-        return back()->with('success', 'Pengaduan ditolak');
     }
 
     public function selesai($id)

@@ -91,6 +91,7 @@
                     <tr class="hover:bg-gray-50 pengguna-row cursor-pointer"
                         onclick="showDetail(this)"
                         data-nama="{{ $user->nama }}"
+                        data-username="{{ $user->username }}"
                         data-nik="{{ $user->nik }}"
                         data-hp="{{ $user->nomor_telepon_pengguna }}"
                         data-email="{{ $user->email_pengguna ?? '-' }}"
@@ -430,6 +431,7 @@
 
                 <div>
                     <h2 class="text-xl font-black uppercase tracking-tight" id="det_nama"></h2>
+                    <p class="text-sm font-medium text-orange-100 mb-1">@<span id="det_username"></span></p>
                     <p class="text-xs font-bold text-orange-200 uppercase tracking-[0.2em] mt-0.5" id="det_role"></p>
                     <p class="text-sm font-medium text-gray-200 hidden" id="det_padukuhan"></p>
                     <p class="text-sm font-medium text-gray-200" id="det_status"></p>
@@ -658,6 +660,7 @@
     function showDetail(el) {
         const d = el.dataset;
         document.getElementById('det_nama').innerText = d.nama || '';
+        document.getElementById('det_username').innerText = d.username || '';
         document.getElementById('det_nik').innerText = d.nik || '';
         document.getElementById('det_hp').innerText = d.hp || '-';
         document.getElementById('det_email').innerText = d.email || '-';

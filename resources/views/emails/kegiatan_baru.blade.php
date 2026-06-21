@@ -118,7 +118,7 @@
             </p>
         </div>
         <div class="footer">
-            Sistem Informasi Padukuhan Bruno II <br>
+            Email ini dikirim otomatis oleh website Padukuhan Bruno II. <br>
             © {{ date('Y') }} - Kebersamaan Untuk Kemajuan
         </div>
     </div>

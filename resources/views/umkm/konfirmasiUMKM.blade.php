@@ -181,15 +181,33 @@
                 </p>
             </div>
             
-            <div class="mt-4 pt-4 border-t border-orange-100/50 flex justify-between items-center">
+            <div class="mt-4 pt-4 border-t border-orange-100/50 flex flex-wrap justify-between items-center gap-2">
+                <div class="flex gap-2">
                 @if($item->status == 'menunggu' && auth()->check() && auth()->user()->hasAkses('konfirmasi_umkm'))
-                    <button type="button" onclick="event.stopPropagation(); openConfirmModal('Konfirmasi UMKM', 'Anda akan mengonfirmasi UMKM <strong class=\'text-[#FA8145]\'>{{ addslashes($item->nama_umkm) }}</strong>. UMKM ini akan menjadi aktif.', '{{ route('umkm.konfirmasi.confirm', $item->id_umkm) }}')" class="bg-[#C54716] text-white px-4 py-2 rounded-xl font-bold text-xs uppercase tracking-wider shadow-sm hover:bg-[#A33215] transition-all">
+                    <button type="button" onclick="event.stopPropagation(); openConfirmModal('Konfirmasi UMKM', 'Anda akan mengonfirmasi UMKM <strong class=\'text-[#FA8145]\'>{{ addslashes($item->nama_umkm) }}</strong>. UMKM ini akan menjadi aktif.', '{{ route('umkm.konfirmasi.confirm', $item->id_umkm) }}')" class="bg-[#C54716] text-white px-3 py-1.5 rounded-xl font-bold text-[10px] uppercase tracking-wider shadow-sm hover:bg-[#A33215] transition-all">
                         Konfirmasi
                     </button>
-                @else
-                    <div></div>
                 @endif
-                <span class="text-[10px] font-bold text-[#C54716] uppercase tracking-wider group-hover:underline">Lihat Detail →</span>
+                @if($item->id_pengguna == auth()->id())
+                    <button type="button" onclick="event.stopPropagation(); handleEditUmkm(this)"
+                        data-id="{{ $item->id_umkm }}"
+                        data-nama="{{ $item->nama_umkm }}"
+                        data-alamat="{{ $item->alamat_umkm }}"
+                        data-telepon="{{ $item->nomor_telepon }}"
+                        data-tampilkan="{{ $item->is_nomor_telepon_ditampilkan }}"
+                        data-email="{{ $item->email }}"
+                        data-bidang="{{ $item->bidang_umkm }}"
+                        data-deskripsi="{{ $item->deskripsi_umkm }}"
+                        class="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-xl border border-[#C54716] text-[#C54716] bg-white hover:bg-orange-50 transition-all text-center">
+                        Ubah
+                    </button>
+                    <button type="button" onclick="event.stopPropagation(); openDeleteUmkmModal('{{ $item->id_umkm }}')"
+                        class="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-xl bg-[#7F1911] text-white hover:bg-[#5A120C] transition-all text-center shadow-sm">
+                        Hapus
+                    </button>
+                @endif
+                </div>
+                <span class="text-[10px] font-bold text-[#C54716] uppercase tracking-wider group-hover:underline mt-1 sm:mt-0 ml-auto">Lihat Detail →</span>
             </div>
 
         </div>
@@ -390,6 +408,15 @@
             @csrf
             <div class="p-6 md:p-8 overflow-y-auto space-y-4 text-sm font-medium">
                 <div>
+                    <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 block">Pemilik UMKM <span class="text-[#A33215]">*</span></label>
+                    <select name="id_pengguna" class="w-full border-2 border-gray-100 p-3 rounded-2xl focus:border-[#FA8145] outline-none transition-all font-bold text-gray-800" required>
+                        <option value="">-- Pilih Pemilik --</option>
+                        @foreach($penggunaList as $user)
+                            <option value="{{ $user->id_pengguna }}">{{ $user->nama }} - {{ $user->username }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div>
                     <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 block">Nama UMKM <span class="text-[#A33215]">*</span></label>
                     <input type="text" name="nama_umkm" class="w-full border-2 border-gray-100 p-3 rounded-2xl focus:border-[#FA8145] outline-none transition-all font-bold text-gray-800" required>
                 </div>
@@ -434,6 +461,85 @@
                 <button type="button" onclick="closeModalTambahUmkm()" class="px-5 py-2.5 text-sm font-bold text-[#7F1911] bg-white border border-gray-200 hover:bg-gray-50 rounded-xl transition-colors uppercase tracking-wider">Batal</button>
                 <button type="submit" class="px-5 py-2.5 text-sm font-bold text-white bg-[#C54716] hover:bg-[#A33215] shadow-md shadow-orange-200 rounded-xl transition-all uppercase tracking-wider">Simpan & Aktifkan</button>
             </div>
+        </form>
+    </div>
+</div>
+
+<div id="modalEditUmkm" class="fixed inset-0 bg-[#69200F]/40 hidden z-[999] flex items-center justify-center p-4 backdrop-blur-sm">
+    <div class="bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl border border-[#FA8145] flex flex-col max-h-[90vh] relative overflow-hidden">
+        <div class="p-6 md:p-8 border-b border-gray-50 bg-gray-50/50 flex justify-between items-center">
+            <div>
+                <h3 class="text-lg font-bold text-[#69200F] uppercase tracking-tight">Ubah UMKM</h3>
+                <p class="text-xs text-gray-500 mt-1">Perbarui data UMKM milik Anda</p>
+                <p class="text-[10px] text-[#E75C16] mt-2 uppercase tracking-widest font-bold">
+                    <span class="text-[#A33215]">*</span> Wajib Diisi Lengkap
+                </p>
+            </div>
+            <button type="button" onclick="closeModalEditUmkm()" class="text-gray-400 hover:text-[#A33215] transition-colors p-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <form id="formEditUmkm" method="POST" enctype="multipart/form-data" class="flex flex-col overflow-hidden">
+            @csrf
+            @method('PUT')
+            <div class="p-6 md:p-8 overflow-y-auto space-y-4 text-sm font-medium">
+                <div>
+                    <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 block">Nama UMKM <span class="text-[#A33215]">*</span></label>
+                    <input type="text" id="edit_nama_umkm" name="nama_umkm" class="w-full border-2 border-gray-100 p-3 rounded-2xl focus:border-[#FA8145] outline-none transition-all font-bold text-gray-800" required>
+                </div>
+                <div>
+                    <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 block">Alamat <span class="text-[#A33215]">*</span></label>
+                    <textarea id="edit_alamat_umkm" name="alamat_umkm" class="w-full border-2 border-gray-100 p-3 rounded-2xl focus:border-[#FA8145] outline-none transition-all text-gray-600" rows="2" required></textarea>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 block">Nomor Telepon <span class="text-[#A33215]">*</span></label>
+                        <input type="text" id="edit_nomor_telepon" name="nomor_telepon" class="w-full border-2 border-gray-100 p-3 rounded-2xl focus:border-[#FA8145] outline-none transition-all text-gray-800" required>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 block">Tampil Publik?</label>
+                        <select id="edit_tampilkan_telepon" name="is_nomor_telepon_ditampilkan" class="w-full border-2 border-gray-100 p-3 rounded-2xl focus:border-[#FA8145] outline-none transition-all text-gray-800">
+                            <option value="1">Ya, tampilkan</option>
+                            <option value="0">Sembunyikan</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 block">Bidang UMKM <span class="text-[#A33215]">*</span></label>
+                    <select id="edit_bidang_umkm" name="bidang_umkm" class="w-full border-2 border-gray-100 p-3 rounded-2xl focus:border-[#FA8145] outline-none transition-all text-gray-800 uppercase tracking-wider text-xs font-bold" required>
+                        <option value="kuliner">Kuliner</option>
+                        <option value="fashion">Fashion</option>
+                        <option value="agribisnis">Agribisnis</option>
+                        <option value="jasa & produk kreatif">Jasa & Produk Kreatif</option>
+                        <option value="teknologi dan digital">Teknologi dan Digital</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 block">Deskripsi Singkat</label>
+                    <textarea id="edit_deskripsi_umkm" name="deskripsi" class="w-full border-2 border-gray-100 p-3 rounded-2xl focus:border-[#FA8145] outline-none transition-all text-gray-600" rows="2"></textarea>
+                </div>
+                <div>
+                    <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 block">Foto Baru (Opsional)</label>
+                    <input type="file" name="foto_umkm" class="w-full border-2 border-gray-100 p-3 rounded-2xl text-xs text-gray-600">
+                </div>
+            </div>
+            <div class="p-6 border-t border-gray-50 bg-gray-50/50 flex justify-end gap-3 shrink-0">
+                <button type="button" onclick="closeModalEditUmkm()" class="px-5 py-2.5 text-sm font-bold text-[#7F1911] bg-white border border-gray-200 hover:bg-gray-50 rounded-xl transition-colors uppercase tracking-wider">Batal</button>
+                <button type="submit" class="px-5 py-2.5 text-sm font-bold text-white bg-[#C54716] hover:bg-[#A33215] shadow-md shadow-orange-200 rounded-xl transition-all uppercase tracking-wider">Simpan Perubahan</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="modalDeleteUmkm" class="fixed inset-0 bg-[#69200F]/40 hidden z-[999] flex items-center justify-center p-4 backdrop-blur-sm">
+    <div class="bg-white p-10 rounded-[2.5rem] text-center w-full max-w-sm shadow-2xl border border-[#FA8145] relative">
+        <button onclick="closeModalDeleteUmkm()" class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-black rounded-full hover:bg-gray-100">✕</button>
+        <h3 class="text-xl font-bold text-[#69200F] uppercase tracking-tight mb-3 mt-4">Hapus UMKM?</h3>
+        <p class="text-sm text-gray-500 mb-8 font-medium">Apakah Anda yakin ingin menghapus UMKM ini secara permanen?</p>
+        <form id="formDeleteUmkm" method="POST" class="flex gap-3 justify-center">
+            @csrf @method('DELETE')
+            <button type="button" onclick="closeModalDeleteUmkm()" class="flex-1 px-4 py-3 bg-gray-100 text-[#7F1911] rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-gray-200 transition-all">Batal</button>
+            <button type="submit" class="flex-1 px-4 py-3 bg-[#7F1911] text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#5A120C] transition-all shadow-lg shadow-orange-100">Ya, Hapus</button>
         </form>
     </div>
 </div>
@@ -640,6 +746,44 @@ function closeHapusMasterModal() {
 }
 
 // Tab Switching Logic
+function openModalEditUmkm() {
+    const modal = document.getElementById('modalEditUmkm');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+}
+
+function closeModalEditUmkm() {
+    const modal = document.getElementById('modalEditUmkm');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+}
+
+function handleEditUmkm(el) {
+    const id = el.dataset.id;
+    document.getElementById('edit_nama_umkm').value = el.dataset.nama;
+    document.getElementById('edit_alamat_umkm').value = el.dataset.alamat;
+    document.getElementById('edit_nomor_telepon').value = el.dataset.telepon;
+    document.getElementById('edit_tampilkan_telepon').value = el.dataset.tampilkan;
+    document.getElementById('edit_bidang_umkm').value = el.dataset.bidang;
+    document.getElementById('edit_deskripsi_umkm').value = el.dataset.deskripsi;
+
+    document.getElementById('formEditUmkm').action = `/umkm/${id}`;
+    openModalEditUmkm();
+}
+
+function openDeleteUmkmModal(id) {
+    document.getElementById('formDeleteUmkm').action = `/umkm/${id}`;
+    const modal = document.getElementById('modalDeleteUmkm');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+}
+
+function closeModalDeleteUmkm() {
+    const modal = document.getElementById('modalDeleteUmkm');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+}
+
 function switchMainTab(tabName) {
     // Hide all
     document.getElementById('tabContent-umkm').classList.add('hidden');

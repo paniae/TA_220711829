@@ -1,31 +1,126 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Pendaftaran Akun Baru Perlu Konfirmasi - Padukuhan</title>
+    <title>Pendaftaran Akun Baru</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #fffaf5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #ffeada;
+        }
+        .header {
+            background-color: #A33215;
+            color: #ffffff;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .content {
+            padding: 30px;
+        }
+        .activity-card {
+            background-color: #fff9f4;
+            border-left: 5px solid #C54716;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        .info-row {
+            margin-bottom: 15px;
+        }
+        .label {
+            font-size: 10px;
+            font-weight: bold;
+            color: #E75C16;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 2px;
+            letter-spacing: 1px;
+        }
+        .value {
+            font-size: 16px;
+            color: #69200F;
+            font-weight: 600;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+            border-top: 1px solid #eee;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #C54716;
+            color: #ffffff !important;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
 </head>
-<body style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
-    <div style="max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
-        <h2 style="color: #A33215; text-align: center;">Konfirmasi Pendaftaran Akun Baru!</h2>
-        
-        <p>Halo Bapak/Ibu Admin,</p>
-        <p>Terdapat pendaftar warga baru yang memerlukan konfirmasi dan persetujuan akun agar dapat mengakses sistem informasi Padukuhan. Berikut rincian data pendaftar:</p>
-        
-        <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-            <p><strong>Nama Lengkap:</strong> {{ $pendaftar->nama }}</p>
-            <p><strong>NIK:</strong> {{ $pendaftar->nik }}</p>
-            <p><strong>Nomor Telepon:</strong> {{ $pendaftar->nomor_telepon_pengguna }}</p>
-            <p><strong>Email:</strong> {{ $pendaftar->email_pengguna }}</p>
-            <p><strong>Alamat:</strong> {{ $pendaftar->alamat_pengguna }}</p>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Pendaftaran Baru</h1>
         </div>
+        <div class="content">
+            <p>Halo Bapak/Ibu Admin,</p>
+            <p>Terdapat pendaftar warga baru yang memerlukan konfirmasi dan persetujuan akun agar dapat mengakses sistem informasi Padukuhan. Berikut rincian data pendaftar:</p>
+            
+            <div class="activity-card">
+                <div class="info-row">
+                    <span class="label">Nama Lengkap</span>
+                    <span class="value">{{ $pendaftar->nama }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">NIK</span>
+                    <span class="value">{{ $pendaftar->nik }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Nomor Telepon</span>
+                    <span class="value">{{ $pendaftar->nomor_telepon_pengguna }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Email</span>
+                    <span class="value">{{ $pendaftar->email_pengguna }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Alamat</span>
+                    <span class="value">{{ $pendaftar->alamat_pengguna }}</span>
+                </div>
+            </div>
 
-        <p>Silakan masuk ke sistem untuk menyetujui atau menolak pendaftaran akun tersebut.</p>
-        
-        <div style="text-align: center; margin-top: 30px;">
-            <a href="{{ url('/pengguna/kelola') }}" style="background-color: #C54716; color: white; padding: 10px 20px; text-decoration: none; font-weight: bold; border-radius: 5px;">Kelola Pendaftar Baru</a>
+            <p>Silakan masuk ke sistem untuk menyetujui atau menolak pendaftaran akun tersebut.</p>
+            
+            <p style="text-align: center;">
+                <a href="{{ url('/') }}" class="button">Kelola Pendaftar Baru</a>
+            </p>
         </div>
-        
-        <hr style="margin-top: 30px; border: 0; border-top: 1px solid #eee;">
-        <p style="font-size: 12px; color: #999; text-align: center;">Email ini dikirim otomatis oleh sistem informasi Padukuhan.</p>
+        <div class="footer">
+            Email ini dikirim otomatis oleh website Padukuhan Bruno II. <br>
+            © {{ date('Y') }} - Kebersamaan Untuk Kemajuan
+        </div>
     </div>
 </body>
 </html>

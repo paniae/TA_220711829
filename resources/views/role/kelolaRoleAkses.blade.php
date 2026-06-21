@@ -62,6 +62,17 @@
 </div>
 @endif
 
+@if($errors->any())
+<div id="alertValidationError" class="bg-white border-l-4 border-[#A33215] p-4 rounded-2xl shadow-sm mb-8 flex justify-between items-center animate-fade-in-down">
+    <div class="flex flex-col gap-1 text-[#A33215]">
+        @foreach($errors->all() as $error)
+            <span class="font-bold text-xs uppercase tracking-tight">{{ $error }}</span>
+        @endforeach
+    </div>
+    <button onclick="this.parentElement.remove()" class="text-gray-300 hover:text-gray-500 text-lg">✕</button>
+</div>
+@endif
+
 <div class="relative">
     
     @if($user->hasAkses('kelola_role'))
@@ -501,7 +512,7 @@ function filterAkses() {
 }
 
 setTimeout(() => {
-    ['alertSuccess', 'alertError'].forEach(id => {
+    ['alertSuccess', 'alertError', 'alertValidationError'].forEach(id => {
         const el = document.getElementById(id);
         if(el) {
             el.style.opacity = '0';

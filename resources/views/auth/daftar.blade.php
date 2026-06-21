@@ -178,7 +178,7 @@
             <input type="date" name="tanggal_lahir" id="tanggal_lahir"
                 value="{{ old('tanggal_lahir') }}"
                 max="{{ date('Y-m-d') }}"
-                class="w-full mt-1 px-4 py-2.5 text-sm sm:text-base border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C54716] focus:border-[#C54716]
+                class="w-[97%] sm:w-full mt-1 px-2 sm:px-4 py-2.5 text-sm sm:text-base border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C54716] focus:border-[#C54716] block bg-white max-w-full
                 @error('tanggal_lahir') border-[#A33215] @enderror" required>
             <p id="error-tanggal_lahir" class="text-[#A33215] text-xs sm:text-sm mt-1 hidden"></p>
             @error('tanggal_lahir')

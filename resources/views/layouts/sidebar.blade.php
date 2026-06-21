@@ -123,12 +123,37 @@
     </div>
 
     <div class="mt-auto pt-4 border-t border-[#A33215]">
-        <form action="{{ route('logout') }}" method="POST">
+        <form id="logoutForm" action="{{ route('logout') }}" method="POST">
             @csrf
-            <button type="submit" class="w-full text-left {{ $menuClass }} hover:bg-[#A33215] hover:text-white text-[#A33215]">
-                Logout
+            <button type="button" onclick="openLogoutModal()" class="w-full text-left {{ $menuClass }} hover:bg-[#A33215] hover:text-white text-[#A33215]">
+                Keluar
             </button>
         </form>
     </div>
 
 </aside>
+
+<div id="logoutModal" class="fixed inset-0 bg-[#69200F]/40 hidden z-[9999] items-center justify-center p-4 backdrop-blur-sm">
+    <div class="bg-white p-10 rounded-[2.5rem] text-center w-full max-w-sm shadow-2xl border border-[#FA8145] relative">
+        <button type="button" onclick="closeLogoutModal()" class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-black rounded-full hover:bg-gray-100">✕</button>
+        <h3 class="text-xl font-bold text-[#69200F] uppercase tracking-tight mb-3">Keluar Sistem?</h3>
+        <p class="text-sm text-gray-500 mb-8 font-medium">Apakah Anda yakin ingin keluar dari akun ini?</p>
+        <div class="flex gap-3 justify-center">
+            <button type="button" onclick="closeLogoutModal()" class="flex-1 px-4 py-3 bg-gray-100 text-[#7F1911] rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-gray-200 transition-all">Batal</button>
+            <button type="button" onclick="document.getElementById('logoutForm').submit()" class="flex-1 px-4 py-3 bg-[#7F1911] text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#5A120C] transition-all shadow-lg shadow-orange-100">Ya, Keluar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openLogoutModal() {
+        const modal = document.getElementById('logoutModal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+    function closeLogoutModal() {
+        const modal = document.getElementById('logoutModal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    }
+</script>
