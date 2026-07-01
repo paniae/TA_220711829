@@ -169,36 +169,35 @@
 </div>
 
 <div id="confirmModal"
-     class="fixed inset-0 bg-[#69200F]/40 hidden z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+     class="fixed inset-0 bg-[#69200F]/40 hidden z-[999] flex items-center justify-center p-4 backdrop-blur-sm">
 
-    <div class="bg-white w-full max-w-sm mx-4 rounded-[2.5rem] shadow-2xl p-8 text-center relative border border-[#FA8145]">
+    <div class="bg-white p-10 rounded-[2.5rem] text-center w-full max-w-sm shadow-2xl border border-[#FA8145] relative">
 
-        <button onclick="closeConfirmModal()"
-                class="absolute top-4 right-4 text-gray-400 hover:text-[#A33215] text-2xl transition-colors font-bold">
+        <button type="button" onclick="closeConfirmModal()"
+                class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-black rounded-full hover:bg-gray-100">
             ✕
         </button>
 
-        <h2 id="confirmTitle" class="text-xl font-bold text-[#69200F] mb-3 uppercase tracking-tight">
+        <h3 id="confirmTitle" class="text-xl font-bold text-[#69200F] uppercase tracking-tight mb-3 mt-4">
             Judul
-        </h2>
+        </h3>
 
         <p id="confirmText" class="text-sm text-gray-500 mb-8 font-medium">
             Isi konfirmasi
         </p>
 
-        <form id="confirmForm" method="POST" class="flex flex-col gap-3">
+        <form id="confirmForm" method="POST" class="flex gap-3 justify-center">
             @csrf
             @method('PUT')
 
-            <button
-                class="w-full py-4 bg-[#C54716] text-white rounded-2xl font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-[#A33215] shadow-xl shadow-orange-100 transition-all">
-                Ya, Lanjutkan
+            <button type="button" onclick="closeConfirmModal()"
+                class="flex-1 px-4 py-3 bg-gray-100 text-[#7F1911] rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-gray-200 transition-all">
+                Batal
             </button>
 
-            <button type="button"
-                onclick="closeConfirmModal()"
-                class="w-full py-4 text-xs sm:text-sm font-bold text-[#7F1911] uppercase tracking-wider hover:text-[#7F1911] transition-all">
-                Batal
+            <button type="submit"
+                class="flex-1 px-4 py-3 bg-[#C54716] text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#A33215] transition-all shadow-lg shadow-orange-100">
+                Ya, Lanjutkan
             </button>
         </form>
 

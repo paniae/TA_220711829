@@ -230,7 +230,7 @@
         </p>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div onclick="window.location.href='{{ route('umkm.konfirmasi.index', ['tab' => 'produk', 'status_produk' => 'menunggu']) }}'" 
-                 class="p-4 rounded-xl border transition-all cursor-pointer active:scale-95 hover:shadow-md {{ $currentStatusProduk == 'menunggu' || !$currentStatusProduk ? 'bg-orange-100/60 border-[#FA8145] ring-2 ring-[#FA8145]' : 'bg-orange-50/40 border-orange-100 shadow-sm' }}">
+                 class="p-4 rounded-xl border transition-all cursor-pointer active:scale-95 hover:shadow-md {{ $currentStatusProduk == 'menunggu' ? 'bg-orange-100/60 border-[#FA8145] ring-2 ring-[#FA8145]' : 'bg-orange-50/40 border-orange-100 shadow-sm' }}">
                 <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Menunggu Konfirmasi</h3>
                 <p class="text-2xl font-bold text-[#FA8145]">{{ $menungguProdukMaster ?? 0 }}</p>
             </div>
@@ -427,7 +427,8 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 block">Nomor Telepon <span class="text-[#A33215]">*</span></label>
-                        <input type="text" name="nomor_telepon" class="w-full border-2 border-gray-100 p-3 rounded-2xl focus:border-[#FA8145] outline-none transition-all text-gray-800" required>
+                        <input type="text" name="nomor_telepon" oninput="this.value = this.value.replace(/[^0-9]/g, '')" inputmode="numeric" placeholder="Contoh: 081234567890" class="w-full border-2 border-gray-100 p-3 rounded-2xl focus:border-[#FA8145] outline-none transition-all text-gray-800" required>
+                        <p class="text-[10px] text-gray-500 mt-1 italic">* Hanya dapat diisi dengan angka</p>
                     </div>
                     <div>
                         <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 block">Tampil Publik?</label>
@@ -454,7 +455,7 @@
                 </div>
                 <div>
                     <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 block">Foto (Opsional)</label>
-                    <input type="file" name="foto_umkm" class="w-full border-2 border-gray-100 p-3 rounded-2xl text-xs text-gray-600">
+                    <input type="file" name="foto_umkm" accept="image/*" onchange="if(this.files[0] && !this.files[0].type.startsWith('image/')){ alert('Hanya file gambar (JPG, PNG) yang diperbolehkan!'); this.value=''; }" class="w-full border-2 border-gray-100 p-3 rounded-2xl text-xs text-gray-600">
                 </div>
             </div>
             <div class="p-6 border-t border-gray-50 bg-gray-50/50 flex justify-end gap-3 shrink-0">
@@ -494,7 +495,8 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 block">Nomor Telepon <span class="text-[#A33215]">*</span></label>
-                        <input type="text" id="edit_nomor_telepon" name="nomor_telepon" class="w-full border-2 border-gray-100 p-3 rounded-2xl focus:border-[#FA8145] outline-none transition-all text-gray-800" required>
+                        <input type="text" id="edit_nomor_telepon" name="nomor_telepon" oninput="this.value = this.value.replace(/[^0-9]/g, '')" inputmode="numeric" placeholder="Contoh: 081234567890" class="w-full border-2 border-gray-100 p-3 rounded-2xl focus:border-[#FA8145] outline-none transition-all text-gray-800" required>
+                        <p class="text-[10px] text-gray-500 mt-1 italic">* Hanya dapat diisi dengan angka</p>
                     </div>
                     <div>
                         <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 block">Tampil Publik?</label>
@@ -520,7 +522,7 @@
                 </div>
                 <div>
                     <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 block">Foto Baru (Opsional)</label>
-                    <input type="file" name="foto_umkm" class="w-full border-2 border-gray-100 p-3 rounded-2xl text-xs text-gray-600">
+                    <input type="file" name="foto_umkm" accept="image/*" onchange="if(this.files[0] && !this.files[0].type.startsWith('image/')){ alert('Hanya file gambar (JPG, PNG) yang diperbolehkan!'); this.value=''; }" class="w-full border-2 border-gray-100 p-3 rounded-2xl text-xs text-gray-600">
                 </div>
             </div>
             <div class="p-6 border-t border-gray-50 bg-gray-50/50 flex justify-end gap-3 shrink-0">

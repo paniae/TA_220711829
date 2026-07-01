@@ -281,8 +281,9 @@
 
                 <div>
                     <label class="text-sm font-medium">Nomor Telepon <span class="text-[#A33215]">*</span></label>
-                    <input type="text" name="nomor_telepon"
+                    <input type="text" name="nomor_telepon" oninput="this.value = this.value.replace(/[^0-9]/g, '')" inputmode="numeric" placeholder="Contoh: 081234567890"
                         class="w-full border p-2 rounded-lg mt-1" required>
+                    <p class="text-[10px] text-gray-500 mt-1 italic">* Hanya dapat diisi dengan angka</p>
                 </div>
 
                 <div>
@@ -322,7 +323,7 @@
 
                 <div>
                     <label class="text-sm font-medium">Foto UMKM</label>
-                    <input type="file" name="foto_umkm"
+                    <input type="file" name="foto_umkm" accept="image/*" onchange="if(this.files[0] && !this.files[0].type.startsWith('image/')){ alert('Hanya file gambar (JPG, PNG) yang diperbolehkan!'); this.value=''; }"
                         class="w-full border p-2 rounded-lg mt-1 text-sm">
                 </div>
 
@@ -398,8 +399,9 @@
                     <label class="text-sm font-medium">
                         Nomor Telepon <span class="text-[#A33215]">*</span>
                     </label>
-                    <input type="text" id="edit_telepon" name="nomor_telepon"
+                    <input type="text" id="edit_telepon" name="nomor_telepon" oninput="this.value = this.value.replace(/[^0-9]/g, '')" inputmode="numeric" placeholder="Contoh: 081234567890"
                         class="w-full border p-2 rounded-lg mt-1" required>
+                    <p class="text-[10px] text-gray-500 mt-1 italic">* Hanya dapat diisi dengan angka</p>
                 </div>
 
                 <div>
@@ -447,7 +449,7 @@
                     <label class="text-sm font-medium">
                         Foto Baru
                     </label>
-                    <input type="file" name="foto_umkm"
+                    <input type="file" name="foto_umkm" accept="image/*" onchange="if(this.files[0] && !this.files[0].type.startsWith('image/')){ alert('Hanya file gambar (JPG, PNG) yang diperbolehkan!'); this.value=''; }"
                         class="w-full border p-2 rounded-lg mt-1 text-sm">
                 </div>
 

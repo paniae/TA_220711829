@@ -76,15 +76,43 @@ class UmkmController extends Controller
                         });
 
         if ($search) {
-            $queryProduk->where(function($q) use ($search) {
-                $q->where('nama_produk', 'like', "%{$search}%")
-                  ->orWhereHas('produkMaster', function($q2) use ($search) {
-                      $q2->where('nama_produk_master', 'like', "%{$search}%");
-                  });
+            $matchingMasterIdsByProduct = \App\Models\ProdukUmkm::where('nama_produk', 'like', "%{$search}%")
+                ->pluck('id_produk_master')
+                ->toArray();
+                
+            $matchingMasterIdsByMaster = \App\Models\ProdukMaster::where('nama_produk_master', 'like', "%{$search}%")
+                ->pluck('id_produk_master')
+                ->toArray();
+                
+            $allMatchingMasterIds = array_unique(array_merge($matchingMasterIdsByProduct, $matchingMasterIdsByMaster));
+
+            $queryProduk->where(function($q) use ($search, $allMatchingMasterIds) {
+                if (!empty($allMatchingMasterIds)) {
+                    $q->whereIn('id_produk_master', $allMatchingMasterIds)
+                      ->orWhere('nama_produk', 'like', "%{$search}%");
+                } else {
+                    $q->where('nama_produk', 'like', "%{$search}%");
+                }
             });
         }
 
         $semuaProduk = $queryProduk->latest()->get();
+
+        if ($search) {
+            $semuaProduk = $semuaProduk->sortBy(function($item) use ($search) {
+                $searchLower = strtolower($search);
+                $namaProduk = strtolower($item->nama_produk);
+                $namaMaster = strtolower($item->produkMaster->nama_produk_master ?? '');
+
+                if (strpos($namaMaster, $searchLower) !== false) {
+                    return 1;
+                } elseif (strpos($namaProduk, $searchLower) !== false) {
+                    return 2;
+                } else {
+                    return 3;
+                }
+            })->values();
+        }
                         
         foreach($semuaProduk as $p) {
             $p->foto_produk_umkm = $p->foto_produk;
@@ -191,12 +219,6 @@ class UmkmController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Produk Master berhasil ditambahkan dan langsung aktif');
-    }
-
-    public function edit($id)
-    {
-        $umkm = Umkm::findOrFail($id);
-        return view('umkm.kelolaUMKM', compact('umkm')); // menggunakan kelolaUMKM karena disana ada modal edit
     }
 
     public function update(Request $request, $id)
@@ -308,7 +330,6 @@ class UmkmController extends Controller
             ]);
 
             if (!$isUmkmAdmin) {
-                // Kirim notifikasi email ke user yang punya akses 'konfirmasi_umkm'
                 $adminUsers = \App\Models\Pengguna::with('role.akses')
                     ->whereNotNull('email_pengguna')
                     ->where('status_pengguna', 'aktif')
@@ -322,7 +343,6 @@ class UmkmController extends Controller
                         \Illuminate\Support\Facades\Mail::to($admin->email_pengguna)
                             ->send(new \App\Mail\ProdukMasterBaruMail($produkMaster, auth()->user()));
                     } catch (\Exception $e) {
-                        // Abaikan jika konfigurasi email gagal
                     }
                 }
             }
@@ -438,7 +458,6 @@ class UmkmController extends Controller
         if ($statusProduk) {
             $queryProduk->where('status_produk_master', $statusProduk);
         } else {
-            // Default load semua tapi urutkan yang menunggu di atas
             $queryProduk->orderByRaw("CASE WHEN status_produk_master = 'menunggu' THEN 1 ELSE 2 END");
         }
 
@@ -503,7 +522,6 @@ class UmkmController extends Controller
         }
 
         $pm->nama_produk_master = $nama_baru;
-        // Status tetap 'menunggu' agar tampil di antrean konfirmasi lagi
         $pm->save();
 
         return back()->with('success', 'Nama Produk Master berhasil dikoreksi dan dikembalikan ke antrean');
@@ -544,18 +562,5 @@ class UmkmController extends Controller
         return back()->with('success', 'Produk Master berhasil dihapus');
     }
 
-    public function show($id)
-    {
-        $umkm = Umkm::findOrFail($id);
-        $produk = \App\Models\ProdukUmkm::with('produkMaster')->where('id_umkm', $id)->get();
-        $produk_master = \App\Models\ProdukMaster::all();
 
-        foreach($produk as $p) {
-            $p->foto_produk_umkm = $p->foto_produk;
-            $p->deskripsi = $p->deskripsi_produk;
-            $p->status = $p->status_produk;
-        }
-
-        return view('umkm.kelolaProdukUMKM', compact('umkm', 'produk', 'produk_master'));
-    }
 }

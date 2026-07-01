@@ -7,12 +7,6 @@ use App\Models\KontakPadukuhan;
 
 class KontakPadukuhanController extends Controller
 {
-    public function index()
-    {
-        $kontak = KontakPadukuhan::first();
-        return view('informasi_umum.kelolaKontakPadukuhan', compact('kontak'));
-    }
-
     public function update(Request $request)
     {
         $kontak = KontakPadukuhan::first();

@@ -41,7 +41,6 @@ class LaporanKehilanganController extends Controller
             'status_kehilangan' => 'hilang'
         ]);
 
-        // Mengirim notifikasi email ke semua user kecuali pembuat laporan
         try {
             $penerima = \App\Models\Pengguna::where('id_pengguna', '!=', Auth::id())
                 ->whereNotNull('email_pengguna')
@@ -52,7 +51,6 @@ class LaporanKehilanganController extends Controller
                 \Illuminate\Support\Facades\Mail::to($user->email_pengguna)->send(new \App\Mail\LaporanKehilanganBaruMail($laporan));
             }
         } catch (\Exception $e) {
-            // Log error tapi jangan sampai membatalkan posting laporan
             \Illuminate\Support\Facades\Log::error('Gagal mengirim email laporan kehilangan baru: ' . $e->getMessage());
         }
 
@@ -60,12 +58,6 @@ class LaporanKehilanganController extends Controller
     }
 
     public function show($id)
-    {
-        $laporan = LaporanKehilangan::findOrFail($id);
-        return view('laporanKehilangan.tambahKomentarForum', compact('laporan'));
-    }
-
-    public function tambahKomentar($id)
     {
         $laporan = LaporanKehilangan::findOrFail($id);
         return view('laporanKehilangan.tambahKomentarForum', compact('laporan'));

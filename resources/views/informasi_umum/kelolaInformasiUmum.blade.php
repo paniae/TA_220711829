@@ -325,11 +325,12 @@
             @method('PUT')
             <div>
                 <label class="text-sm font-bold text-gray-700">Nomor Telepon</label>
-                <input type="text" name="nomor_telepon" value="{{ $kontak->nomor_telepon ?? '' }}" class="w-full mt-1 border-2 border-gray-300 p-2 rounded-lg">
+                <input type="text" name="nomor_telepon" value="{{ $kontak->nomor_telepon ?? '' }}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" inputmode="numeric" placeholder="Contoh: 081234567890" class="w-full mt-1 border-2 border-gray-300 p-2 rounded-lg">
+                <p class="text-[10px] text-gray-500 mt-1 italic">* Hanya dapat diisi dengan angka</p>
             </div>
             <div>
                 <label class="text-sm font-bold text-gray-700">Email</label>
-                <input type="email" name="email" value="{{ $kontak->email ?? '' }}" class="w-full mt-1 border-2 border-gray-300 p-2 rounded-lg">
+                <input type="email" name="email" value="{{ $kontak->email ?? '' }}" placeholder="contoh@email.com" class="w-full mt-1 border-2 border-gray-300 p-2 rounded-lg">
             </div>
             <div>
                 <label class="text-sm font-bold text-gray-700">Instagram</label>
@@ -407,18 +408,15 @@ function openImageModal(src) {
 }
 
 
-// Buka modal kembali jika ada error validasi profil
 @if($errors->hasAny(['visi', 'misi', 'alamat_balai', 'nama_padukuhan', 'nama_kalurahan', 'nama_kecamatan', 'nama_kabupaten', 'sejarah', 'jam_operasional', 'foto_balai', 'foto_kebersamaan', 'logo_padukuhan']))
     openModal('modalEditProfil');
 @endif
 
-// Buka modal kembali jika ada error validasi kontak
 @if($errors->hasAny(['nomor_telepon', 'email', 'instagram', 'status_kontak']))
     openModal('modalEditKontak');
     switchTab('kontak');
 @endif
 
-// Jika setelah simpan kontak (cek URL hash atau session dari redirect back)
 @if(session('success') && request()->is('kontakPadukuhan*'))
     switchTab('kontak');
 @endif

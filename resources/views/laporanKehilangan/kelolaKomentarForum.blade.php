@@ -70,7 +70,7 @@
                             <p class="text-base font-bold text-gray-800">{{ $laporan->pengguna->nama ?? 'Warga' }}</p>
                         </div>
                         <div class="flex flex-col items-end gap-3.5">
-                            <span class="text-xs font-bold text-gray-500 uppercase tracking-widest bg-gray-50 px-3 py-1 rounded-full border">
+                            <span id="comments-count-top-badge" class="text-xs font-bold text-gray-500 uppercase tracking-widest bg-gray-50 px-3 py-1 rounded-full border">
                                 {{ $laporan->komentar->count() }} Komentar
                             </span>
                             @if($laporan->status_kehilangan == 'hilang' && auth()->id() == $laporan->id_pengguna)
@@ -265,9 +265,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     // Update count badge
                     const badge = document.getElementById('comments-count-badge');
+                    const topBadge = document.getElementById('comments-count-top-badge');
                     if (badge) {
-                        const count = container.querySelectorAll('.group').length;
+                        const count = container.querySelectorAll('.komentar-item').length;
                         badge.textContent = `${count} Komentar`;
+                        if (topBadge) topBadge.textContent = `${count} Komentar`;
                     }
                 }
             })

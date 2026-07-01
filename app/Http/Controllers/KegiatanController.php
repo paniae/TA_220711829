@@ -17,12 +17,11 @@ class KegiatanController extends Controller
 {
     public function kelola(Request $request)
     {
-        // Otomatis update status yang sudah lewat waktu mulai
         KegiatanPadukuhan::where('status_kegiatan', 'direncanakan')
             ->where('tgl_waktu_pelaksanaan', '<=', now())
             ->update(['status_kegiatan' => 'berlangsung']);
 
-        $tab = $request->tab ?? 'kegiatan'; // default tab
+        $tab = $request->tab ?? 'kegiatan'; 
         $query = KegiatanPadukuhan::where('jenis_kegiatan', $tab);
         
         if ($request->status) {
@@ -50,7 +49,6 @@ class KegiatanController extends Controller
 
     public function lihat(Request $request)
     {
-        // Otomatis update status yang sudah lewat waktu mulai
         KegiatanPadukuhan::where('status_kegiatan', 'direncanakan')
             ->where('tgl_waktu_pelaksanaan', '<=', now())
             ->update(['status_kegiatan' => 'berlangsung']);
@@ -114,7 +112,6 @@ class KegiatanController extends Controller
             'poster_kegiatan' => $poster,
         ]);
 
-        // Kirim Email Notifikasi ke Semua User aktif kecuali Dukuh
         $users = Pengguna::whereNotNull('email_pengguna')
             ->where('status_pengguna', 'aktif')
             ->whereHas('role', function($query) {
@@ -125,9 +122,7 @@ class KegiatanController extends Controller
         foreach ($users as $user) {
             try {
                 Mail::to($user->email_pengguna)->send(new KegiatanBaruMail($kegiatan));
-            } catch (\Exception $e) {
-                // Silently fail for email errors
-            }
+            } catch (\Exception $e) {}
         }
 
         return redirect()->back()->with('success', 'Kegiatan berhasil ditambahkan!');
@@ -191,13 +186,6 @@ class KegiatanController extends Controller
         return redirect()->back()->with('success', 'Kegiatan berhasil dihapus!');
     }
 
-    public function mulai($id)
-    {
-        $kegiatan = KegiatanPadukuhan::findOrFail($id);
-        $kegiatan->update(['status_kegiatan' => 'berlangsung']);
-        return redirect()->back()->with('success', 'Kegiatan dimulai!');
-    }
-
     public function selesai($id)
     {
         $kegiatan = KegiatanPadukuhan::findOrFail($id);
@@ -208,46 +196,12 @@ class KegiatanController extends Controller
         return redirect()->back()->with('success', 'Kegiatan selesai!');
     }
 
-
-    public function lihatProker(Request $request)
-    {
-        // Otomatis update status yang sudah lewat waktu mulai
-        KegiatanPadukuhan::where('status_kegiatan', 'direncanakan')
-            ->where('tgl_waktu_pelaksanaan', '<=', now())
-            ->update(['status_kegiatan' => 'berlangsung']);
-
-        $query = KegiatanPadukuhan::where('jenis_kegiatan', 'proker');
-        
-        if ($request->status) {
-            $query->where('status_kegiatan', $request->status);
-        }
-        
-        if ($request->search) {
-            $search = $request->search;
-            $query->where(function($q) use ($search) {
-                $q->where('nama_kegiatan', 'like', '%' . $search . '%')
-                  ->orWhere('kategori', 'like', '%' . $search . '%')
-                  ->orWhere('tgl_waktu_pelaksanaan', 'like', '%' . $search . '%');
-            });
-        }
-        
-        if ($request->date) {
-            $query->whereDate('tgl_waktu_pelaksanaan', $request->date);
-        }
-        
-        $kegiatan = $query->orderByRaw("FIELD(status_kegiatan, 'berlangsung', 'direncanakan', 'selesai')")
-                          ->orderByRaw("ABS(DATEDIFF(tgl_waktu_pelaksanaan, NOW()))")
-                          ->get();
-        return view('kegiatan.lihatProker', compact('kegiatan'));
-    }
-
     public function lihatDokumentasi($id)
     {
         if (!auth()->user()->hasAkses('kelola_kegiatan')) {
             abort(403, 'Anda tidak memiliki akses ke halaman ini.');
         }
 
-        // Otomatis update status jika sudah lewat waktu mulai
         $kegiatan = KegiatanPadukuhan::findOrFail($id);
         if ($kegiatan->status_kegiatan === 'direncanakan' && $kegiatan->tgl_waktu_pelaksanaan <= now()) {
             $kegiatan->update(['status_kegiatan' => 'berlangsung']);
@@ -272,7 +226,6 @@ class KegiatanController extends Controller
 
         $kegiatan = KegiatanPadukuhan::findOrFail($id);
         
-        // Otomatis selesaikan kegiatan jika statusnya belum selesai dan jenisnya adalah kegiatan
         if ($kegiatan->jenis_kegiatan === 'kegiatan' && $kegiatan->status_kegiatan !== 'selesai') {
             $kegiatan->update([
                 'status_kegiatan' => 'selesai',
@@ -336,12 +289,10 @@ class KegiatanController extends Controller
         ];
 
         if ($request->hasFile('file_kegiatan')) {
-            // Hapus file lama
             if (Storage::disk('public')->exists($dokumentasi->file_kegiatan)) {
                 Storage::disk('public')->delete($dokumentasi->file_kegiatan);
             }
             
-            // Simpan file baru
             $path = $request->file('file_kegiatan')->store('dokumentasi', 'public');
             $data['file_kegiatan'] = $path;
         }

@@ -1,5 +1,5 @@
 @forelse($laporan->komentar()->orderBy('created_at','desc')->get() as $komen)
-    <div class="border border-gray-200 rounded-2xl p-5 bg-white shadow hover:shadow-lg transition-all duration-300">
+    <div class="komentar-item border border-gray-200 rounded-2xl p-5 bg-white shadow hover:shadow-lg transition-all duration-300">
         
         <div class="flex items-start sm:items-center justify-between mb-4 pb-3 border-b-2 border-gray-100 gap-4">
             <div class="flex items-center gap-3">

@@ -1,12 +1,8 @@
 @forelse($laporan as $item)
 @php
     $redirectUrl = route('kehilangan.show', $item->id_laporan);
-    if(auth()->check()) {
-        if(auth()->user()->hasAkses('kelola_komentar')) {
-            $redirectUrl = route('kehilangan.kelolaKomentar', $item->id_laporan);
-        } elseif(auth()->user()->hasAkses('tambah_komentar')) {
-            $redirectUrl = route('kehilangan.tambahKomentar', $item->id_laporan);
-        }
+    if(auth()->check() && auth()->user()->hasAkses('kelola_komentar')) {
+        $redirectUrl = route('kehilangan.kelolaKomentar', $item->id_laporan);
     }
 @endphp
 

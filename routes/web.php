@@ -116,7 +116,7 @@ Route::group(['prefix' => 'kehilangan', 'as' => 'kehilangan.'], function () {
     Route::put('/{id}', [LaporanKehilanganController::class, 'update'])->name('update');
     Route::delete('/{id}', [LaporanKehilanganController::class, 'destroy'])->name('destroy');
     Route::put('/{id}/tutup', [LaporanKehilanganController::class, 'tutup'])->name('tutup');
-    Route::get('/{id}/komentar/tambah', [LaporanKehilanganController::class, 'tambahKomentar'])->name('tambahKomentar');
+
     Route::post('/{id}/komentar/tambah', [LaporanKehilanganController::class, 'storeKomentar'])->name('storeKomentar');
     Route::put('/komentar/{id_komen}', [LaporanKehilanganController::class, 'updateKomentar'])->name('updateKomentar');
     Route::get('/{id}/komentar/kelola', [LaporanKehilanganController::class, 'kelolaKomentar'])->name('kelolaKomentar');
@@ -155,7 +155,7 @@ Route::delete('/umkm/{id}', [UmkmController::class, 'destroy'])->name('umkm.dest
 Route::get('/umkm/konfirmasi', [UmkmController::class, 'listKonfirmasi'])->name('umkm.konfirmasi.index');
 Route::post('/umkm/admin', [UmkmController::class, 'storeAdmin'])->name('umkm.storeAdmin');
 Route::post('/umkm/produk-master-admin', [UmkmController::class, 'storeProdukMasterAdmin'])->name('umkm.storeProdukMasterAdmin');
-Route::get('/umkm/konfirmasi/{id}', [UmkmController::class, 'show'])->name('umkm.konfirmasi.show');
+Route::get('/umkm/konfirmasi/{id}', [UmkmController::class, 'produk'])->name('umkm.konfirmasi.show');
 Route::put('/umkm/konfirmasi/{id}', [UmkmController::class, 'konfirmasi'])->name('umkm.konfirmasi.confirm');
 Route::put('/umkm/konfirmasi-produk-master/{id}', [UmkmController::class, 'konfirmasiProdukMaster'])->name('umkm.konfirmasiProdukMaster');
 Route::put('/umkm/tolak-produk-master/{id}', [UmkmController::class, 'tolakProdukMaster'])->name('umkm.tolakProdukMaster');
