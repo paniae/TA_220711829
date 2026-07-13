@@ -25,10 +25,10 @@
         </div>
 
         <div class="bg-gray-100/80 p-1.5 rounded-2xl flex gap-1 border border-gray-200 shadow-inner w-full md:w-auto overflow-x-auto no-scrollbar">
-            @if($user->hasAkses('kelola_role'))
+            @if($user->hasAkses('kelola_role_akses'))
                 <button onclick="switchTab('role')" id="tab-role" 
                     class="tab-btn flex-1 md:flex-none px-6 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all
-                    {{ $user->hasAkses('kelola_role') ? 'bg-white text-[#C54716] shadow-sm' : 'text-gray-500 hover:text-gray-700' }}">
+                    bg-white text-[#C54716] shadow-sm">
                     Daftar Role
                 </button>
             @endif
@@ -36,7 +36,7 @@
             @if($user->hasAkses('kelola_role_akses'))
                 <button onclick="switchTab('akses')" id="tab-akses" 
                     class="tab-btn flex-1 md:flex-none px-6 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all
-                    {{ !$user->hasAkses('kelola_role') && $user->hasAkses('kelola_role_akses') ? 'bg-white text-[#C54716] shadow-sm' : 'text-gray-500 hover:text-gray-700' }}">
+                    text-gray-500 hover:text-gray-700">
                     Hak Akses
                 </button>
             @endif
@@ -75,8 +75,8 @@
 
 <div class="relative">
     
-    @if($user->hasAkses('kelola_role'))
-    <div id="panel-role" class="space-y-6 {{ $user->hasAkses('kelola_role') ? 'animate-fade-in' : 'hidden' }}">
+    @if($user->hasAkses('kelola_role_akses'))
+    <div id="panel-role" class="space-y-6 animate-fade-in">
         <div class="bg-white rounded-3xl shadow-sm border border-[#FA8145] overflow-hidden">
             <div class="p-6 border-b border-gray-50 flex justify-between items-center">
                 <div class="flex items-center gap-3">
@@ -135,7 +135,7 @@
     @endif
 
     @if($user->hasAkses('kelola_role_akses'))
-    <div id="panel-akses" class="space-y-6 {{ !$user->hasAkses('kelola_role') && $user->hasAkses('kelola_role_akses') ? 'animate-fade-in' : 'hidden' }}">
+    <div id="panel-akses" class="space-y-6 hidden">
         <div class="bg-white rounded-3xl shadow-sm border border-[#FA8145] overflow-hidden">
             <div class="p-6 border-b border-gray-50 flex flex-col sm:flex-row justify-between items-center gap-4">
                 <div class="flex items-center gap-3">

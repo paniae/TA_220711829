@@ -310,7 +310,6 @@ class KegiatanController extends Controller
 
         $dokumentasi = DokumentasiKegiatan::findOrFail($id);
         
-        // Hapus file fisik
         if (Storage::disk('public')->exists($dokumentasi->file_kegiatan)) {
             Storage::disk('public')->delete($dokumentasi->file_kegiatan);
         }

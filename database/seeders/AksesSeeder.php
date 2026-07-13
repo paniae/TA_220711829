@@ -38,8 +38,7 @@ class AksesSeeder extends Seeder
             
             // Informasi & Role
             ['nama_akses' => 'kelola_informasi_umum', 'deskripsi_akses' => 'Mengubah profil, visi misi, dan kontak padukuhan yang tampil di beranda utama'],
-            ['nama_akses' => 'kelola_role', 'deskripsi_akses' => 'Menambah, mengubah, melihat, dan menghapus jenis peran (role) pengguna'],
-            ['nama_akses' => 'kelola_role_akses', 'deskripsi_akses' => 'Memberikan dan mencabut izin hak akses spesifik untuk masing-masing peran (role)'],
+            ['nama_akses' => 'kelola_role_akses', 'deskripsi_akses' => 'Menambah, mengubah, melihat, menghapus jenis peran (role), serta memberikan dan mencabut izin hak akses untuk masing-masing peran'],
 
         ];
 

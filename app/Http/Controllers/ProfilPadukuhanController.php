@@ -21,18 +21,18 @@ class ProfilPadukuhanController extends Controller
         $profil = ProfilPadukuhan::first();
 
         $request->validate([
-            'visi' => 'nullable|string',
-            'misi' => 'nullable|string',
-            'alamat_balai' => 'nullable|string',
-            'nama_padukuhan' => 'nullable|string',
-            'nama_kalurahan' => 'nullable|string',
-            'nama_kecamatan' => 'nullable|string',
-            'nama_kabupaten' => 'nullable|string',
-            'sejarah' => 'nullable|string',
-            'jam_operasional' => 'nullable|string',
+            'visi' => 'required|string',
+            'misi' => 'required|string',
+            'alamat_balai' => 'required|string',
+            'nama_padukuhan' => 'required|string',
+            'nama_kalurahan' => 'required|string',
+            'nama_kecamatan' => 'required|string',
+            'nama_kabupaten' => 'required|string',
+            'sejarah' => 'required|string',
+            'jam_operasional' => 'required|string',
             'foto_balai' => 'nullable|mimes:jpg,jpeg,png,heic,heif|max:10240',
             'foto_kebersamaan' => 'nullable|mimes:jpg,jpeg,png,heic,heif|max:10240',
-            'link_maps_balai' => 'nullable|string',
+            'link_maps_balai' => 'required|string',
             'logo_padukuhan' => 'nullable|mimes:jpg,jpeg,png,heic,heif|max:5120',
         ]);
 

@@ -107,7 +107,7 @@
                 </a>
             @endif
 
-            @if($user->hasAkses('kelola_role'))
+            @if($user->hasAkses('kelola_role_akses'))
                 <a href="{{ route('role.kelola') }}"
                    class="{{ $menuClass }} {{ $hoverClass }} {{ request()->is('role/kelola*') ? $activeClass : '' }}">
                     Role Akses

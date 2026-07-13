@@ -15,11 +15,11 @@
     <h2>Laporan Rekapitulasi: {{ strtoupper($tab) }}</h2>
     <p>
         @if($month && $year)
-            Periode: {{ \Carbon\Carbon::create()->month($month)->translatedFormat('F') }} {{ $year }}
+            Periode: {{ \Carbon\Carbon::create()->month((int)$month)->translatedFormat('F') }} {{ $year }}
         @elseif($year)
             Periode: Tahun {{ $year }}
         @elseif($month)
-            Periode: Bulan {{ \Carbon\Carbon::create()->month($month)->translatedFormat('F') }}
+            Periode: Bulan {{ \Carbon\Carbon::create()->month((int)$month)->translatedFormat('F') }}
         @else
             Semua Periode
         @endif

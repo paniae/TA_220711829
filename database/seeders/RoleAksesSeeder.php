@@ -23,7 +23,6 @@ class RoleAksesSeeder extends Seeder
             ['id_role' => 3, 'id_akses' => 9],  // kelola_laporan_rekapitulasi
             ['id_role' => 3, 'id_akses' => 12], // konfirmasi_umkm
             ['id_role' => 3, 'id_akses' => 13], // kelola_informasi_umum
-            ['id_role' => 3, 'id_akses' => 14], // kelola_role
             ['id_role' => 3, 'id_akses' => 15], // kelola_role_akses
         ]);
 

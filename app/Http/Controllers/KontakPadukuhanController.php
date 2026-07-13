@@ -12,10 +12,10 @@ class KontakPadukuhanController extends Controller
         $kontak = KontakPadukuhan::first();
         
         $request->validate([
-            'nomor_telepon' => 'nullable|string',
-            'email' => 'nullable|email',
-            'instagram' => 'nullable|string',
-            'status_kontak' => 'nullable|string'
+            'nomor_telepon' => 'required|string',
+            'email' => 'required|email',
+            'instagram' => 'required|string',
+            'status_kontak' => 'required|string'
         ]);
 
         $data = $request->only(['nomor_telepon', 'email', 'instagram', 'status_kontak']);

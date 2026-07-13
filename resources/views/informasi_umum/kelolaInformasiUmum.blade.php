@@ -233,51 +233,51 @@
             <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="space-y-4">
                     <div>
-                        <label class="text-base font-bold text-gray-700">Nama Padukuhan</label>
-                        <input type="text" name="nama_padukuhan" value="{{ $profil->nama_padukuhan ?? '' }}" class="w-full mt-1 border-2 border-gray-200 p-3 rounded-lg text-base">
+                        <label class="text-base font-bold text-gray-700">Nama Padukuhan <span class="text-red-500">*</span></label>
+                        <input type="text" name="nama_padukuhan" value="{{ $profil->nama_padukuhan ?? '' }}" required class="w-full mt-1 border-2 border-gray-200 p-3 rounded-lg text-base">
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="text-base font-bold text-gray-700">Kalurahan</label>
-                            <input type="text" name="nama_kalurahan" value="{{ $profil->nama_kalurahan ?? '' }}" class="w-full mt-1 border-2 border-gray-200 p-3 rounded-lg text-base">
+                            <label class="text-base font-bold text-gray-700">Kalurahan <span class="text-red-500">*</span></label>
+                            <input type="text" name="nama_kalurahan" value="{{ $profil->nama_kalurahan ?? '' }}" required class="w-full mt-1 border-2 border-gray-200 p-3 rounded-lg text-base">
                         </div>
                         <div>
-                            <label class="text-base font-bold text-gray-700">Jam Operasional</label>
-                            <input type="text" name="jam_operasional" value="{{ $profil->jam_operasional ?? '' }}" placeholder="Contoh: 08:00 - 16:00" class="w-full mt-1 border-2 border-gray-200 p-2 rounded-lg">
+                            <label class="text-base font-bold text-gray-700">Jam Operasional <span class="text-red-500">*</span></label>
+                            <input type="text" name="jam_operasional" value="{{ $profil->jam_operasional ?? '' }}" placeholder="Contoh: 08:00 - 16:00" required class="w-full mt-1 border-2 border-gray-200 p-2 rounded-lg">
                         </div>
                         <div>
-                            <label class="text-sm font-bold text-gray-700">Kecamatan</label>
-                            <input type="text" name="nama_kecamatan" value="{{ $profil->nama_kecamatan ?? '' }}" class="w-full mt-1 border-2 border-gray-200 p-2 rounded-lg">
+                            <label class="text-sm font-bold text-gray-700">Kecamatan <span class="text-red-500">*</span></label>
+                            <input type="text" name="nama_kecamatan" value="{{ $profil->nama_kecamatan ?? '' }}" required class="w-full mt-1 border-2 border-gray-200 p-2 rounded-lg">
                         </div>
                     </div>
                     <div>
-                        <label class="text-sm font-bold text-gray-700">Kabupaten</label>
-                        <input type="text" name="nama_kabupaten" value="{{ $profil->nama_kabupaten ?? '' }}" class="w-full mt-1 border-2 border-gray-200 p-2 rounded-lg">
+                        <label class="text-sm font-bold text-gray-700">Kabupaten <span class="text-red-500">*</span></label>
+                        <input type="text" name="nama_kabupaten" value="{{ $profil->nama_kabupaten ?? '' }}" required class="w-full mt-1 border-2 border-gray-200 p-2 rounded-lg">
                     </div>
                     <div>
-                        <label class="text-sm font-bold text-gray-700">Alamat Balai</label>
-                        <textarea name="alamat_balai" rows="4" class="w-full mt-1 border-2 border-gray-200 p-2 rounded-lg">{{ $profil->alamat_balai ?? '' }}</textarea>
+                        <label class="text-sm font-bold text-gray-700">Alamat Balai <span class="text-red-500">*</span></label>
+                        <textarea name="alamat_balai" rows="4" required class="w-full mt-1 border-2 border-gray-200 p-2 rounded-lg">{{ $profil->alamat_balai ?? '' }}</textarea>
                     </div>
                     <div>
-                        <label class="text-sm font-bold text-gray-700">Visi</label>
-                        <textarea name="visi" rows="5" class="w-full mt-1 border-2 border-gray-200 p-2 rounded-lg">{{ $profil->visi ?? '' }}</textarea>
+                        <label class="text-sm font-bold text-gray-700">Visi <span class="text-red-500">*</span></label>
+                        <textarea name="visi" rows="5" required class="w-full mt-1 border-2 border-gray-200 p-2 rounded-lg">{{ $profil->visi ?? '' }}</textarea>
                     </div>
                     <div>
-                        <label class="text-sm font-bold text-gray-700">Link Google Maps Balai</label>
-                        <input type="text" name="link_maps_balai" value="{{ $profil->link_maps_balai ?? '' }}" placeholder="https://goo.gl/maps/..." class="w-full mt-1 border-2 border-gray-200 p-2 rounded-lg">
+                        <label class="text-sm font-bold text-gray-700">Link Google Maps Balai <span class="text-red-500">*</span></label>
+                        <input type="text" name="link_maps_balai" value="{{ $profil->link_maps_balai ?? '' }}" placeholder="https://goo.gl/maps/..." required class="w-full mt-1 border-2 border-gray-200 p-2 rounded-lg">
                     </div>
                 </div>
                 <div class="space-y-4">
                     <div>
-                        <label class="text-sm font-bold text-gray-700">Misi</label>
-                        <textarea name="misi" rows="8" class="w-full mt-1 border-2 border-gray-200 p-2 rounded-lg">{{ $profil->misi ?? '' }}</textarea>
+                        <label class="text-sm font-bold text-gray-700">Misi <span class="text-red-500">*</span></label>
+                        <textarea name="misi" rows="8" required class="w-full mt-1 border-2 border-gray-200 p-2 rounded-lg">{{ $profil->misi ?? '' }}</textarea>
                     </div>
                     <div>
-                        <label class="text-sm font-bold text-gray-700">Sejarah</label>
-                        <textarea name="sejarah" rows="10" class="w-full mt-1 border-2 border-gray-200 p-2 rounded-lg">{{ $profil->sejarah ?? '' }}</textarea>
+                        <label class="text-sm font-bold text-gray-700">Sejarah <span class="text-red-500">*</span></label>
+                        <textarea name="sejarah" rows="10" required class="w-full mt-1 border-2 border-gray-200 p-2 rounded-lg">{{ $profil->sejarah ?? '' }}</textarea>
                     </div>
                     <div>
-                        <label class="text-sm font-bold text-gray-700">Media Padukuhan (Opsional)</label>
+                        <label class="text-sm font-bold text-gray-700">Media Padukuhan <span class="text-xs font-normal text-gray-400">(Opsional — hanya isi jika ingin mengganti)</span></label>
                         <div class="flex flex-col gap-4 mt-2">
                             <div>
                                 <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-1">Foto Balai Padukuhan</label>
@@ -324,26 +324,26 @@
             @csrf
             @method('PUT')
             <div>
-                <label class="text-sm font-bold text-gray-700">Nomor Telepon</label>
-                <input type="text" name="nomor_telepon" value="{{ $kontak->nomor_telepon ?? '' }}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" inputmode="numeric" placeholder="Contoh: 081234567890" class="w-full mt-1 border-2 border-gray-300 p-2 rounded-lg">
+                <label class="text-sm font-bold text-gray-700">Nomor Telepon <span class="text-red-500">*</span></label>
+                <input type="text" name="nomor_telepon" value="{{ $kontak->nomor_telepon ?? '' }}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" inputmode="numeric" placeholder="Contoh: 081234567890" required class="w-full mt-1 border-2 border-gray-300 p-2 rounded-lg">
                 <p class="text-[10px] text-gray-500 mt-1 italic">* Hanya dapat diisi dengan angka</p>
             </div>
             <div>
-                <label class="text-sm font-bold text-gray-700">Email</label>
-                <input type="email" name="email" value="{{ $kontak->email ?? '' }}" placeholder="contoh@email.com" class="w-full mt-1 border-2 border-gray-300 p-2 rounded-lg">
+                <label class="text-sm font-bold text-gray-700">Email <span class="text-red-500">*</span></label>
+                <input type="email" name="email" value="{{ $kontak->email ?? '' }}" placeholder="contoh@email.com" required class="w-full mt-1 border-2 border-gray-300 p-2 rounded-lg">
             </div>
             <div>
-                <label class="text-sm font-bold text-gray-700">Instagram</label>
+                <label class="text-sm font-bold text-gray-700">Instagram <span class="text-red-500">*</span></label>
                 <div class="flex mt-1">
                     <span class="inline-flex items-center px-3 rounded-l-lg border-2 border-r-0 border-gray-300 bg-gray-100 text-gray-500 text-sm">@</span>
-                    <input type="text" name="instagram" value="{{ $kontak->instagram ?? '' }}" class="flex-1 border-2 border-gray-300 p-2 rounded-r-lg">
+                    <input type="text" name="instagram" value="{{ $kontak->instagram ?? '' }}" required class="flex-1 border-2 border-gray-300 p-2 rounded-r-lg">
                 </div>
             </div>
             <div>
-                <label class="text-sm font-bold text-gray-700">Status Publikasi</label>
+                <label class="text-sm font-bold text-gray-700">Status Publikasi <span class="text-red-500">*</span></label>
                 <div class="flex gap-4 mt-2">
                     <label class="flex items-center gap-2 cursor-pointer">
-                        <input type="radio" name="status_kontak" value="aktif" {{ ($kontak->status_kontak ?? 'aktif') == 'aktif' ? 'checked' : '' }} class="accent-[#C54716]">
+                        <input type="radio" name="status_kontak" value="aktif" {{ ($kontak->status_kontak ?? 'aktif') == 'aktif' ? 'checked' : '' }} required class="accent-[#C54716]">
                         <span class="text-sm font-bold text-[#E75C16]">Aktif</span>
                     </label>
                     <label class="flex items-center gap-2 cursor-pointer">
